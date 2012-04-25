@@ -1,6 +1,6 @@
 ﻿namespace leave_manager
 {
-    partial class FormRegisteringAssistantEmployeeData
+    partial class FormEmployeeData
     {
         /// <summary>
         /// Required designer variable.

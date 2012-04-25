@@ -1,6 +1,6 @@
 ﻿namespace leave_manager
 {
-    partial class FormRegisteringAssistantReplacement
+    partial class FormReplacement
     {
         /// <summary>
         /// Required designer variable.

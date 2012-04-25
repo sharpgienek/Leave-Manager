@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace leave_manager
 {
-    public partial class FormRegisteringAssistantEmployeeData : Form
+    public partial class FormEmployeeData : Form
     {
-        public FormRegisteringAssistantEmployeeData()
+        public FormEmployeeData()
         {
             InitializeComponent();
         }
