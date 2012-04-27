@@ -30,5 +30,12 @@ namespace leave_manager
         {
 
         }
+
+        private void buttonConsiderPendingAplication_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+      
     }
 }

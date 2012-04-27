@@ -29,64 +29,64 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
-            this.labelLoginInfo = new System.Windows.Forms.Label();
-            this.labelLoginLogin = new System.Windows.Forms.Label();
-            this.labelLoginPassword = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.buttonLoginLogin = new System.Windows.Forms.Button();
-            this.buttonLoginExit = new System.Windows.Forms.Button();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // labelLoginInfo
+            // labelInfo
             // 
-            resources.ApplyResources(this.labelLoginInfo, "labelLoginInfo");
-            this.labelLoginInfo.Name = "labelLoginInfo";
+            resources.ApplyResources(this.labelInfo, "labelInfo");
+            this.labelInfo.Name = "labelInfo";
             // 
-            // labelLoginLogin
+            // labelLogin
             // 
-            resources.ApplyResources(this.labelLoginLogin, "labelLoginLogin");
-            this.labelLoginLogin.Name = "labelLoginLogin";
-            this.labelLoginLogin.Click += new System.EventHandler(this.label1_Click);
+            resources.ApplyResources(this.labelLogin, "labelLogin");
+            this.labelLogin.Name = "labelLogin";
             // 
-            // labelLoginPassword
+            // labelPassword
             // 
-            resources.ApplyResources(this.labelLoginPassword, "labelLoginPassword");
-            this.labelLoginPassword.Name = "labelLoginPassword";
+            resources.ApplyResources(this.labelPassword, "labelPassword");
+            this.labelPassword.Name = "labelPassword";
             // 
-            // textBox1
+            // textBoxLogin
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            resources.ApplyResources(this.textBoxLogin, "textBoxLogin");
+            this.textBoxLogin.Name = "textBoxLogin";
             // 
-            // textBox2
+            // textBoxPassword
             // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            resources.ApplyResources(this.textBoxPassword, "textBoxPassword");
+            this.textBoxPassword.Name = "textBoxPassword";
             // 
-            // buttonLoginLogin
+            // buttonLogin
             // 
-            resources.ApplyResources(this.buttonLoginLogin, "buttonLoginLogin");
-            this.buttonLoginLogin.Name = "buttonLoginLogin";
-            this.buttonLoginLogin.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.buttonLogin, "buttonLogin");
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLoginLogin_Click);
             // 
-            // buttonLoginExit
+            // buttonExit
             // 
-            resources.ApplyResources(this.buttonLoginExit, "buttonLoginExit");
-            this.buttonLoginExit.Name = "buttonLoginExit";
-            this.buttonLoginExit.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.buttonExit, "buttonExit");
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.UseVisualStyleBackColor = true;
             // 
             // FormLogin
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonLoginExit);
-            this.Controls.Add(this.buttonLoginLogin);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.labelLoginPassword);
-            this.Controls.Add(this.labelLoginLogin);
-            this.Controls.Add(this.labelLoginInfo);
+            this.Controls.Add(this.buttonExit);
+            this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.textBoxLogin);
+            this.Controls.Add(this.labelPassword);
+            this.Controls.Add(this.labelLogin);
+            this.Controls.Add(this.labelInfo);
             this.Name = "FormLogin";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -95,13 +95,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelLoginInfo;
-        private System.Windows.Forms.Label labelLoginLogin;
-        private System.Windows.Forms.Label labelLoginPassword;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button buttonLoginLogin;
-        private System.Windows.Forms.Button buttonLoginExit;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label labelLogin;
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.TextBox textBoxLogin;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonExit;
 
     }
 }

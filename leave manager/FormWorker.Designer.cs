@@ -28,140 +28,140 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.labelWorkerPosition = new System.Windows.Forms.Label();
-            this.labelWorkerName = new System.Windows.Forms.Label();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.buttonTakeLeave = new System.Windows.Forms.Button();
+            this.labelDaysToUseValue = new System.Windows.Forms.Label();
+            this.labelPosition = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.labelPositionValue = new System.Windows.Forms.Label();
+            this.labelNameValue = new System.Windows.Forms.Label();
+            this.labelDaysToUse = new System.Windows.Forms.Label();
+            this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnFirstDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnLastDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnUsedDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // buttonTakeLeave
             // 
-            this.button1.Location = new System.Drawing.Point(236, 238);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 40);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Take a leave";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonTakeLeave.Location = new System.Drawing.Point(236, 238);
+            this.buttonTakeLeave.Name = "buttonTakeLeave";
+            this.buttonTakeLeave.Size = new System.Drawing.Size(95, 40);
+            this.buttonTakeLeave.TabIndex = 4;
+            this.buttonTakeLeave.Text = "Take a leave";
+            this.buttonTakeLeave.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // labelDaysToUseValue
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(394, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(19, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "10";
+            this.labelDaysToUseValue.AutoSize = true;
+            this.labelDaysToUseValue.Location = new System.Drawing.Point(394, 12);
+            this.labelDaysToUseValue.Name = "labelDaysToUseValue";
+            this.labelDaysToUseValue.Size = new System.Drawing.Size(19, 13);
+            this.labelDaysToUseValue.TabIndex = 11;
+            this.labelDaysToUseValue.Text = "10";
             // 
-            // labelWorkerPosition
+            // labelPosition
             // 
-            this.labelWorkerPosition.AutoSize = true;
-            this.labelWorkerPosition.Location = new System.Drawing.Point(13, 35);
-            this.labelWorkerPosition.Name = "labelWorkerPosition";
-            this.labelWorkerPosition.Size = new System.Drawing.Size(47, 13);
-            this.labelWorkerPosition.TabIndex = 1;
-            this.labelWorkerPosition.Text = "Position:";
+            this.labelPosition.AutoSize = true;
+            this.labelPosition.Location = new System.Drawing.Point(13, 35);
+            this.labelPosition.Name = "labelPosition";
+            this.labelPosition.Size = new System.Drawing.Size(47, 13);
+            this.labelPosition.TabIndex = 1;
+            this.labelPosition.Text = "Position:";
             // 
-            // labelWorkerName
+            // labelName
             // 
-            this.labelWorkerName.AutoSize = true;
-            this.labelWorkerName.Location = new System.Drawing.Point(13, 13);
-            this.labelWorkerName.Name = "labelWorkerName";
-            this.labelWorkerName.Size = new System.Drawing.Size(38, 13);
-            this.labelWorkerName.TabIndex = 0;
-            this.labelWorkerName.Text = "Name:";
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(13, 13);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(38, 13);
+            this.labelName.TabIndex = 0;
+            this.labelName.Text = "Name:";
             // 
-            // Column4
+            // dataGridView
             // 
-            this.Column4.HeaderText = "No. used days";
-            this.Column4.Name = "Column4";
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnStatus,
+            this.ColumnFirstDay,
+            this.ColumnLastDay,
+            this.ColumnType,
+            this.ColumnUsedDays});
+            this.dataGridView.Location = new System.Drawing.Point(16, 63);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(543, 162);
+            this.dataGridView.TabIndex = 6;
             // 
-            // Column3
+            // labelPositionValue
             // 
-            this.Column3.HeaderText = "Type";
-            this.Column3.Name = "Column3";
+            this.labelPositionValue.AutoSize = true;
+            this.labelPositionValue.Location = new System.Drawing.Point(73, 35);
+            this.labelPositionValue.Name = "labelPositionValue";
+            this.labelPositionValue.Size = new System.Drawing.Size(39, 13);
+            this.labelPositionValue.TabIndex = 8;
+            this.labelPositionValue.Text = "Doctor";
             // 
-            // Column2
+            // labelNameValue
             // 
-            this.Column2.HeaderText = "Last Day";
-            this.Column2.Name = "Column2";
+            this.labelNameValue.AutoSize = true;
+            this.labelNameValue.Location = new System.Drawing.Point(73, 13);
+            this.labelNameValue.Name = "labelNameValue";
+            this.labelNameValue.Size = new System.Drawing.Size(69, 13);
+            this.labelNameValue.TabIndex = 9;
+            this.labelNameValue.Text = "Jan Kowalski";
             // 
-            // Column1
+            // labelDaysToUse
             // 
-            this.Column1.HeaderText = "First Day";
-            this.Column1.Name = "Column1";
+            this.labelDaysToUse.AutoSize = true;
+            this.labelDaysToUse.Location = new System.Drawing.Point(277, 12);
+            this.labelDaysToUse.Name = "labelDaysToUse";
+            this.labelDaysToUse.Size = new System.Drawing.Size(110, 13);
+            this.labelDaysToUse.TabIndex = 10;
+            this.labelDaysToUse.Text = "Available days to use:";
             // 
-            // Status
+            // ColumnStatus
             // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
+            this.ColumnStatus.HeaderText = "Status";
+            this.ColumnStatus.Name = "ColumnStatus";
             // 
-            // dataGridView1
+            // ColumnFirstDay
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Status,
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(16, 63);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(543, 162);
-            this.dataGridView1.TabIndex = 6;
+            this.ColumnFirstDay.HeaderText = "First Day";
+            this.ColumnFirstDay.Name = "ColumnFirstDay";
             // 
-            // label2
+            // ColumnLastDay
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(73, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Doctor";
+            this.ColumnLastDay.HeaderText = "Last Day";
+            this.ColumnLastDay.Name = "ColumnLastDay";
             // 
-            // label3
+            // ColumnType
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(73, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Jan Kowalski";
+            this.ColumnType.HeaderText = "Type";
+            this.ColumnType.Name = "ColumnType";
             // 
-            // label4
+            // ColumnUsedDays
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(277, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Available days to use:";
+            this.ColumnUsedDays.HeaderText = "No. used days";
+            this.ColumnUsedDays.Name = "ColumnUsedDays";
             // 
             // FormWorker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 290);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.labelWorkerPosition);
-            this.Controls.Add(this.labelWorkerName);
+            this.Controls.Add(this.labelDaysToUseValue);
+            this.Controls.Add(this.labelDaysToUse);
+            this.Controls.Add(this.labelNameValue);
+            this.Controls.Add(this.labelPositionValue);
+            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.buttonTakeLeave);
+            this.Controls.Add(this.labelPosition);
+            this.Controls.Add(this.labelName);
             this.Name = "FormWorker";
             this.Text = "Leave Manager";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,18 +169,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label labelWorkerPosition;
-        private System.Windows.Forms.Label labelWorkerName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonTakeLeave;
+        private System.Windows.Forms.Label labelDaysToUseValue;
+        private System.Windows.Forms.Label labelPosition;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Label labelPositionValue;
+        private System.Windows.Forms.Label labelNameValue;
+        private System.Windows.Forms.Label labelDaysToUse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFirstDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLastDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUsedDays;
     }
 }

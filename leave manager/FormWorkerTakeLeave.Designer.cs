@@ -28,175 +28,175 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.labelWorkerTakeLeaveInfo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.labelFirstDay = new System.Windows.Forms.Label();
+            this.labelLastDay = new System.Windows.Forms.Label();
+            this.labelAvailableDays = new System.Windows.Forms.Label();
+            this.dateTimePickerFirstDay = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerLastDay = new System.Windows.Forms.DateTimePicker();
+            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.labelType = new System.Windows.Forms.Label();
+            this.labelUsedDays = new System.Windows.Forms.Label();
+            this.labelUsedDaysValue = new System.Windows.Forms.Label();
+            this.labelAvailableDaysValue = new System.Windows.Forms.Label();
+            this.labelRemarks = new System.Windows.Forms.Label();
+            this.textBoxRemarks = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // button1
+            // buttonOk
             // 
-            this.button1.Location = new System.Drawing.Point(32, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonOk.Location = new System.Drawing.Point(32, 285);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.TabIndex = 0;
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonCancel
             // 
-            this.button2.Location = new System.Drawing.Point(197, 285);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonCancel.Location = new System.Drawing.Point(197, 285);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // labelWorkerTakeLeaveInfo
+            // labelInfo
             // 
-            this.labelWorkerTakeLeaveInfo.AutoSize = true;
-            this.labelWorkerTakeLeaveInfo.Location = new System.Drawing.Point(29, 18);
-            this.labelWorkerTakeLeaveInfo.Name = "labelWorkerTakeLeaveInfo";
-            this.labelWorkerTakeLeaveInfo.Size = new System.Drawing.Size(160, 13);
-            this.labelWorkerTakeLeaveInfo.TabIndex = 2;
-            this.labelWorkerTakeLeaveInfo.Text = "Your\'re about to aply for a leave ";
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(29, 18);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(160, 13);
+            this.labelInfo.TabIndex = 2;
+            this.labelInfo.Text = "Your\'re about to aply for a leave ";
             // 
-            // label1
+            // labelFirstDay
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 65);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "First day: ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.labelFirstDay.AutoSize = true;
+            this.labelFirstDay.Location = new System.Drawing.Point(32, 65);
+            this.labelFirstDay.Name = "labelFirstDay";
+            this.labelFirstDay.Size = new System.Drawing.Size(52, 13);
+            this.labelFirstDay.TabIndex = 3;
+            this.labelFirstDay.Text = "First day: ";
+            this.labelFirstDay.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // labelLastDay
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 87);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Last day:";
+            this.labelLastDay.AutoSize = true;
+            this.labelLastDay.Location = new System.Drawing.Point(32, 87);
+            this.labelLastDay.Name = "labelLastDay";
+            this.labelLastDay.Size = new System.Drawing.Size(50, 13);
+            this.labelLastDay.TabIndex = 4;
+            this.labelLastDay.Text = "Last day:";
             // 
-            // label3
+            // labelAvailableDays
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 260);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Available days: ";
+            this.labelAvailableDays.AutoSize = true;
+            this.labelAvailableDays.Location = new System.Drawing.Point(32, 260);
+            this.labelAvailableDays.Name = "labelAvailableDays";
+            this.labelAvailableDays.Size = new System.Drawing.Size(81, 13);
+            this.labelAvailableDays.TabIndex = 5;
+            this.labelAvailableDays.Text = "Available days: ";
             // 
-            // dateTimePicker1
+            // dateTimePickerFirstDay
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(91, 59);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(181, 20);
-            this.dateTimePicker1.TabIndex = 6;
+            this.dateTimePickerFirstDay.Location = new System.Drawing.Point(91, 59);
+            this.dateTimePickerFirstDay.Name = "dateTimePickerFirstDay";
+            this.dateTimePickerFirstDay.Size = new System.Drawing.Size(181, 20);
+            this.dateTimePickerFirstDay.TabIndex = 6;
             // 
-            // dateTimePicker2
+            // dateTimePickerLastDay
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(91, 81);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(181, 20);
-            this.dateTimePicker2.TabIndex = 7;
+            this.dateTimePickerLastDay.Location = new System.Drawing.Point(91, 81);
+            this.dateTimePickerLastDay.Name = "dateTimePickerLastDay";
+            this.dateTimePickerLastDay.Size = new System.Drawing.Size(181, 20);
+            this.dateTimePickerLastDay.TabIndex = 7;
             // 
-            // comboBox1
+            // comboBoxType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxType.FormattingEnabled = true;
+            this.comboBoxType.Items.AddRange(new object[] {
             "sick leave"});
-            this.comboBox1.Location = new System.Drawing.Point(91, 37);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(181, 21);
-            this.comboBox1.TabIndex = 8;
+            this.comboBoxType.Location = new System.Drawing.Point(91, 37);
+            this.comboBoxType.Name = "comboBoxType";
+            this.comboBoxType.Size = new System.Drawing.Size(181, 21);
+            this.comboBoxType.TabIndex = 8;
             // 
-            // label4
+            // labelType
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 40);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Type:";
+            this.labelType.AutoSize = true;
+            this.labelType.Location = new System.Drawing.Point(32, 40);
+            this.labelType.Name = "labelType";
+            this.labelType.Size = new System.Drawing.Size(34, 13);
+            this.labelType.TabIndex = 9;
+            this.labelType.Text = "Type:";
             // 
-            // label5
+            // labelUsedDays
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 247);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Used days:";
+            this.labelUsedDays.AutoSize = true;
+            this.labelUsedDays.Location = new System.Drawing.Point(32, 247);
+            this.labelUsedDays.Name = "labelUsedDays";
+            this.labelUsedDays.Size = new System.Drawing.Size(60, 13);
+            this.labelUsedDays.TabIndex = 10;
+            this.labelUsedDays.Text = "Used days:";
             // 
-            // label6
+            // labelUsedDaysValue
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(120, 247);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(13, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "0";
+            this.labelUsedDaysValue.AutoSize = true;
+            this.labelUsedDaysValue.Location = new System.Drawing.Point(120, 247);
+            this.labelUsedDaysValue.Name = "labelUsedDaysValue";
+            this.labelUsedDaysValue.Size = new System.Drawing.Size(13, 13);
+            this.labelUsedDaysValue.TabIndex = 11;
+            this.labelUsedDaysValue.Text = "0";
             // 
-            // label7
+            // labelAvailableDaysValue
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(120, 260);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(19, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "14";
+            this.labelAvailableDaysValue.AutoSize = true;
+            this.labelAvailableDaysValue.Location = new System.Drawing.Point(120, 260);
+            this.labelAvailableDaysValue.Name = "labelAvailableDaysValue";
+            this.labelAvailableDaysValue.Size = new System.Drawing.Size(19, 13);
+            this.labelAvailableDaysValue.TabIndex = 12;
+            this.labelAvailableDaysValue.Text = "14";
             // 
-            // label8
+            // labelRemarks
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(35, 114);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Remarks";
+            this.labelRemarks.AutoSize = true;
+            this.labelRemarks.Location = new System.Drawing.Point(35, 114);
+            this.labelRemarks.Name = "labelRemarks";
+            this.labelRemarks.Size = new System.Drawing.Size(49, 13);
+            this.labelRemarks.TabIndex = 13;
+            this.labelRemarks.Text = "Remarks";
             // 
-            // textBox1
+            // textBoxRemarks
             // 
-            this.textBox1.Location = new System.Drawing.Point(35, 130);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(237, 114);
-            this.textBox1.TabIndex = 14;
+            this.textBoxRemarks.Location = new System.Drawing.Point(35, 130);
+            this.textBoxRemarks.Multiline = true;
+            this.textBoxRemarks.Name = "textBoxRemarks";
+            this.textBoxRemarks.Size = new System.Drawing.Size(237, 114);
+            this.textBoxRemarks.TabIndex = 14;
             // 
             // FormWorkerTakeLeave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 346);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.labelWorkerTakeLeaveInfo);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBoxRemarks);
+            this.Controls.Add(this.labelRemarks);
+            this.Controls.Add(this.labelAvailableDaysValue);
+            this.Controls.Add(this.labelUsedDaysValue);
+            this.Controls.Add(this.labelUsedDays);
+            this.Controls.Add(this.labelType);
+            this.Controls.Add(this.comboBoxType);
+            this.Controls.Add(this.dateTimePickerLastDay);
+            this.Controls.Add(this.dateTimePickerFirstDay);
+            this.Controls.Add(this.labelAvailableDays);
+            this.Controls.Add(this.labelLastDay);
+            this.Controls.Add(this.labelFirstDay);
+            this.Controls.Add(this.labelInfo);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOk);
             this.Name = "FormWorkerTakeLeave";
             this.Text = "Leave Manager";
             this.ResumeLayout(false);
@@ -206,20 +206,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label labelWorkerTakeLeaveInfo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label labelFirstDay;
+        private System.Windows.Forms.Label labelLastDay;
+        private System.Windows.Forms.Label labelAvailableDays;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFirstDay;
+        private System.Windows.Forms.DateTimePicker dateTimePickerLastDay;
+        private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.Label labelType;
+        private System.Windows.Forms.Label labelUsedDays;
+        private System.Windows.Forms.Label labelUsedDaysValue;
+        private System.Windows.Forms.Label labelAvailableDaysValue;
+        private System.Windows.Forms.Label labelRemarks;
+        private System.Windows.Forms.TextBox textBoxRemarks;
     }
 }

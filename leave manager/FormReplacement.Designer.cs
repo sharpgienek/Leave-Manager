@@ -28,213 +28,190 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.buttonShowAll = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.labelDay = new System.Windows.Forms.Label();
+            this.labelPosition = new System.Windows.Forms.Label();
+            this.labelPositionValue = new System.Windows.Forms.Label();
+            this.labelDayValue = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonAccept = new System.Windows.Forms.Button();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnBirthDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAdress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPesel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView2
+            // dataGridView
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column6,
-            this.Column7,
-            this.Column8,
-            this.Column9,
-            this.Column10,
-            this.Column11});
-            this.dataGridView2.Location = new System.Drawing.Point(17, 169);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(643, 194);
-            this.dataGridView2.TabIndex = 16;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnName,
+            this.ColumnSurname,
+            this.ColumnBirthDate,
+            this.ColumnAdress,
+            this.ColumnPesel,
+            this.ColumnPosition});
+            this.dataGridView.Location = new System.Drawing.Point(17, 141);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(643, 222);
+            this.dataGridView.TabIndex = 16;
             // 
-            // Column6
+            // buttonShowAll
             // 
-            this.Column6.HeaderText = "Name";
-            this.Column6.Name = "Column6";
+            this.buttonShowAll.Location = new System.Drawing.Point(413, 85);
+            this.buttonShowAll.Name = "buttonShowAll";
+            this.buttonShowAll.Size = new System.Drawing.Size(75, 36);
+            this.buttonShowAll.TabIndex = 15;
+            this.buttonShowAll.Text = "Show all employees";
+            this.buttonShowAll.UseVisualStyleBackColor = true;
             // 
-            // Column7
+            // buttonSearch
             // 
-            this.Column7.HeaderText = "Surname";
-            this.Column7.Name = "Column7";
+            this.buttonSearch.Location = new System.Drawing.Point(305, 92);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 14;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
             // 
-            // Column8
+            // textBoxName
             // 
-            this.Column8.HeaderText = "Birth date";
-            this.Column8.Name = "Column8";
+            this.textBoxName.Location = new System.Drawing.Point(84, 94);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(175, 20);
+            this.textBoxName.TabIndex = 11;
             // 
-            // Column9
+            // labelName
             // 
-            this.Column9.HeaderText = "Adress";
-            this.Column9.Name = "Column9";
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(14, 97);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(64, 13);
+            this.labelName.TabIndex = 10;
+            this.labelName.Text = "Enter name:";
             // 
-            // Column10
+            // labelInfo
             // 
-            this.Column10.HeaderText = "PESEL";
-            this.Column10.Name = "Column10";
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(14, 9);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(575, 13);
+            this.labelInfo.TabIndex = 9;
+            this.labelInfo.Text = "You are selecting replacement. Make sure, that employee you select doesn\'t alread" +
+    "y work at shift, that need replacement";
             // 
-            // Column11
+            // labelDay
             // 
-            this.Column11.HeaderText = "Position";
-            this.Column11.Name = "Column11";
+            this.labelDay.AutoSize = true;
+            this.labelDay.Location = new System.Drawing.Point(17, 37);
+            this.labelDay.Name = "labelDay";
+            this.labelDay.Size = new System.Drawing.Size(32, 13);
+            this.labelDay.TabIndex = 18;
+            this.labelDay.Text = "Day: ";
             // 
-            // button4
+            // labelPosition
             // 
-            this.button4.Location = new System.Drawing.Point(415, 116);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 36);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "Show all employees";
-            this.button4.UseVisualStyleBackColor = true;
+            this.labelPosition.AutoSize = true;
+            this.labelPosition.Location = new System.Drawing.Point(17, 54);
+            this.labelPosition.Name = "labelPosition";
+            this.labelPosition.Size = new System.Drawing.Size(47, 13);
+            this.labelPosition.TabIndex = 19;
+            this.labelPosition.Text = "Position:";
             // 
-            // button3
+            // labelPositionValue
             // 
-            this.button3.Location = new System.Drawing.Point(307, 123);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "Search";
-            this.button3.UseVisualStyleBackColor = true;
+            this.labelPositionValue.AutoSize = true;
+            this.labelPositionValue.Location = new System.Drawing.Point(71, 54);
+            this.labelPositionValue.Name = "labelPositionValue";
+            this.labelPositionValue.Size = new System.Drawing.Size(39, 13);
+            this.labelPositionValue.TabIndex = 20;
+            this.labelPositionValue.Text = "Doctor";
             // 
-            // comboBox1
+            // labelDayValue
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "doctor"});
-            this.comboBox1.Location = new System.Drawing.Point(121, 125);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(138, 21);
-            this.comboBox1.TabIndex = 13;
+            this.labelDayValue.AutoSize = true;
+            this.labelDayValue.Location = new System.Drawing.Point(71, 37);
+            this.labelDayValue.Name = "labelDayValue";
+            this.labelDayValue.Size = new System.Drawing.Size(61, 13);
+            this.labelDayValue.TabIndex = 21;
+            this.labelDayValue.Text = "28-08-2012";
             // 
-            // label4
+            // buttonCancel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 125);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Choose position";
+            this.buttonCancel.Location = new System.Drawing.Point(553, 397);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // buttonAccept
             // 
-            this.textBox1.Location = new System.Drawing.Point(121, 94);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(138, 20);
-            this.textBox1.TabIndex = 11;
+            this.buttonAccept.Location = new System.Drawing.Point(44, 397);
+            this.buttonAccept.Name = "buttonAccept";
+            this.buttonAccept.Size = new System.Drawing.Size(75, 23);
+            this.buttonAccept.TabIndex = 23;
+            this.buttonAccept.Text = "Accept";
+            this.buttonAccept.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // ColumnName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Enter name:";
+            this.ColumnName.HeaderText = "Name";
+            this.ColumnName.Name = "ColumnName";
             // 
-            // label2
+            // ColumnSurname
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(575, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "You are selecting replacement. Make sure, that employee you select doesn\'t alread" +
-                "y work at shift, that need replacement";
+            this.ColumnSurname.HeaderText = "Surname";
+            this.ColumnSurname.Name = "ColumnSurname";
             // 
-            // label1
+            // ColumnBirthDate
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Day: ";
+            this.ColumnBirthDate.HeaderText = "Birth date";
+            this.ColumnBirthDate.Name = "ColumnBirthDate";
             // 
-            // label5
+            // ColumnAdress
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Position:";
+            this.ColumnAdress.HeaderText = "Adress";
+            this.ColumnAdress.Name = "ColumnAdress";
             // 
-            // label6
+            // ColumnPesel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(71, 54);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Doctor";
+            this.ColumnPesel.HeaderText = "PESEL";
+            this.ColumnPesel.Name = "ColumnPesel";
             // 
-            // label7
+            // ColumnPosition
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(71, 37);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 13);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "28-08-2012";
+            this.ColumnPosition.HeaderText = "Position";
+            this.ColumnPosition.Name = "ColumnPosition";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(553, 397);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(44, 397);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Accept";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // FormRegisteringAssistantReplacement
+            // FormReplacement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 445);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Name = "FormRegisteringAssistantReplacement";
+            this.Controls.Add(this.buttonAccept);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.labelDayValue);
+            this.Controls.Add(this.labelPositionValue);
+            this.Controls.Add(this.labelPosition);
+            this.Controls.Add(this.labelDay);
+            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.buttonShowAll);
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.labelInfo);
+            this.Name = "FormReplacement";
             this.Text = "Leave Manager";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,25 +219,23 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Button buttonShowAll;
+        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label labelDay;
+        private System.Windows.Forms.Label labelPosition;
+        private System.Windows.Forms.Label labelPositionValue;
+        private System.Windows.Forms.Label labelDayValue;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonAccept;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSurname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnBirthDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAdress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPesel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPosition;
     }
 }

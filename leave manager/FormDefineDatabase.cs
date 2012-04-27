@@ -9,16 +9,21 @@ using System.Windows.Forms;
 
 namespace leave_manager
 {
-    public partial class FormEmployeeData : Form
+    public partial class FormDefineDatabase : Form
     {
-        public FormEmployeeData()
+        public FormDefineDatabase()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }       
     }
 }
