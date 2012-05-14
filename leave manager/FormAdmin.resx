@@ -117,45 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelInfo.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="ColumnNewEmployeesEmail.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 13</value>
-  </data>
-  <data name="labelInfo.Text" xml:space="preserve">
-    <value>Welcome to Leave Manager. </value>
-  </data>
-  <data name="labelLogin.AutoSize" type="System.Boolean, mscorlib">
+  </metadata>
+  <metadata name="ColumnNewEmployeesLogin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <data name="labelLogin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 13</value>
-  </data>
-  <data name="labelLogin.Text" xml:space="preserve">
-    <value>Login:</value>
-  </data>
-  <data name="labelPassword.AutoSize" type="System.Boolean, mscorlib">
+  </metadata>
+  <metadata name="ColumnNewEmployeesPassword.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <data name="labelPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
-  </data>
-  <data name="labelPassword.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
-  <data name="textBoxLogin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
-  </data>
-  <data name="textBoxPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
-  </data>
-  <data name="buttonLogin.Text" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="buttonExit.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
+  </metadata>
+  <metadata name="ColumnNewEmployeesName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnNewEmployeesSurname.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

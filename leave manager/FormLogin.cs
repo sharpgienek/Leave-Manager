@@ -12,31 +12,36 @@ namespace leave_manager
 {
     public partial class FormLogin : Form
     {
-        private SqlConnection con;
-        public FormLogin()
+        private SqlConnection connection;
+        private EmployeeLoggedIn employee;
+        public EmployeeLoggedIn Employee { get { return employee; } set { employee = value; } }
+        public FormLogin(SqlConnection connection)
         {
             InitializeComponent();
-         //   con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + @"C:\Users\sharpy\documents\visual studio 2010\Projects\leave manager\leave manager\Database.mdf" + "\"" + ";Integrated Security=True;User Instance=True;");
-            con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + @"C:\Users\sharpy\documents\visual studio 2010\Projects\leave manager\leave manager\Database.mdf" + "\"" + ";Integrated Security=True;User Instance=True;");
-            //
-            con.Open();
+            this.connection = connection;
         }
-        
-        private void buttonLoginLogin_Click(object sender, EventArgs e)
+
+        private void buttonExit_Click(object sender, EventArgs e)
         {
-            try
+            this.Close();
+        }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            SqlCommand command = new SqlCommand("SELECT Employee_ID, Permissions, Name, Surname," +
+                                                "Role, Leave_days, Old_leave_days FROM Employee WHERE Login = '" +
+                                                textBoxLogin.Text + "' AND Password = '" +
+                                                textBoxPassword.Text + "'", connection);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                using (SqlCommand command = new SqlCommand(
-                "CREATE TABLE Dogs1 (Weight INT, Name TEXT, Breed TEXT)", con))
-                {
-                    command.ExecuteNonQuery();
-                }
+                employee = new EmployeeLoggedIn((int)reader["Employee_ID"], reader["Permissions"].ToString()[0],
+                   reader["Name"].ToString(), reader["Surname"].ToString(), reader["Role"].ToString(), (int)reader["Leave_days"], (int)reader["Old_leave_days"]);
+                this.Close();
             }
-            catch
-            {
-                MessageBox.Show("Table couldn't be created.");
-            }
-            con.Close();
+            else
+                MessageBox.Show("Wrong login or password!");
+            reader.Close();
         }
     }
 }

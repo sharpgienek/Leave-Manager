@@ -9,4 +9,8 @@ ver. 0.12
 	- Stworzono formatkê wyboru rodzaju po³¹czenia do bazy (plik lub serwer).
 	- Poprawiono nazwy elementów w formatkach.
 	- Dodano diagramy.
+ver. 0.13
+	- Zaktualizowano diagram ERD
+	- Dodano FormAdmin
+	- Stworzono prowizoryczne logowanie
 		

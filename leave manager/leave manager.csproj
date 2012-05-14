@@ -66,6 +66,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeLoggedIn.cs" />
+    <Compile Include="FormAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAdmin.Designer.cs">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDefineDatabase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,28 +115,28 @@
     <Compile Include="FormReplacement.Designer.cs">
       <DependentUpon>FormReplacement.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormWorker.cs">
+    <Compile Include="FormEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormWorker.Designer.cs">
-      <DependentUpon>FormWorker.cs</DependentUpon>
+    <Compile Include="FormEmployee.Designer.cs">
+      <DependentUpon>FormEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormWorkerTakeLeave.cs">
+    <Compile Include="FormEmployeeTakeLeave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormWorkerTakeLeave.Designer.cs">
-      <DependentUpon>FormWorkerTakeLeave.cs</DependentUpon>
+    <Compile Include="FormEmployeeTakeLeave.Designer.cs">
+      <DependentUpon>FormEmployeeTakeLeave.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAdmin.resx">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDefineDatabase.resx">
       <DependentUpon>FormDefineDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLeaveConsideration.resx">
       <DependentUpon>FormLeaveConsideration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLogin.en.resx">
-      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -146,11 +153,11 @@
     <EmbeddedResource Include="FormReplacement.resx">
       <DependentUpon>FormReplacement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWorker.resx">
-      <DependentUpon>FormWorker.cs</DependentUpon>
+    <EmbeddedResource Include="FormEmployee.resx">
+      <DependentUpon>FormEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWorkerTakeLeave.resx">
-      <DependentUpon>FormWorkerTakeLeave.cs</DependentUpon>
+    <EmbeddedResource Include="FormEmployeeTakeLeave.resx">
+      <DependentUpon>FormEmployeeTakeLeave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -43,10 +43,10 @@
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.groupBoxRemote = new System.Windows.Forms.GroupBox();
-            this.groupBoxLocal = new System.Windows.Forms.GroupBox();
-            this.textBoxLocalPath = new System.Windows.Forms.TextBox();
-            this.buttonLocalBrowse = new System.Windows.Forms.Button();
             this.labelRemotePortColon = new System.Windows.Forms.Label();
+            this.groupBoxLocal = new System.Windows.Forms.GroupBox();
+            this.buttonLocalBrowse = new System.Windows.Forms.Button();
+            this.textBoxLocalPath = new System.Windows.Forms.TextBox();
             this.groupBoxRemote.SuspendLayout();
             this.groupBoxLocal.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +60,7 @@
             this.radioButtonLocal.TabIndex = 2;
             this.radioButtonLocal.Text = "Local (from .mdf file)";
             this.radioButtonLocal.UseVisualStyleBackColor = true;
-            this.radioButtonLocal.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButtonLocal.CheckedChanged += new System.EventHandler(this.radioButtonLocal_CheckedChanged);
             // 
             // radioButtonRemote
             // 
@@ -73,7 +73,6 @@
             this.radioButtonRemote.TabStop = true;
             this.radioButtonRemote.Text = "Remote";
             this.radioButtonRemote.UseVisualStyleBackColor = true;
-            this.radioButtonRemote.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // labelInfo
             // 
@@ -152,6 +151,7 @@
             this.buttonTestConnection.TabIndex = 13;
             this.buttonTestConnection.Text = "Test connection";
             this.buttonTestConnection.UseVisualStyleBackColor = true;
+            this.buttonTestConnection.Click += new System.EventHandler(this.buttonTestConnection_Click);
             // 
             // buttonAccept
             // 
@@ -161,6 +161,7 @@
             this.buttonAccept.TabIndex = 14;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // buttonExit
             // 
@@ -170,10 +171,10 @@
             this.buttonExit.TabIndex = 15;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // groupBoxRemote
             // 
-            this.groupBoxRemote.Controls.Add(this.groupBoxLocal);
             this.groupBoxRemote.Controls.Add(this.labelRemotePortColon);
             this.groupBoxRemote.Controls.Add(this.labelIpPort);
             this.groupBoxRemote.Controls.Add(this.labelDatabase);
@@ -183,40 +184,12 @@
             this.groupBoxRemote.Controls.Add(this.textBoxIp2);
             this.groupBoxRemote.Controls.Add(this.textBoxIp4);
             this.groupBoxRemote.Controls.Add(this.textBoxIp3);
-            this.groupBoxRemote.Location = new System.Drawing.Point(16, 94);
+            this.groupBoxRemote.Location = new System.Drawing.Point(12, 91);
             this.groupBoxRemote.Name = "groupBoxRemote";
             this.groupBoxRemote.Size = new System.Drawing.Size(304, 107);
             this.groupBoxRemote.TabIndex = 16;
             this.groupBoxRemote.TabStop = false;
             this.groupBoxRemote.Text = "Specify it details.";
-            // 
-            // groupBoxLocal
-            // 
-            this.groupBoxLocal.Controls.Add(this.buttonLocalBrowse);
-            this.groupBoxLocal.Controls.Add(this.textBoxLocalPath);
-            this.groupBoxLocal.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxLocal.Name = "groupBoxLocal";
-            this.groupBoxLocal.Size = new System.Drawing.Size(304, 107);
-            this.groupBoxLocal.TabIndex = 17;
-            this.groupBoxLocal.TabStop = false;
-            this.groupBoxLocal.Text = "Select database path.";
-            this.groupBoxLocal.Visible = false;
-            // 
-            // textBoxLocalPath
-            // 
-            this.textBoxLocalPath.Location = new System.Drawing.Point(9, 26);
-            this.textBoxLocalPath.Name = "textBoxLocalPath";
-            this.textBoxLocalPath.Size = new System.Drawing.Size(281, 20);
-            this.textBoxLocalPath.TabIndex = 0;
-            // 
-            // buttonLocalBrowse
-            // 
-            this.buttonLocalBrowse.Location = new System.Drawing.Point(105, 52);
-            this.buttonLocalBrowse.Name = "buttonLocalBrowse";
-            this.buttonLocalBrowse.Size = new System.Drawing.Size(75, 23);
-            this.buttonLocalBrowse.TabIndex = 1;
-            this.buttonLocalBrowse.Text = "Browse";
-            this.buttonLocalBrowse.UseVisualStyleBackColor = true;
             // 
             // labelRemotePortColon
             // 
@@ -227,12 +200,42 @@
             this.labelRemotePortColon.TabIndex = 13;
             this.labelRemotePortColon.Text = ":";
             // 
+            // groupBoxLocal
+            // 
+            this.groupBoxLocal.Controls.Add(this.buttonLocalBrowse);
+            this.groupBoxLocal.Controls.Add(this.textBoxLocalPath);
+            this.groupBoxLocal.Location = new System.Drawing.Point(12, 91);
+            this.groupBoxLocal.Name = "groupBoxLocal";
+            this.groupBoxLocal.Size = new System.Drawing.Size(304, 107);
+            this.groupBoxLocal.TabIndex = 17;
+            this.groupBoxLocal.TabStop = false;
+            this.groupBoxLocal.Text = "Select database path.";
+            this.groupBoxLocal.Visible = false;
+            // 
+            // buttonLocalBrowse
+            // 
+            this.buttonLocalBrowse.Location = new System.Drawing.Point(93, 66);
+            this.buttonLocalBrowse.Name = "buttonLocalBrowse";
+            this.buttonLocalBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonLocalBrowse.TabIndex = 1;
+            this.buttonLocalBrowse.Text = "Browse";
+            this.buttonLocalBrowse.UseVisualStyleBackColor = true;
+            this.buttonLocalBrowse.Click += new System.EventHandler(this.buttonLocalBrowse_Click);
+            // 
+            // textBoxLocalPath
+            // 
+            this.textBoxLocalPath.Location = new System.Drawing.Point(9, 26);
+            this.textBoxLocalPath.Name = "textBoxLocalPath";
+            this.textBoxLocalPath.Size = new System.Drawing.Size(281, 20);
+            this.textBoxLocalPath.TabIndex = 0;
+            // 
             // FormDefineDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 278);
             this.Controls.Add(this.groupBoxRemote);
+            this.Controls.Add(this.groupBoxLocal);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.buttonTestConnection);
