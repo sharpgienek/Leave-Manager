@@ -36,22 +36,19 @@
             this.labelPositionValue = new System.Windows.Forms.Label();
             this.labelNameValue = new System.Windows.Forms.Label();
             this.labelDaysToUse = new System.Windows.Forms.Label();
-            this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnFirstDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnLastDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnUsedDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonChangeLoginOrPassword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonTakeLeave
             // 
-            this.buttonTakeLeave.Location = new System.Drawing.Point(236, 238);
+            this.buttonTakeLeave.Location = new System.Drawing.Point(89, 238);
             this.buttonTakeLeave.Name = "buttonTakeLeave";
             this.buttonTakeLeave.Size = new System.Drawing.Size(95, 40);
             this.buttonTakeLeave.TabIndex = 4;
             this.buttonTakeLeave.Text = "Take a leave";
             this.buttonTakeLeave.UseVisualStyleBackColor = true;
+            this.buttonTakeLeave.Click += new System.EventHandler(this.buttonTakeLeave_Click);
             // 
             // labelDaysToUseValue
             // 
@@ -83,12 +80,6 @@
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnStatus,
-            this.ColumnFirstDay,
-            this.ColumnLastDay,
-            this.ColumnType,
-            this.ColumnUsedDays});
             this.dataGridView.Location = new System.Drawing.Point(16, 63);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(543, 162);
@@ -99,18 +90,16 @@
             this.labelPositionValue.AutoSize = true;
             this.labelPositionValue.Location = new System.Drawing.Point(73, 35);
             this.labelPositionValue.Name = "labelPositionValue";
-            this.labelPositionValue.Size = new System.Drawing.Size(39, 13);
+            this.labelPositionValue.Size = new System.Drawing.Size(0, 13);
             this.labelPositionValue.TabIndex = 8;
-            this.labelPositionValue.Text = "Doctor";
             // 
             // labelNameValue
             // 
             this.labelNameValue.AutoSize = true;
             this.labelNameValue.Location = new System.Drawing.Point(73, 13);
             this.labelNameValue.Name = "labelNameValue";
-            this.labelNameValue.Size = new System.Drawing.Size(69, 13);
+            this.labelNameValue.Size = new System.Drawing.Size(0, 13);
             this.labelNameValue.TabIndex = 9;
-            this.labelNameValue.Text = "Jan Kowalski";
             // 
             // labelDaysToUse
             // 
@@ -121,36 +110,22 @@
             this.labelDaysToUse.TabIndex = 10;
             this.labelDaysToUse.Text = "Available days to use:";
             // 
-            // ColumnStatus
+            // buttonChangeLoginOrPassword
             // 
-            this.ColumnStatus.HeaderText = "Status";
-            this.ColumnStatus.Name = "ColumnStatus";
+            this.buttonChangeLoginOrPassword.Location = new System.Drawing.Point(363, 238);
+            this.buttonChangeLoginOrPassword.Name = "buttonChangeLoginOrPassword";
+            this.buttonChangeLoginOrPassword.Size = new System.Drawing.Size(95, 40);
+            this.buttonChangeLoginOrPassword.TabIndex = 12;
+            this.buttonChangeLoginOrPassword.Text = "Change login or password";
+            this.buttonChangeLoginOrPassword.UseVisualStyleBackColor = true;
+            this.buttonChangeLoginOrPassword.Click += new System.EventHandler(this.buttonChangeLoginOrPassword_Click);
             // 
-            // ColumnFirstDay
-            // 
-            this.ColumnFirstDay.HeaderText = "First Day";
-            this.ColumnFirstDay.Name = "ColumnFirstDay";
-            // 
-            // ColumnLastDay
-            // 
-            this.ColumnLastDay.HeaderText = "Last Day";
-            this.ColumnLastDay.Name = "ColumnLastDay";
-            // 
-            // ColumnType
-            // 
-            this.ColumnType.HeaderText = "Type";
-            this.ColumnType.Name = "ColumnType";
-            // 
-            // ColumnUsedDays
-            // 
-            this.ColumnUsedDays.HeaderText = "No. used days";
-            this.ColumnUsedDays.Name = "ColumnUsedDays";
-            // 
-            // FormWorker
+            // FormEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 290);
+            this.Controls.Add(this.buttonChangeLoginOrPassword);
             this.Controls.Add(this.labelDaysToUseValue);
             this.Controls.Add(this.labelDaysToUse);
             this.Controls.Add(this.labelNameValue);
@@ -159,7 +134,7 @@
             this.Controls.Add(this.buttonTakeLeave);
             this.Controls.Add(this.labelPosition);
             this.Controls.Add(this.labelName);
-            this.Name = "FormWorker";
+            this.Name = "FormEmployee";
             this.Text = "Leave Manager";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -177,10 +152,6 @@
         private System.Windows.Forms.Label labelPositionValue;
         private System.Windows.Forms.Label labelNameValue;
         private System.Windows.Forms.Label labelDaysToUse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFirstDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLastDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUsedDays;
+        private System.Windows.Forms.Button buttonChangeLoginOrPassword;
     }
 }

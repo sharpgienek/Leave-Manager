@@ -52,11 +52,6 @@
             this.buttonNewEmployeesInformed = new System.Windows.Forms.Button();
             this.labelNewEmployeesInfo = new System.Windows.Forms.Label();
             this.dataGridViewNewEmployees = new System.Windows.Forms.DataGridView();
-            this.ColumnNewEmployeesEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNewEmployeesLogin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNewEmployeesPassword = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNewEmployeesName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNewEmployeesSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabDataSource.SuspendLayout();
             this.groupBoxDataSourceLocal.SuspendLayout();
             this.groupBoxDataSourceRemote.SuspendLayout();
@@ -282,6 +277,7 @@
             this.buttonNewEmployeesInformed.TabIndex = 2;
             this.buttonNewEmployeesInformed.Text = "Informed (delete selected from list)";
             this.buttonNewEmployeesInformed.UseVisualStyleBackColor = true;
+            this.buttonNewEmployeesInformed.Click += new System.EventHandler(this.buttonNewEmployeesInformed_Click);
             // 
             // labelNewEmployeesInfo
             // 
@@ -296,41 +292,10 @@
             // dataGridViewNewEmployees
             // 
             this.dataGridViewNewEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewNewEmployees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnNewEmployeesEmail,
-            this.ColumnNewEmployeesLogin,
-            this.ColumnNewEmployeesPassword,
-            this.ColumnNewEmployeesName,
-            this.ColumnNewEmployeesSurname});
             this.dataGridViewNewEmployees.Location = new System.Drawing.Point(11, 53);
             this.dataGridViewNewEmployees.Name = "dataGridViewNewEmployees";
             this.dataGridViewNewEmployees.Size = new System.Drawing.Size(598, 150);
             this.dataGridViewNewEmployees.TabIndex = 0;
-            // 
-            // ColumnNewEmployeesEmail
-            // 
-            this.ColumnNewEmployeesEmail.HeaderText = "e-mail";
-            this.ColumnNewEmployeesEmail.Name = "ColumnNewEmployeesEmail";
-            // 
-            // ColumnNewEmployeesLogin
-            // 
-            this.ColumnNewEmployeesLogin.HeaderText = "Login";
-            this.ColumnNewEmployeesLogin.Name = "ColumnNewEmployeesLogin";
-            // 
-            // ColumnNewEmployeesPassword
-            // 
-            this.ColumnNewEmployeesPassword.HeaderText = "Password";
-            this.ColumnNewEmployeesPassword.Name = "ColumnNewEmployeesPassword";
-            // 
-            // ColumnNewEmployeesName
-            // 
-            this.ColumnNewEmployeesName.HeaderText = "Name";
-            this.ColumnNewEmployeesName.Name = "ColumnNewEmployeesName";
-            // 
-            // ColumnNewEmployeesSurname
-            // 
-            this.ColumnNewEmployeesSurname.HeaderText = "Surname";
-            this.ColumnNewEmployeesSurname.Name = "ColumnNewEmployeesSurname";
             // 
             // FormAdmin
             // 
@@ -380,10 +345,5 @@
         private System.Windows.Forms.Label labelNewEmployeesInfo;
         private System.Windows.Forms.DataGridView dataGridViewNewEmployees;
         private System.Windows.Forms.Button buttonNewEmployeesInformed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNewEmployeesEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNewEmployeesLogin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNewEmployeesPassword;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNewEmployeesName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNewEmployeesSurname;
     }
 }

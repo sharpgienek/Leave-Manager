@@ -18,8 +18,19 @@ namespace leave_manager
         {
             InitializeComponent();
             this.connection = connection;
+            refreshDataGridViewNewEmployees();
         }
-       
+
+        private void refreshDataGridViewNewEmployees()
+        {
+            SqlCommand command = new SqlCommand("SELECT E.Employee_ID AS 'ID', E.EMail AS 'e-mail', E.Login, U.Password, E.Name, " +
+                "E.Surname FROM Employee E, Uninformed U WHERE E.Employee_ID = U.Employee_ID", connection);
+            SqlDataReader reader = command.ExecuteReader();//todo try catch
+            DataTable newEmployees = new DataTable();
+            newEmployees.Load(reader);
+            reader.Close();
+            dataGridViewNewEmployees.DataSource = newEmployees;
+        }
         private void radioButtonDataSourceLocal_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonDataSourceLocal.Checked)
@@ -101,5 +112,20 @@ namespace leave_manager
                 throw new NotImplementedException(); 
         }
 
+        private void buttonNewEmployeesInformed_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewCell cell in dataGridViewNewEmployees.SelectedCells)
+            {
+                dataGridViewNewEmployees.Rows[cell.RowIndex].Selected = true;
+            }
+            SqlCommand command = new SqlCommand("DELETE FROM Uninformed WHERE Employee_ID = @Employee_ID", connection);
+            foreach (DataGridViewRow row in dataGridViewNewEmployees.SelectedRows)
+            {
+                command.Parameters.Clear();
+                command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = row.Cells["ID"].Value;
+                command.ExecuteNonQuery();//todo try catch
+            }
+            refreshDataGridViewNewEmployees();
+        }
     }
 }

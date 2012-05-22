@@ -12,13 +12,17 @@ namespace leave_manager
 {
     public partial class FormLogin : Form
     {
-        private SqlConnection connection;
-        private EmployeeLoggedIn employee;
-        public EmployeeLoggedIn Employee { get { return employee; } set { employee = value; } }
+        private SqlConnection connection;        
+        private Employee employee;
+        public Employee Employee { get { return employee; } set { employee = value; } }
+        private bool loggedIn;
+        public bool LoggedIn { get { return loggedIn; } }
+
         public FormLogin(SqlConnection connection)
         {
             InitializeComponent();
             this.connection = connection;
+            this.loggedIn = false;
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
@@ -28,16 +32,25 @@ namespace leave_manager
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand("SELECT Employee_ID, Permissions, Name, Surname," +
-                                                "Role, Leave_days, Old_leave_days FROM Employee WHERE Login = '" +
-                                                textBoxLogin.Text + "' AND Password = '" +
-                                                textBoxPassword.Text + "'", connection);
+            SqlCommand command = new SqlCommand("SELECT E.Employee_ID, Perm.Description AS Permission, E.Name, E.Surname, E.Birth_date," +
+                                                "E.Address, E.PESEL, E.EMail, Pos.Description AS Position, E.Year_leave_days, "+
+                                                "E.Leave_days, E.Old_leave_days " +
+                                                "FROM Employee E, Permission Perm, Position Pos WHERE Login = @Login AND " +
+                                                "Password = @Password AND E.Permission_ID = Perm.Permission_ID AND " +
+                                                "E.Position_ID = Pos.Position_ID", connection);
+            command.Parameters.Add("@Login", SqlDbType.VarChar).Value = textBoxLogin.Text;
+            command.Parameters.Add("@Password", SqlDbType.VarChar).Value = StringSha.GetSha256Managed(textBoxPassword.Text);
+        
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                employee = new EmployeeLoggedIn((int)reader["Employee_ID"], reader["Permissions"].ToString()[0],
-                   reader["Name"].ToString(), reader["Surname"].ToString(), reader["Role"].ToString(), (int)reader["Leave_days"], (int)reader["Old_leave_days"]);
-                this.Close();
+                employee = new Employee((int)reader["Employee_ID"], reader["Permission"].ToString(),
+                   reader["Name"].ToString(), reader["Surname"].ToString(), (DateTime)reader["Birth_date"],
+                   reader["Address"].ToString(), reader["PESEL"].ToString(), reader["EMail"].ToString(), 
+                   reader["Position"].ToString(),(int)reader["Year_leave_days"], (int)reader["Leave_days"], 
+                   (int)reader["Old_leave_days"]);
+                loggedIn = true;
+                this.Close();                
             }
             else
                 MessageBox.Show("Wrong login or password!");

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.SqlClient;
+using System.Data;
+
 namespace leave_manager
 {
     static class Program
@@ -36,12 +38,25 @@ namespace leave_manager
                 connection.Open();
                 FormLogin form = new FormLogin(connection);
                 Application.Run(form);
-                switch (form.Employee.Permissions)
-                {
-                    case 'a':
-                        Application.Run(new FormAdmin(connection));
-                        break;
-                }
+                if(form.LoggedIn)
+                    switch (form.Employee.Permission)
+                    {
+                        case "administrator":
+                            //Application.Run(new FormAdmin(connection));
+                            Application.Run(new FormEmployee(connection, form.Employee));
+                          //  Application.Run(new FormManager(connection));
+                            break;
+                        case "manager":
+                            Application.Run(new FormManager(connection));
+                            break;
+                        case "assistant":
+                            Application.Run(new FormAssistant());
+                            break;
+                        case "employee":
+                            Application.Run(new FormEmployee(connection, form.Employee));
+                            break;
+
+                    }               
                 connection.Close();
             }
         }

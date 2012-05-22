@@ -13,4 +13,24 @@ ver. 0.13
 	- Zaktualizowano diagram ERD
 	- Dodano FormAdmin
 	- Stworzono prowizoryczne logowanie
+ver. 0.14
+	- Zmodyfikowano ERD
+	- Dodano formularz dodawania pracownika
+	- Dodano mo¿liwoœæ informowania nowego pracownika o loginie i haœle przez administratora
+	- Dodano klasê StringSha posiadaj¹c¹ statyczn¹ metodê do wyznaczenia skrótu sha256managed
+	- Has³a s¹ zapisywane w bazie poprzezz skrót sha256managed
+	- Dodano formularz zmiany has³a i loginu
+	- Dodano klasê Dictionary pozwalaj¹c¹ pobraæ z bazy zawartoœci tabel s³ownikowych
+	- Dodano klasê LeaveType
+	- Dodano klasê TimeTools rozszerzaj¹c¹ strukturê DateTime o dodatkowe funkcje:
+		=> Trim pozwalaj¹c¹ 'obci¹æ' datê do okr¹g³ej liczby dni, minut itp. poprzez podanie np. TimeSpan.TicksPerDay
+		=> GetNumberOfWorkDays
+		=> IsDateFromPeriodUsed informuj¹c¹, czy jakaœ data z przedzia³u czasu jest ju¿ zarezerwowana w jakimœ zg³oszeniu urlopowym.
+	- Dodano mo¿liwoœæ zg³oszenia chêci odbycia urlopu
 		
+
+INFO
+StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
+
+Pytania:
+Kiedy ustawiaæ now¹ pulê leave days?

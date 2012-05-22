@@ -43,25 +43,31 @@
             this.labelAvailableDaysValue = new System.Windows.Forms.Label();
             this.labelRemarks = new System.Windows.Forms.Label();
             this.textBoxRemarks = new System.Windows.Forms.TextBox();
+            this.labelNormal = new System.Windows.Forms.Label();
+            this.labelNormalValue = new System.Windows.Forms.Label();
+            this.labelOldValue = new System.Windows.Forms.Label();
+            this.labelOld = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(32, 285);
+            this.buttonOk.Location = new System.Drawing.Point(32, 311);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(197, 285);
+            this.buttonCancel.Location = new System.Drawing.Point(197, 311);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // labelInfo
             // 
@@ -80,7 +86,6 @@
             this.labelFirstDay.Size = new System.Drawing.Size(52, 13);
             this.labelFirstDay.TabIndex = 3;
             this.labelFirstDay.Text = "First day: ";
-            this.labelFirstDay.Click += new System.EventHandler(this.label1_Click);
             // 
             // labelLastDay
             // 
@@ -106,6 +111,7 @@
             this.dateTimePickerFirstDay.Name = "dateTimePickerFirstDay";
             this.dateTimePickerFirstDay.Size = new System.Drawing.Size(181, 20);
             this.dateTimePickerFirstDay.TabIndex = 6;
+            this.dateTimePickerFirstDay.ValueChanged += new System.EventHandler(this.dateTimePickerFirstDay_ValueChanged);
             // 
             // dateTimePickerLastDay
             // 
@@ -113,6 +119,7 @@
             this.dateTimePickerLastDay.Name = "dateTimePickerLastDay";
             this.dateTimePickerLastDay.Size = new System.Drawing.Size(181, 20);
             this.dateTimePickerLastDay.TabIndex = 7;
+            this.dateTimePickerLastDay.ValueChanged += new System.EventHandler(this.dateTimePickerLastDay_ValueChanged);
             // 
             // comboBoxType
             // 
@@ -123,6 +130,7 @@
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(181, 21);
             this.comboBoxType.TabIndex = 8;
+            this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.comboBoxType_SelectedIndexChanged);
             // 
             // labelType
             // 
@@ -147,18 +155,16 @@
             this.labelUsedDaysValue.AutoSize = true;
             this.labelUsedDaysValue.Location = new System.Drawing.Point(120, 247);
             this.labelUsedDaysValue.Name = "labelUsedDaysValue";
-            this.labelUsedDaysValue.Size = new System.Drawing.Size(13, 13);
+            this.labelUsedDaysValue.Size = new System.Drawing.Size(0, 13);
             this.labelUsedDaysValue.TabIndex = 11;
-            this.labelUsedDaysValue.Text = "0";
             // 
             // labelAvailableDaysValue
             // 
             this.labelAvailableDaysValue.AutoSize = true;
             this.labelAvailableDaysValue.Location = new System.Drawing.Point(120, 260);
             this.labelAvailableDaysValue.Name = "labelAvailableDaysValue";
-            this.labelAvailableDaysValue.Size = new System.Drawing.Size(19, 13);
+            this.labelAvailableDaysValue.Size = new System.Drawing.Size(0, 13);
             this.labelAvailableDaysValue.TabIndex = 12;
-            this.labelAvailableDaysValue.Text = "14";
             // 
             // labelRemarks
             // 
@@ -177,11 +183,49 @@
             this.textBoxRemarks.Size = new System.Drawing.Size(237, 114);
             this.textBoxRemarks.TabIndex = 14;
             // 
-            // FormWorkerTakeLeave
+            // labelNormal
+            // 
+            this.labelNormal.AutoSize = true;
+            this.labelNormal.Location = new System.Drawing.Point(146, 260);
+            this.labelNormal.Name = "labelNormal";
+            this.labelNormal.Size = new System.Drawing.Size(43, 13);
+            this.labelNormal.TabIndex = 15;
+            this.labelNormal.Text = "Normal:";
+            // 
+            // labelNormalValue
+            // 
+            this.labelNormalValue.AutoSize = true;
+            this.labelNormalValue.Location = new System.Drawing.Point(194, 260);
+            this.labelNormalValue.Name = "labelNormalValue";
+            this.labelNormalValue.Size = new System.Drawing.Size(0, 13);
+            this.labelNormalValue.TabIndex = 16;
+            // 
+            // labelOldValue
+            // 
+            this.labelOldValue.AutoSize = true;
+            this.labelOldValue.Location = new System.Drawing.Point(194, 273);
+            this.labelOldValue.Name = "labelOldValue";
+            this.labelOldValue.Size = new System.Drawing.Size(0, 13);
+            this.labelOldValue.TabIndex = 18;
+            // 
+            // labelOld
+            // 
+            this.labelOld.AutoSize = true;
+            this.labelOld.Location = new System.Drawing.Point(146, 273);
+            this.labelOld.Name = "labelOld";
+            this.labelOld.Size = new System.Drawing.Size(26, 13);
+            this.labelOld.TabIndex = 17;
+            this.labelOld.Text = "Old:";
+            // 
+            // FormEmployeeTakeLeave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 346);
+            this.Controls.Add(this.labelOldValue);
+            this.Controls.Add(this.labelOld);
+            this.Controls.Add(this.labelNormalValue);
+            this.Controls.Add(this.labelNormal);
             this.Controls.Add(this.textBoxRemarks);
             this.Controls.Add(this.labelRemarks);
             this.Controls.Add(this.labelAvailableDaysValue);
@@ -197,7 +241,7 @@
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.Name = "FormWorkerTakeLeave";
+            this.Name = "FormEmployeeTakeLeave";
             this.Text = "Leave Manager";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,5 +265,9 @@
         private System.Windows.Forms.Label labelAvailableDaysValue;
         private System.Windows.Forms.Label labelRemarks;
         private System.Windows.Forms.TextBox textBoxRemarks;
+        private System.Windows.Forms.Label labelNormal;
+        private System.Windows.Forms.Label labelNormalValue;
+        private System.Windows.Forms.Label labelOldValue;
+        private System.Windows.Forms.Label labelOld;
     }
 }
