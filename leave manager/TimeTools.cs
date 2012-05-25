@@ -57,5 +57,35 @@ namespace leave_manager
             reader.Close();
             return false;
         }
+
+        static public bool IsDateFromPeriodUsed(this DateTime date1, DateTime date2,
+           SqlConnection connection, int employeeID, DateTime skippedEntryFirstDay)
+        {
+            if (date1.CompareTo(date2) > 0)
+            {
+                DateTime tmpDate = date1;
+                date1 = date2;
+                date2 = tmpDate;
+            }
+            SqlCommand command = new SqlCommand("SELECT First_day, Last_day FROM Leave WHERE " +
+                "Employee_ID = @Employee_ID AND First_day != @Skipped_entry_first_day", connection);
+            command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeID;
+            command.Parameters.Add("@Skipped_entry_first_day", SqlDbType.Date).Value = skippedEntryFirstDay;
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                DateTime firstDay = (DateTime)reader["First_day"];
+                DateTime lastDay = (DateTime)reader["Last_day"];
+                if ((date1.CompareTo(firstDay) <= 0) && (date2.CompareTo(firstDay) >= 0)//firstDay between date1 & date2
+                    || (date1.CompareTo(lastDay) <= 0) && (date2.CompareTo(lastDay) >= 0)//lastDay between date1 & date2
+                    || (date1.CompareTo(firstDay) >= 0 && (date2.CompareTo(lastDay) <= 0)))//date1 & date2 between firstDay & lastDay
+                {
+                    reader.Close();
+                    return true;
+                }
+            }
+            reader.Close();
+            return false;
+        }
     }
 }

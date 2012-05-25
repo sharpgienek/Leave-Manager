@@ -37,6 +37,7 @@
             this.labelNameValue = new System.Windows.Forms.Label();
             this.labelDaysToUse = new System.Windows.Forms.Label();
             this.buttonChangeLoginOrPassword = new System.Windows.Forms.Button();
+            this.buttonDeleteLeave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,11 +121,22 @@
             this.buttonChangeLoginOrPassword.UseVisualStyleBackColor = true;
             this.buttonChangeLoginOrPassword.Click += new System.EventHandler(this.buttonChangeLoginOrPassword_Click);
             // 
+            // buttonDeleteLeave
+            // 
+            this.buttonDeleteLeave.Location = new System.Drawing.Point(227, 238);
+            this.buttonDeleteLeave.Name = "buttonDeleteLeave";
+            this.buttonDeleteLeave.Size = new System.Drawing.Size(95, 40);
+            this.buttonDeleteLeave.TabIndex = 13;
+            this.buttonDeleteLeave.Text = "Delete selected leaves";
+            this.buttonDeleteLeave.UseVisualStyleBackColor = true;
+            this.buttonDeleteLeave.Click += new System.EventHandler(this.buttonDeleteLeave_Click);
+            // 
             // FormEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 290);
+            this.Controls.Add(this.buttonDeleteLeave);
             this.Controls.Add(this.buttonChangeLoginOrPassword);
             this.Controls.Add(this.labelDaysToUseValue);
             this.Controls.Add(this.labelDaysToUse);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.Label labelNameValue;
         private System.Windows.Forms.Label labelDaysToUse;
         private System.Windows.Forms.Button buttonChangeLoginOrPassword;
+        private System.Windows.Forms.Button buttonDeleteLeave;
     }
 }

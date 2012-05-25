@@ -34,21 +34,9 @@
             this.buttonConsiderPendingAplication = new System.Windows.Forms.Button();
             this.labelTabNeedsActionInfo = new System.Windows.Forms.Label();
             this.dataGridViewPendingAplications = new System.Windows.Forms.DataGridView();
-            this.ColumnPendingAplicationsStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPendingAplicationsName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPendingAplicationsPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPendingAplicationsType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPendingAplicationsFirstDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPendingAplicationsLastDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageEmployees = new System.Windows.Forms.TabPage();
             this.buttonEmployeesDetailedData = new System.Windows.Forms.Button();
             this.dataGridViewEmployees = new System.Windows.Forms.DataGridView();
-            this.ColumnEmployeesName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmployeesSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmployeesBirthDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmployeesAdress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmployeesPesel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmployeesPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonEmployeesShowAll = new System.Windows.Forms.Button();
             this.buttonEmployeesSearch = new System.Windows.Forms.Button();
             this.comboBoxEmployeesPosition = new System.Windows.Forms.ComboBox();
@@ -66,6 +54,10 @@
             this.ColumnReplacementsWorkersNeeded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsWorkersAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelEmployeesSurname = new System.Windows.Forms.Label();
+            this.labelEmployeesPesel = new System.Windows.Forms.Label();
+            this.textBoxEmployeesSurname = new System.Windows.Forms.TextBox();
+            this.textBoxEmployeesPesel = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageNeedsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPendingAplications)).BeginInit();
@@ -84,7 +76,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(711, 418);
+            this.tabControl.Size = new System.Drawing.Size(711, 446);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageNeedsAction
@@ -100,7 +92,6 @@
             this.tabPageNeedsAction.TabIndex = 0;
             this.tabPageNeedsAction.Text = "Needs your action";
             this.tabPageNeedsAction.UseVisualStyleBackColor = true;
-            this.tabPageNeedsAction.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // buttonRejectPendingAplication
             // 
@@ -133,50 +124,17 @@
             // dataGridViewPendingAplications
             // 
             this.dataGridViewPendingAplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPendingAplications.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnPendingAplicationsStatus,
-            this.ColumnPendingAplicationsName,
-            this.ColumnPendingAplicationsPosition,
-            this.ColumnPendingAplicationsType,
-            this.ColumnPendingAplicationsFirstDay,
-            this.ColumnPendingAplicationsLastDay});
             this.dataGridViewPendingAplications.Location = new System.Drawing.Point(9, 49);
             this.dataGridViewPendingAplications.Name = "dataGridViewPendingAplications";
             this.dataGridViewPendingAplications.Size = new System.Drawing.Size(643, 266);
             this.dataGridViewPendingAplications.TabIndex = 0;
             // 
-            // ColumnPendingAplicationsStatus
-            // 
-            this.ColumnPendingAplicationsStatus.HeaderText = "Status";
-            this.ColumnPendingAplicationsStatus.Name = "ColumnPendingAplicationsStatus";
-            // 
-            // ColumnPendingAplicationsName
-            // 
-            this.ColumnPendingAplicationsName.HeaderText = "Name";
-            this.ColumnPendingAplicationsName.Name = "ColumnPendingAplicationsName";
-            // 
-            // ColumnPendingAplicationsPosition
-            // 
-            this.ColumnPendingAplicationsPosition.HeaderText = "Position";
-            this.ColumnPendingAplicationsPosition.Name = "ColumnPendingAplicationsPosition";
-            // 
-            // ColumnPendingAplicationsType
-            // 
-            this.ColumnPendingAplicationsType.HeaderText = "Type";
-            this.ColumnPendingAplicationsType.Name = "ColumnPendingAplicationsType";
-            // 
-            // ColumnPendingAplicationsFirstDay
-            // 
-            this.ColumnPendingAplicationsFirstDay.HeaderText = "First Day";
-            this.ColumnPendingAplicationsFirstDay.Name = "ColumnPendingAplicationsFirstDay";
-            // 
-            // ColumnPendingAplicationsLastDay
-            // 
-            this.ColumnPendingAplicationsLastDay.HeaderText = "Last Day";
-            this.ColumnPendingAplicationsLastDay.Name = "ColumnPendingAplicationsLastDay";
-            // 
             // tabPageEmployees
             // 
+            this.tabPageEmployees.Controls.Add(this.textBoxEmployeesPesel);
+            this.tabPageEmployees.Controls.Add(this.textBoxEmployeesSurname);
+            this.tabPageEmployees.Controls.Add(this.labelEmployeesPesel);
+            this.tabPageEmployees.Controls.Add(this.labelEmployeesSurname);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesDetailedData);
             this.tabPageEmployees.Controls.Add(this.dataGridViewEmployees);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesShowAll);
@@ -189,79 +147,44 @@
             this.tabPageEmployees.Location = new System.Drawing.Point(4, 22);
             this.tabPageEmployees.Name = "tabPageEmployees";
             this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEmployees.Size = new System.Drawing.Size(703, 392);
+            this.tabPageEmployees.Size = new System.Drawing.Size(703, 420);
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
             this.tabPageEmployees.UseVisualStyleBackColor = true;
             // 
             // buttonEmployeesDetailedData
             // 
-            this.buttonEmployeesDetailedData.Location = new System.Drawing.Point(45, 324);
+            this.buttonEmployeesDetailedData.Location = new System.Drawing.Point(37, 352);
             this.buttonEmployeesDetailedData.Name = "buttonEmployeesDetailedData";
             this.buttonEmployeesDetailedData.Size = new System.Drawing.Size(99, 48);
             this.buttonEmployeesDetailedData.TabIndex = 8;
             this.buttonEmployeesDetailedData.Text = "View detailed leave data";
             this.buttonEmployeesDetailedData.UseVisualStyleBackColor = true;
+            this.buttonEmployeesDetailedData.Click += new System.EventHandler(this.buttonEmployeesDetailedData_Click);
             // 
             // dataGridViewEmployees
             // 
             this.dataGridViewEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewEmployees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnEmployeesName,
-            this.ColumnEmployeesSurname,
-            this.ColumnEmployeesBirthDate,
-            this.ColumnEmployeesAdress,
-            this.ColumnEmployeesPesel,
-            this.ColumnEmployeesPosition});
-            this.dataGridViewEmployees.Location = new System.Drawing.Point(16, 124);
+            this.dataGridViewEmployees.Location = new System.Drawing.Point(8, 152);
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
             this.dataGridViewEmployees.Size = new System.Drawing.Size(643, 194);
             this.dataGridViewEmployees.TabIndex = 7;
             // 
-            // ColumnEmployeesName
-            // 
-            this.ColumnEmployeesName.HeaderText = "Name";
-            this.ColumnEmployeesName.Name = "ColumnEmployeesName";
-            // 
-            // ColumnEmployeesSurname
-            // 
-            this.ColumnEmployeesSurname.HeaderText = "Surname";
-            this.ColumnEmployeesSurname.Name = "ColumnEmployeesSurname";
-            // 
-            // ColumnEmployeesBirthDate
-            // 
-            this.ColumnEmployeesBirthDate.HeaderText = "Birth date";
-            this.ColumnEmployeesBirthDate.Name = "ColumnEmployeesBirthDate";
-            // 
-            // ColumnEmployeesAdress
-            // 
-            this.ColumnEmployeesAdress.HeaderText = "Adress";
-            this.ColumnEmployeesAdress.Name = "ColumnEmployeesAdress";
-            // 
-            // ColumnEmployeesPesel
-            // 
-            this.ColumnEmployeesPesel.HeaderText = "PESEL";
-            this.ColumnEmployeesPesel.Name = "ColumnEmployeesPesel";
-            // 
-            // ColumnEmployeesPosition
-            // 
-            this.ColumnEmployeesPosition.HeaderText = "Position";
-            this.ColumnEmployeesPosition.Name = "ColumnEmployeesPosition";
-            // 
             // buttonEmployeesShowAll
             // 
-            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(411, 56);
+            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(333, 110);
             this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
             this.buttonEmployeesShowAll.Size = new System.Drawing.Size(75, 36);
             this.buttonEmployeesShowAll.TabIndex = 6;
-            this.buttonEmployeesShowAll.Text = "Show all employees";
+            this.buttonEmployeesShowAll.Text = "Show all data";
             this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
+            this.buttonEmployeesShowAll.Click += new System.EventHandler(this.buttonEmployeesShowAll_Click);
             // 
             // buttonEmployeesSearch
             // 
-            this.buttonEmployeesSearch.Location = new System.Drawing.Point(303, 63);
+            this.buttonEmployeesSearch.Location = new System.Drawing.Point(193, 110);
             this.buttonEmployeesSearch.Name = "buttonEmployeesSearch";
-            this.buttonEmployeesSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonEmployeesSearch.Size = new System.Drawing.Size(75, 36);
             this.buttonEmployeesSearch.TabIndex = 5;
             this.buttonEmployeesSearch.Text = "Search";
             this.buttonEmployeesSearch.UseVisualStyleBackColor = true;
@@ -271,26 +194,25 @@
             this.comboBoxEmployeesPosition.FormattingEnabled = true;
             this.comboBoxEmployeesPosition.Items.AddRange(new object[] {
             "doctor"});
-            this.comboBoxEmployeesPosition.Location = new System.Drawing.Point(117, 65);
+            this.comboBoxEmployeesPosition.Location = new System.Drawing.Point(418, 63);
             this.comboBoxEmployeesPosition.Name = "comboBoxEmployeesPosition";
-            this.comboBoxEmployeesPosition.Size = new System.Drawing.Size(138, 21);
+            this.comboBoxEmployeesPosition.Size = new System.Drawing.Size(170, 21);
             this.comboBoxEmployeesPosition.TabIndex = 4;
             // 
             // labelEmployeesPosition
             // 
             this.labelEmployeesPosition.AutoSize = true;
-            this.labelEmployeesPosition.Location = new System.Drawing.Point(10, 65);
+            this.labelEmployeesPosition.Location = new System.Drawing.Point(330, 66);
             this.labelEmployeesPosition.Name = "labelEmployeesPosition";
             this.labelEmployeesPosition.Size = new System.Drawing.Size(82, 13);
             this.labelEmployeesPosition.TabIndex = 3;
             this.labelEmployeesPosition.Text = "Choose position";
-            this.labelEmployeesPosition.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBoxEmployeesName
             // 
-            this.textBoxEmployeesName.Location = new System.Drawing.Point(117, 34);
+            this.textBoxEmployeesName.Location = new System.Drawing.Point(67, 34);
             this.textBoxEmployeesName.Name = "textBoxEmployeesName";
-            this.textBoxEmployeesName.Size = new System.Drawing.Size(138, 20);
+            this.textBoxEmployeesName.Size = new System.Drawing.Size(201, 20);
             this.textBoxEmployeesName.TabIndex = 2;
             // 
             // labelEmployeesName
@@ -298,18 +220,18 @@
             this.labelEmployeesName.AutoSize = true;
             this.labelEmployeesName.Location = new System.Drawing.Point(10, 37);
             this.labelEmployeesName.Name = "labelEmployeesName";
-            this.labelEmployeesName.Size = new System.Drawing.Size(64, 13);
+            this.labelEmployeesName.Size = new System.Drawing.Size(38, 13);
             this.labelEmployeesName.TabIndex = 1;
-            this.labelEmployeesName.Text = "Enter name:";
+            this.labelEmployeesName.Text = "Name:";
             // 
             // labelEmployeesInfo
             // 
             this.labelEmployeesInfo.AutoSize = true;
             this.labelEmployeesInfo.Location = new System.Drawing.Point(7, 7);
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
-            this.labelEmployeesInfo.Size = new System.Drawing.Size(176, 13);
+            this.labelEmployeesInfo.Size = new System.Drawing.Size(147, 13);
             this.labelEmployeesInfo.TabIndex = 0;
-            this.labelEmployeesInfo.Text = "Here you can view employees data.";
+            this.labelEmployeesInfo.Text = "Here you can view data data.";
             // 
             // tabPageReplacements
             // 
@@ -360,7 +282,6 @@
             this.buttonReplacementsManage.TabIndex = 1;
             this.buttonReplacementsManage.Text = "Manage replacement";
             this.buttonReplacementsManage.UseVisualStyleBackColor = true;
-            this.buttonReplacementsManage.Click += new System.EventHandler(this.button6_Click);
             // 
             // dataGridViewReplacements
             // 
@@ -395,11 +316,43 @@
             this.ColumnReplacementsPosition.HeaderText = "position";
             this.ColumnReplacementsPosition.Name = "ColumnReplacementsPosition";
             // 
+            // labelEmployeesSurname
+            // 
+            this.labelEmployeesSurname.AutoSize = true;
+            this.labelEmployeesSurname.Location = new System.Drawing.Point(330, 37);
+            this.labelEmployeesSurname.Name = "labelEmployeesSurname";
+            this.labelEmployeesSurname.Size = new System.Drawing.Size(52, 13);
+            this.labelEmployeesSurname.TabIndex = 9;
+            this.labelEmployeesSurname.Text = "Surname:";
+            // 
+            // labelEmployeesPesel
+            // 
+            this.labelEmployeesPesel.AutoSize = true;
+            this.labelEmployeesPesel.Location = new System.Drawing.Point(10, 63);
+            this.labelEmployeesPesel.Name = "labelEmployeesPesel";
+            this.labelEmployeesPesel.Size = new System.Drawing.Size(44, 13);
+            this.labelEmployeesPesel.TabIndex = 10;
+            this.labelEmployeesPesel.Text = "PESEL:";
+            // 
+            // textBoxEmployeesSurname
+            // 
+            this.textBoxEmployeesSurname.Location = new System.Drawing.Point(387, 34);
+            this.textBoxEmployeesSurname.Name = "textBoxEmployeesSurname";
+            this.textBoxEmployeesSurname.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesSurname.TabIndex = 11;
+            // 
+            // textBoxEmployeesPesel
+            // 
+            this.textBoxEmployeesPesel.Location = new System.Drawing.Point(67, 60);
+            this.textBoxEmployeesPesel.Name = "textBoxEmployeesPesel";
+            this.textBoxEmployeesPesel.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesPesel.TabIndex = 12;
+            // 
             // FormAssistant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 418);
+            this.ClientSize = new System.Drawing.Size(711, 446);
             this.Controls.Add(this.tabControl);
             this.Name = "FormAssistant";
             this.Text = "Leave Manager";
@@ -439,23 +392,15 @@
         private System.Windows.Forms.Button buttonReplacementsManage;
         private System.Windows.Forms.DataGridView dataGridViewReplacements;
         private System.Windows.Forms.ComboBox comboBoxReplacementsPosition;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsPosition;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsFirstDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPendingAplicationsLastDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesSurname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesBirthDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesAdress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesPesel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmployeesPosition;
         private System.Windows.Forms.Label labelReplacementsPositionFilter;
         private System.Windows.Forms.Label labelReplacementsInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersNeeded;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersAvailable;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsPosition;
+        private System.Windows.Forms.TextBox textBoxEmployeesPesel;
+        private System.Windows.Forms.TextBox textBoxEmployeesSurname;
+        private System.Windows.Forms.Label labelEmployeesPesel;
+        private System.Windows.Forms.Label labelEmployeesSurname;
     }
 }

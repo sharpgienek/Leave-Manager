@@ -39,11 +39,6 @@
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.ColumnStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnFirstDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnLastDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnUsedDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,12 +81,6 @@
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnStatus,
-            this.ColumnFirstDay,
-            this.ColumnLastDay,
-            this.ColumnType,
-            this.ColumnUsedDays});
             this.dataGridView.Location = new System.Drawing.Point(12, 108);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(543, 331);
@@ -132,7 +121,7 @@
             this.buttonEdit.TabIndex = 22;
             this.buttonEdit.Text = "Edit leave entry";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.button1_Click);
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonAdd
             // 
@@ -142,6 +131,7 @@
             this.buttonAdd.TabIndex = 23;
             this.buttonAdd.Text = "Add new leave entry";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonDelete
             // 
@@ -151,31 +141,6 @@
             this.buttonDelete.TabIndex = 24;
             this.buttonDelete.Text = "Delete leave entry";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            // 
-            // ColumnStatus
-            // 
-            this.ColumnStatus.HeaderText = "Status";
-            this.ColumnStatus.Name = "ColumnStatus";
-            // 
-            // ColumnFirstDay
-            // 
-            this.ColumnFirstDay.HeaderText = "First Day";
-            this.ColumnFirstDay.Name = "ColumnFirstDay";
-            // 
-            // ColumnLastDay
-            // 
-            this.ColumnLastDay.HeaderText = "Last Day";
-            this.ColumnLastDay.Name = "ColumnLastDay";
-            // 
-            // ColumnType
-            // 
-            this.ColumnType.HeaderText = "Type";
-            this.ColumnType.Name = "ColumnType";
-            // 
-            // ColumnUsedDays
-            // 
-            this.ColumnUsedDays.HeaderText = "No. used days";
-            this.ColumnUsedDays.Name = "ColumnUsedDays";
             // 
             // FormEmployeeData
             // 
@@ -214,10 +179,5 @@
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFirstDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLastDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUsedDays;
     }
 }

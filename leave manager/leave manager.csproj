@@ -13,6 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -61,12 +61,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormDeleteLeaveType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeleteLeaveType.Designer.cs">
+      <DependentUpon>FormDeleteLeaveType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddLeaveType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddLeaveType.Designer.cs">
+      <DependentUpon>FormAddLeaveType.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs" />
+    <Compile Include="FormAddPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddPosition.Designer.cs">
+      <DependentUpon>FormAddPosition.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormChangeLoginOrPassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +102,12 @@
     </Compile>
     <Compile Include="FormDefineDatabase.Designer.cs">
       <DependentUpon>FormDefineDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDeletePosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeletePosition.Designer.cs">
+      <DependentUpon>FormDeletePosition.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLeaveConsideration.cs">
       <SubType>Form</SubType>
@@ -133,11 +157,11 @@
     <Compile Include="FormEmployee.Designer.cs">
       <DependentUpon>FormEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormEmployeeTakeLeave.cs">
+    <Compile Include="FormLeaveApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormEmployeeTakeLeave.Designer.cs">
-      <DependentUpon>FormEmployeeTakeLeave.cs</DependentUpon>
+    <Compile Include="FormLeaveApplication.Designer.cs">
+      <DependentUpon>FormLeaveApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="LeaveType.cs" />
     <Compile Include="Program.cs" />
@@ -145,6 +169,15 @@
     <Compile Include="StringSha.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="TimeTools.cs" />
+    <EmbeddedResource Include="FormDeleteLeaveType.resx">
+      <DependentUpon>FormDeleteLeaveType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddLeaveType.resx">
+      <DependentUpon>FormAddLeaveType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddPosition.resx">
+      <DependentUpon>FormAddPosition.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormChangeLoginOrPassword.resx">
       <DependentUpon>FormChangeLoginOrPassword.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDefineDatabase.resx">
       <DependentUpon>FormDefineDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDeletePosition.resx">
+      <DependentUpon>FormDeletePosition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLeaveConsideration.resx">
       <DependentUpon>FormLeaveConsideration.cs</DependentUpon>
@@ -178,8 +214,8 @@
     <EmbeddedResource Include="FormEmployee.resx">
       <DependentUpon>FormEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormEmployeeTakeLeave.resx">
-      <DependentUpon>FormEmployeeTakeLeave.cs</DependentUpon>
+    <EmbeddedResource Include="FormLeaveApplication.resx">
+      <DependentUpon>FormLeaveApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

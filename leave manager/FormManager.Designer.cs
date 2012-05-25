@@ -34,12 +34,6 @@
             this.buttonConsider = new System.Windows.Forms.Button();
             this.labelNeedsActionInfo = new System.Windows.Forms.Label();
             this.dataGridViewNeedsAction = new System.Windows.Forms.DataGridView();
-            this.ColumnNeedsActionStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNeedsActionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNeedsActionPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNeedsActionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNeedsActionFirstDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnNeedsActionLastDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageEmployees = new System.Windows.Forms.TabPage();
             this.buttonEmployeesAdd = new System.Windows.Forms.Button();
             this.buttonEmployeesDetailedData = new System.Windows.Forms.Button();
@@ -116,6 +110,7 @@
             this.buttonConsider.TabIndex = 2;
             this.buttonConsider.Text = "Consider";
             this.buttonConsider.UseVisualStyleBackColor = true;
+            this.buttonConsider.Click += new System.EventHandler(this.buttonConsider_Click);
             // 
             // labelNeedsActionInfo
             // 
@@ -129,47 +124,10 @@
             // dataGridViewNeedsAction
             // 
             this.dataGridViewNeedsAction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewNeedsAction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnNeedsActionStatus,
-            this.ColumnNeedsActionName,
-            this.ColumnNeedsActionPosition,
-            this.ColumnNeedsActionType,
-            this.ColumnNeedsActionFirstDay,
-            this.ColumnNeedsActionLastDay});
             this.dataGridViewNeedsAction.Location = new System.Drawing.Point(9, 49);
             this.dataGridViewNeedsAction.Name = "dataGridViewNeedsAction";
             this.dataGridViewNeedsAction.Size = new System.Drawing.Size(643, 266);
             this.dataGridViewNeedsAction.TabIndex = 0;
-            // 
-            // ColumnNeedsActionStatus
-            // 
-            this.ColumnNeedsActionStatus.HeaderText = "Status";
-            this.ColumnNeedsActionStatus.Name = "ColumnNeedsActionStatus";
-            // 
-            // ColumnNeedsActionName
-            // 
-            this.ColumnNeedsActionName.HeaderText = "Name";
-            this.ColumnNeedsActionName.Name = "ColumnNeedsActionName";
-            // 
-            // ColumnNeedsActionPosition
-            // 
-            this.ColumnNeedsActionPosition.HeaderText = "Position";
-            this.ColumnNeedsActionPosition.Name = "ColumnNeedsActionPosition";
-            // 
-            // ColumnNeedsActionType
-            // 
-            this.ColumnNeedsActionType.HeaderText = "Type";
-            this.ColumnNeedsActionType.Name = "ColumnNeedsActionType";
-            // 
-            // ColumnNeedsActionFirstDay
-            // 
-            this.ColumnNeedsActionFirstDay.HeaderText = "First Day";
-            this.ColumnNeedsActionFirstDay.Name = "ColumnNeedsActionFirstDay";
-            // 
-            // ColumnNeedsActionLastDay
-            // 
-            this.ColumnNeedsActionLastDay.HeaderText = "Last Day";
-            this.ColumnNeedsActionLastDay.Name = "ColumnNeedsActionLastDay";
             // 
             // tabPageEmployees
             // 
@@ -224,7 +182,7 @@
             this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
             this.buttonEmployeesShowAll.Size = new System.Drawing.Size(75, 36);
             this.buttonEmployeesShowAll.TabIndex = 6;
-            this.buttonEmployeesShowAll.Text = "Show all employees";
+            this.buttonEmployeesShowAll.Text = "Show all data";
             this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
             // 
             // buttonEmployeesSearch
@@ -276,9 +234,9 @@
             this.labelEmployeesInfo.AutoSize = true;
             this.labelEmployeesInfo.Location = new System.Drawing.Point(7, 7);
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
-            this.labelEmployeesInfo.Size = new System.Drawing.Size(217, 13);
+            this.labelEmployeesInfo.Size = new System.Drawing.Size(188, 13);
             this.labelEmployeesInfo.TabIndex = 0;
-            this.labelEmployeesInfo.Text = "Here you can view and edit employees data.";
+            this.labelEmployeesInfo.Text = "Here you can view and edit data data.";
             // 
             // tabPageReplacements
             // 
@@ -422,12 +380,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.Button buttonEmployeesAdd;
         private System.Windows.Forms.TabPage tabPageReport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionPosition;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionFirstDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNeedsActionLastDay;
         private System.Windows.Forms.Label labelReplacementsPositionFilter;
         private System.Windows.Forms.Label labelReplacementsInfo;
         private System.Windows.Forms.ComboBox comboBoxReplacementsPosition;

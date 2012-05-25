@@ -27,10 +27,23 @@ ver. 0.14
 		=> GetNumberOfWorkDays
 		=> IsDateFromPeriodUsed informuj¹c¹, czy jakaœ data z przedzia³u czasu jest ju¿ zarezerwowana w jakimœ zg³oszeniu urlopowym.
 	- Dodano mo¿liwoœæ zg³oszenia chêci odbycia urlopu
-		
+
+ver. 0.15
+	- Naprawiono zg³aszanie chêci urlopu	
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez asystentke	
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez kierownika
+	- Dodano mo¿liwoœæ dodawania/usuwania nowych wpisów do s³owników pozycji i typów urlopów przez administratora
+	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
 
 Pytania:
 Kiedy ustawiaæ now¹ pulê leave days?
+Jakie mo¿liwoœci edycji urlopu daæ rejestratorce/kierownikowi?
+
+Wymagania do danych
+W tabeli Permission id musi byæ od 0 do max bez wartoœci pustych (nie mo¿e byæ np. takiej sytuacji {0,1,3})
+
+Do zrobienia na koñcu:
+Obs³uga b³êdów przy wszystkich transakcjach, lub wykonaniach zapytañ.

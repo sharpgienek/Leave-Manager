@@ -70,7 +70,7 @@
             this.buttonShowAll.Name = "buttonShowAll";
             this.buttonShowAll.Size = new System.Drawing.Size(75, 36);
             this.buttonShowAll.TabIndex = 15;
-            this.buttonShowAll.Text = "Show all employees";
+            this.buttonShowAll.Text = "Show all data";
             this.buttonShowAll.UseVisualStyleBackColor = true;
             // 
             // buttonSearch

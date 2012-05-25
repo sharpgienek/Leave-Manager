@@ -1,6 +1,6 @@
 ﻿namespace leave_manager
 {
-    partial class FormEmployeeTakeLeave
+    partial class FormLeaveApplication
     {
         /// <summary>
         /// Required designer variable.
@@ -47,6 +47,8 @@
             this.labelNormalValue = new System.Windows.Forms.Label();
             this.labelOldValue = new System.Windows.Forms.Label();
             this.labelOld = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -74,9 +76,9 @@
             this.labelInfo.AutoSize = true;
             this.labelInfo.Location = new System.Drawing.Point(29, 18);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(160, 13);
+            this.labelInfo.Size = new System.Drawing.Size(155, 13);
             this.labelInfo.TabIndex = 2;
-            this.labelInfo.Text = "Your\'re about to aply for a leave ";
+            this.labelInfo.Text = "Specify leave aplication details.";
             // 
             // labelFirstDay
             // 
@@ -99,7 +101,7 @@
             // labelAvailableDays
             // 
             this.labelAvailableDays.AutoSize = true;
-            this.labelAvailableDays.Location = new System.Drawing.Point(32, 260);
+            this.labelAvailableDays.Location = new System.Drawing.Point(32, 280);
             this.labelAvailableDays.Name = "labelAvailableDays";
             this.labelAvailableDays.Size = new System.Drawing.Size(81, 13);
             this.labelAvailableDays.TabIndex = 5;
@@ -144,7 +146,7 @@
             // labelUsedDays
             // 
             this.labelUsedDays.AutoSize = true;
-            this.labelUsedDays.Location = new System.Drawing.Point(32, 247);
+            this.labelUsedDays.Location = new System.Drawing.Point(32, 267);
             this.labelUsedDays.Name = "labelUsedDays";
             this.labelUsedDays.Size = new System.Drawing.Size(60, 13);
             this.labelUsedDays.TabIndex = 10;
@@ -153,7 +155,7 @@
             // labelUsedDaysValue
             // 
             this.labelUsedDaysValue.AutoSize = true;
-            this.labelUsedDaysValue.Location = new System.Drawing.Point(120, 247);
+            this.labelUsedDaysValue.Location = new System.Drawing.Point(120, 267);
             this.labelUsedDaysValue.Name = "labelUsedDaysValue";
             this.labelUsedDaysValue.Size = new System.Drawing.Size(0, 13);
             this.labelUsedDaysValue.TabIndex = 11;
@@ -161,7 +163,7 @@
             // labelAvailableDaysValue
             // 
             this.labelAvailableDaysValue.AutoSize = true;
-            this.labelAvailableDaysValue.Location = new System.Drawing.Point(120, 260);
+            this.labelAvailableDaysValue.Location = new System.Drawing.Point(120, 280);
             this.labelAvailableDaysValue.Name = "labelAvailableDaysValue";
             this.labelAvailableDaysValue.Size = new System.Drawing.Size(0, 13);
             this.labelAvailableDaysValue.TabIndex = 12;
@@ -169,7 +171,7 @@
             // labelRemarks
             // 
             this.labelRemarks.AutoSize = true;
-            this.labelRemarks.Location = new System.Drawing.Point(35, 114);
+            this.labelRemarks.Location = new System.Drawing.Point(35, 134);
             this.labelRemarks.Name = "labelRemarks";
             this.labelRemarks.Size = new System.Drawing.Size(49, 13);
             this.labelRemarks.TabIndex = 13;
@@ -177,7 +179,7 @@
             // 
             // textBoxRemarks
             // 
-            this.textBoxRemarks.Location = new System.Drawing.Point(35, 130);
+            this.textBoxRemarks.Location = new System.Drawing.Point(35, 150);
             this.textBoxRemarks.Multiline = true;
             this.textBoxRemarks.Name = "textBoxRemarks";
             this.textBoxRemarks.Size = new System.Drawing.Size(237, 114);
@@ -186,7 +188,7 @@
             // labelNormal
             // 
             this.labelNormal.AutoSize = true;
-            this.labelNormal.Location = new System.Drawing.Point(146, 260);
+            this.labelNormal.Location = new System.Drawing.Point(146, 280);
             this.labelNormal.Name = "labelNormal";
             this.labelNormal.Size = new System.Drawing.Size(43, 13);
             this.labelNormal.TabIndex = 15;
@@ -195,7 +197,7 @@
             // labelNormalValue
             // 
             this.labelNormalValue.AutoSize = true;
-            this.labelNormalValue.Location = new System.Drawing.Point(194, 260);
+            this.labelNormalValue.Location = new System.Drawing.Point(194, 280);
             this.labelNormalValue.Name = "labelNormalValue";
             this.labelNormalValue.Size = new System.Drawing.Size(0, 13);
             this.labelNormalValue.TabIndex = 16;
@@ -203,7 +205,7 @@
             // labelOldValue
             // 
             this.labelOldValue.AutoSize = true;
-            this.labelOldValue.Location = new System.Drawing.Point(194, 273);
+            this.labelOldValue.Location = new System.Drawing.Point(194, 293);
             this.labelOldValue.Name = "labelOldValue";
             this.labelOldValue.Size = new System.Drawing.Size(0, 13);
             this.labelOldValue.TabIndex = 18;
@@ -211,17 +213,36 @@
             // labelOld
             // 
             this.labelOld.AutoSize = true;
-            this.labelOld.Location = new System.Drawing.Point(146, 273);
+            this.labelOld.Location = new System.Drawing.Point(146, 293);
             this.labelOld.Name = "labelOld";
             this.labelOld.Size = new System.Drawing.Size(26, 13);
             this.labelOld.TabIndex = 17;
             this.labelOld.Text = "Old:";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(32, 105);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(40, 13);
+            this.labelStatus.TabIndex = 19;
+            this.labelStatus.Text = "Status:";
+            // 
+            // comboBoxStatus
+            // 
+            this.comboBoxStatus.FormattingEnabled = true;
+            this.comboBoxStatus.Location = new System.Drawing.Point(91, 102);
+            this.comboBoxStatus.Name = "comboBoxStatus";
+            this.comboBoxStatus.Size = new System.Drawing.Size(181, 21);
+            this.comboBoxStatus.TabIndex = 20;
             // 
             // FormEmployeeTakeLeave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 346);
+            this.Controls.Add(this.comboBoxStatus);
+            this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelOldValue);
             this.Controls.Add(this.labelOld);
             this.Controls.Add(this.labelNormalValue);
@@ -269,5 +290,7 @@
         private System.Windows.Forms.Label labelNormalValue;
         private System.Windows.Forms.Label labelOldValue;
         private System.Windows.Forms.Label labelOld;
+        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.ComboBox comboBoxStatus;
     }
 }

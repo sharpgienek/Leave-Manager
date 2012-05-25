@@ -39,13 +39,13 @@
             this.labelFirstDayValue = new System.Windows.Forms.Label();
             this.labelLastDayValue = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.ColumnDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnWorkersAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnWorkersNeeded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelDependencies = new System.Windows.Forms.Label();
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonReject = new System.Windows.Forms.Button();
             this.buttonLeaveUnchanged = new System.Windows.Forms.Button();
-            this.ColumnDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnWorkersAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnWorkersNeeded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -160,6 +160,21 @@
             this.dataGridView.Size = new System.Drawing.Size(344, 236);
             this.dataGridView.TabIndex = 0;
             // 
+            // ColumnDay
+            // 
+            this.ColumnDay.HeaderText = "Day";
+            this.ColumnDay.Name = "ColumnDay";
+            // 
+            // ColumnWorkersAvailable
+            // 
+            this.ColumnWorkersAvailable.HeaderText = "No. similar workers available";
+            this.ColumnWorkersAvailable.Name = "ColumnWorkersAvailable";
+            // 
+            // ColumnWorkersNeeded
+            // 
+            this.ColumnWorkersNeeded.HeaderText = "No. similar workers needed";
+            this.ColumnWorkersNeeded.Name = "ColumnWorkersNeeded";
+            // 
             // labelDependencies
             // 
             this.labelDependencies.AutoSize = true;
@@ -177,6 +192,7 @@
             this.buttonAccept.TabIndex = 7;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // buttonReject
             // 
@@ -186,6 +202,7 @@
             this.buttonReject.TabIndex = 8;
             this.buttonReject.Text = "Reject";
             this.buttonReject.UseVisualStyleBackColor = true;
+            this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
             // 
             // buttonLeaveUnchanged
             // 
@@ -195,21 +212,7 @@
             this.buttonLeaveUnchanged.TabIndex = 9;
             this.buttonLeaveUnchanged.Text = "Leave uchanged";
             this.buttonLeaveUnchanged.UseVisualStyleBackColor = true;
-            // 
-            // ColumnDay
-            // 
-            this.ColumnDay.HeaderText = "Day";
-            this.ColumnDay.Name = "ColumnDay";
-            // 
-            // ColumnWorkersAvailable
-            // 
-            this.ColumnWorkersAvailable.HeaderText = "No. similar workers available";
-            this.ColumnWorkersAvailable.Name = "ColumnWorkersAvailable";
-            // 
-            // ColumnWorkersNeeded
-            // 
-            this.ColumnWorkersNeeded.HeaderText = "No. similar workers needed";
-            this.ColumnWorkersNeeded.Name = "ColumnWorkersNeeded";
+            this.buttonLeaveUnchanged.Click += new System.EventHandler(this.buttonLeaveUnchanged_Click);
             // 
             // FormLeaveConsideration
             // 

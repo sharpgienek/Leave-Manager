@@ -26,8 +26,8 @@ namespace leave_manager
             dateTimePickerBirthDate.MaxDate = (DateTime.Today.AddYears(-16));
             dateTimePickerBirthDate.Value = (DateTime.Today.AddYears(-20));
 
-            comboBoxPermissions.DataSource = Dictionary.getPermissions(connection);
-            comboBoxPossition.DataSource = Dictionary.getPositions(connection);
+            comboBoxPermissions.DataSource = Dictionary.GetPermissions(connection);
+            comboBoxPossition.DataSource = Dictionary.GetPositions(connection);
             //todo usunąć dane wspomagające testy poniżej
             textBoxName.Text = "trol";
             textBoxSurname.Text = "trol";
@@ -163,10 +163,11 @@ namespace leave_manager
                 SqlCommand commandInsertEmployee = new SqlCommand("INSERT INTO Employee (Employee_ID, Permission_ID, Position_ID, " +
                   "Login, Password, Name, Surname, Birth_date, Address, PESEL, EMail, " +
                   "Year_leave_days, Leave_days, Old_leave_days) VALUES ((SELECT MAX(Employee_ID) + 1 FROM Employee)," +
-                  "@Permission_ID, @Position_ID, @Login, @Password, @Name, @Surname, @Birth_date, @Address," +
+                  "@Permission_ID, (SELECT Position_ID FROM Position WHERE Description = @Description), @Login, @Password, @Name, @Surname, @Birth_date, @Address," +
                   "@PESEL, @EMail, @Year_leave_days, @Leave_days, 0)", connection, transaction);
                 commandInsertEmployee.Parameters.Add("@Permission_ID", SqlDbType.Int).Value = comboBoxPermissions.SelectedIndex;
-                commandInsertEmployee.Parameters.Add("@Position_ID", SqlDbType.Int).Value = comboBoxPossition.SelectedIndex;
+               // commandInsertEmployee.Parameters.Add("@Position_ID", SqlDbType.Int).Value = comboBoxPossition.SelectedIndex;
+                commandInsertEmployee.Parameters.Add("@Description", SqlDbType.VarChar).Value = comboBoxPossition.SelectedItem.ToString();
                 commandInsertEmployee.Parameters.Add("@Login", SqlDbType.VarChar).Value = login.ToString();
                 commandInsertEmployee.Parameters.Add("@Password", SqlDbType.VarChar).Value = StringSha.GetSha256Managed(password.ToString());
                 commandInsertEmployee.Parameters.Add("@Name", SqlDbType.VarChar).Value = textBoxName.Text;

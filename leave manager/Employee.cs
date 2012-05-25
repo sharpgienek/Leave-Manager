@@ -9,12 +9,15 @@ namespace leave_manager
     public class Employee
     {
         public Employee()
-        { }
-        public Employee(int employeeID, String permission, String name, String surname,
+        { 
+
+        }
+
+        public Employee(int employeeId, String permission, String name, String surname,
             DateTime birthDate, String address, String pesel, String eMail, 
             String position,int yearLeaveDays, int leaveDays, int oldLeaveDays)
         {
-            this.employeeID = employeeID;
+            this.employeeId = employeeId;
             this.permission = permission;
             this.name = name;
             this.surname = surname;
@@ -27,8 +30,8 @@ namespace leave_manager
             this.leaveDays = leaveDays;
             this.oldLeaveDays = oldLeaveDays;
         }
-        private int employeeID;
-        public int EmployeeID { get { return employeeID; } set { employeeID = value; } }
+        private int employeeId;
+        public int EmployeeId { get { return employeeId; } set { employeeId = value; } }
         
         private String permission;
         public String Permission { get { return permission; } set { permission = value; } }
