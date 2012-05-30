@@ -14,14 +14,14 @@ namespace leave_manager {
     
     
     /// <summary>
-    ///Represents a strongly typed in-memory cache of data.
+    ///Represents a strongly typed in-memory cache of dataLeaves.
     ///</summary>
     [global::System.Serializable()]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
     [global::System.Xml.Serialization.XmlRootAttribute("DatabaseDataSet")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.dataLeaves.DataSet")]
     public partial class DatabaseDataSet : global::System.Data.DataSet {
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;

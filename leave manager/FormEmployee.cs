@@ -14,6 +14,10 @@ namespace leave_manager
     {
         private SqlConnection connection;
         private Employee employee;
+
+        public FormEmployee()
+        { }
+
         public FormEmployee(SqlConnection connection, Employee employee)
         {
             InitializeComponent();
@@ -53,7 +57,7 @@ namespace leave_manager
                 readerLeaves.Close();
                 transaction.Commit();
                 data.Columns.Add("No. used days");
-                int unaprovedUsedDays = 0;
+               // int sumOfUsedDays = 0;
                 int usedDays;
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
@@ -61,23 +65,23 @@ namespace leave_manager
                     {
                         data.Rows[i]["No. used days"] = usedDays = TimeTools.GetNumberOfWorkDays((DateTime)data.Rows[i]["First day"],
                                 (DateTime)data.Rows[i]["Last day"]);
-                        if (!data.Rows[i]["Status"].ToString().Equals("Approved") && !data.Rows[i]["Status"].ToString().Equals("Rejected"))
+                       /* if (!data.Rows[i]["Status"].ToString().Equals("Approved") && !data.Rows[i]["Status"].ToString().Equals("Rejected"))
                         {
-                            unaprovedUsedDays += usedDays;
-                        }
+                            sumOfUsedDays += usedDays;
+                        }*/
                     }
                     else
                         data.Rows[i]["No. used days"] = 0;
                 }
-                if (employee.OldLeaveDays >= unaprovedUsedDays)
+                /*if (employee.OldLeaveDays >= sumOfUsedDays)
                 {
-                    employee.OldLeaveDays -= unaprovedUsedDays;
+                    employee.OldLeaveDays -= sumOfUsedDays;
                 }
                 else
                 {                    
-                    employee.LeaveDays -= (unaprovedUsedDays - employee.OldLeaveDays);
+                    employee.LeaveDays -= (sumOfUsedDays - employee.OldLeaveDays);
                     employee.OldLeaveDays = 0;
-                }
+                }*/
                 data.Columns.Remove("Consumes_days");
                 dataGridView.DataSource = data;
                 labelDaysToUseValue.Text = (employee.LeaveDays + employee.OldLeaveDays).ToString();
@@ -100,11 +104,11 @@ namespace leave_manager
             SqlCommand commandUpdateLeave = new SqlCommand("Select Leave_days, Old_leave_days " +
                 "FROM Employee WHERE Employee_ID = @Employee_ID", connection);
             commandUpdateLeave.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employee.EmployeeId;
-            SqlDataReader reader = commandUpdateLeave.ExecuteReader();//todo try catch
-            reader.Read();
-            employee.LeaveDays = (int)reader["Leave_days"];
-            employee.OldLeaveDays = (int)reader["Old_leave_days"];
-            reader.Close();
+            SqlDataReader readerLeaves = commandUpdateLeave.ExecuteReader();//todo try catch
+            readerLeaves.Read();
+            employee.LeaveDays = (int)readerLeaves["Leave_days"];
+            employee.OldLeaveDays = (int)readerLeaves["Old_leave_days"];
+            readerLeaves.Close();
             labelDaysToUseValue.Text = (employee.LeaveDays + employee.OldLeaveDays).ToString();
 
         }*/
@@ -112,7 +116,7 @@ namespace leave_manager
         private void buttonTakeLeave_Click(object sender, EventArgs e)
         {
             //FormEmployeeTakeLeave form = new FormEmployeeTakeLeave(connection, employee);
-            FormLeaveApplication form = new FormLeaveApplication(connection, employee.LeaveDays, employee.OldLeaveDays, employee.EmployeeId);
+            FormLeaveApplication form = new FormLeaveApplication(this, connection, employee.EmployeeId);
             form.FormClosed += new FormClosedEventHandler(refreshData);
             form.Show();
         }
@@ -130,11 +134,38 @@ namespace leave_manager
                 {
                     if (!row.Cells["Status"].Value.ToString().Equals("Approved"))
                     {
-                        SqlCommand command = new SqlCommand("DELETE FROM Leave WHERE " +
+                        SqlCommand commandDeleteLeave = new SqlCommand("DELETE FROM Leave WHERE " +
                             "Employee_ID = @Employee_ID AND First_day = @First_day", connection, transaction);
-                        command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employee.EmployeeId;
-                        command.Parameters.Add("@First_day", SqlDbType.Date).Value = row.Cells["First day"].Value;
-                        command.ExecuteNonQuery();
+                        commandDeleteLeave.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employee.EmployeeId;
+                        commandDeleteLeave.Parameters.Add("@First_day", SqlDbType.Date).Value = row.Cells["First day"].Value;
+                        commandDeleteLeave.ExecuteNonQuery();
+                       
+                        
+                        SqlCommand commandReadDays = new SqlCommand("SELECT Year_leave_days, Leave_days, Old_leave_days " +
+                                "FROM Employee WHERE Employee_ID = @Employee_ID", connection, transaction);
+                        commandReadDays.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employee.EmployeeId;
+                        SqlDataReader readerDays = commandReadDays.ExecuteReader();
+                        readerDays.Read();//todo try catch?
+                        SqlCommand commandUpdateEmployee = new SqlCommand("UPDATE Employee SET " +
+                            "Leave_days = @Leave_days, Old_leave_days = @Old_leave_days " +
+                            "WHERE Employee_ID = @Employee_ID", connection, transaction);
+                        int returnedLeaveDays = ((DateTime)row.Cells["First day"].Value).GetNumberOfWorkDays((DateTime)row.Cells["Last day"].Value);
+                        if ((int)readerDays["Leave_days"] + returnedLeaveDays > (int)readerDays["Year_leave_days"])
+                        {
+                            commandUpdateEmployee.Parameters.Add("@Leave_days", SqlDbType.Int).Value = (int)readerDays["Year_leave_days"];
+                            commandUpdateEmployee.Parameters.Add("@Old_leave_days", SqlDbType.Int).Value =
+                                (int)readerDays["Old_leave_days"] + returnedLeaveDays - ((int)readerDays["Year_leave_days"] - (int)readerDays["Leave_days"]);
+                        }
+                        else
+                        {
+                            commandUpdateEmployee.Parameters.Add("@Leave_days", SqlDbType.Int).Value = (int)readerDays["Leave_days"] + returnedLeaveDays;
+                            commandUpdateEmployee.Parameters.Add("@Old_leave_days", SqlDbType.Int).Value = 0;
+                        }
+                        readerDays.Close();
+                        commandUpdateEmployee.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employee.EmployeeId;
+                        commandUpdateEmployee.ExecuteNonQuery();
+                       // SqlCommand commandUpdateDays = new SqlCommand("UPDATE Employee SET @
+
                     }
                     else
                     {

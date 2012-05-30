@@ -43,7 +43,7 @@ namespace leave_manager
                     {
                         case "administrator":
                            // Application.Run(new FormAdmin(connection));
-                            //Application.Run(new FormEmployee(connection, form.Employee));
+                         //  Application.Run(new FormEmployee(connection, form.Employee));
                             Application.Run(new FormAssistant(connection));
                           //  Application.Run(new FormManager(connection));
                             break;

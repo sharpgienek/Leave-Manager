@@ -243,10 +243,17 @@ namespace leave_manager
             {
                 if (dataGridViewLeaveTypes.SelectedRows.Count == 1)
                 {
-                    FormDeleteLeaveType form = new FormDeleteLeaveType(connection,
-                        dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString());
-                    form.FormClosed += new FormClosedEventHandler(refreshDataGridViewLeaveTypes);
-                    form.Show();
+                    if (!dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString().Equals("Sick"))
+                    {
+                        FormDeleteLeaveType form = new FormDeleteLeaveType(connection,
+                            dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString());
+                        form.FormClosed += new FormClosedEventHandler(refreshDataGridViewLeaveTypes);
+                        form.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("You are not allowed to delete this leave type.");
+                    }
                 }
                 else
                 {

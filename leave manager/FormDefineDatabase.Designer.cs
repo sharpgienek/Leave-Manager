@@ -81,7 +81,7 @@
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(105, 13);
             this.labelInfo.TabIndex = 4;
-            this.labelInfo.Text = "Choose data source.";
+            this.labelInfo.Text = "Choose dataLeaves source.";
             // 
             // labelIpPort
             // 

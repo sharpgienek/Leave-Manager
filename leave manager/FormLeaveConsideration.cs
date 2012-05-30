@@ -16,15 +16,18 @@ namespace leave_manager
         private int employeeId;
         private DateTime firstDay;
         private DateTime lastDay;
-        private String aprovalStatus;
-        public FormLeaveConsideration(SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay, String aprovalStatus)
+      //  private String aprovalStatus;
+        private object parent;
+      //  public FormLeaveConsideration(SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay, String aprovalStatus)
+        public FormLeaveConsideration(SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay, object parent)
         {
             InitializeComponent();
             this.connection = connection;
             this.employeeId = employeeId;
             this.firstDay = firstDay;
             this.lastDay = lastDay;
-            this.aprovalStatus = aprovalStatus;
+          //  this.aprovalStatus = aprovalStatus;
+            this.parent = parent;
             SqlCommand command = new SqlCommand("SELECT E.Name, E.Surname, P.Description AS 'Position' " +
                 "FROM Employee E, Position P WHERE E.Employee_ID = @Employee_ID " +
                 "AND E.Position_ID = P.Position_ID", connection);
@@ -53,10 +56,18 @@ namespace leave_manager
                     "AND First_day = @First_day ", connection, transaction);
                 commandUpdateLeave.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
                 commandUpdateLeave.Parameters.Add("@First_day", SqlDbType.Date).Value = firstDay;
-                commandUpdateLeave.Parameters.Add("@Name", SqlDbType.VarChar).Value = aprovalStatus;
+                if (parent.GetType() == new FormAssistant().GetType())
+                {
+                    commandUpdateLeave.Parameters.Add("@Name", SqlDbType.VarChar).Value = "Pending manager aproval";
+                }
+                else
+                {
+                    commandUpdateLeave.Parameters.Add("@Name", SqlDbType.VarChar).Value = "Approved";
+                }
+                
                 commandUpdateLeave.ExecuteNonQuery();//todo try catch;
                 int numberOfDays = TimeTools.GetNumberOfWorkDays(firstDay, lastDay);
-                if (aprovalStatus.Equals("Approved"))
+           /*     if (aprovalStatus.Equals("Approved"))
                 {
                     SqlCommand commandSelectConsumesDays = new SqlCommand("SELECT LT.Consumes_days FROM Leave L, " +
                         "Leave_type LT WHERE L.LT_ID = LT.LT_ID AND L.Employee_ID = @Employee_ID " +
@@ -93,7 +104,7 @@ namespace leave_manager
                         commandUpdateEmployee.ExecuteNonQuery();
                     }
                     readerConsumesDays.Close();
-                }
+                }*/
                 transaction.Commit();
            // }
           //  catch

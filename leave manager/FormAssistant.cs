@@ -14,6 +14,9 @@ namespace leave_manager
     {
         private SqlConnection connection;
 
+        public FormAssistant()
+        { }
+
         public FormAssistant(SqlConnection connection)
         {
             InitializeComponent();
@@ -71,7 +74,7 @@ namespace leave_manager
             {
                 FormLeaveConsideration form = new FormLeaveConsideration(connection,
                    (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value, "Pending manager aproval");
+                   (DateTime)row.Cells["Last day"].Value, this);
                 form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPendingAplications);
                 form.Show();
             }
@@ -90,7 +93,7 @@ namespace leave_manager
             }
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
             {
-                FormEmployeeData form = new FormEmployeeData(connection, (int)row.Cells[0].Value,
+                FormEmployeeData form = new FormEmployeeData(this, connection, (int)row.Cells["Employee id"].Value,
                     row.Cells["Name"].Value.ToString(), row.Cells["Surname"].Value.ToString(),
                     row.Cells["Position"].Value.ToString(), (int)row.Cells["Leave_days"].Value,
                     (int)row.Cells["Old_leave_days"].Value);

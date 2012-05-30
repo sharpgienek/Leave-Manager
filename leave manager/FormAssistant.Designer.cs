@@ -158,7 +158,7 @@
             this.buttonEmployeesDetailedData.Name = "buttonEmployeesDetailedData";
             this.buttonEmployeesDetailedData.Size = new System.Drawing.Size(99, 48);
             this.buttonEmployeesDetailedData.TabIndex = 8;
-            this.buttonEmployeesDetailedData.Text = "View detailed leave data";
+            this.buttonEmployeesDetailedData.Text = "View detailed leave dataLeaves";
             this.buttonEmployeesDetailedData.UseVisualStyleBackColor = true;
             this.buttonEmployeesDetailedData.Click += new System.EventHandler(this.buttonEmployeesDetailedData_Click);
             // 
@@ -176,7 +176,7 @@
             this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
             this.buttonEmployeesShowAll.Size = new System.Drawing.Size(75, 36);
             this.buttonEmployeesShowAll.TabIndex = 6;
-            this.buttonEmployeesShowAll.Text = "Show all data";
+            this.buttonEmployeesShowAll.Text = "Show all dataLeaves";
             this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
             this.buttonEmployeesShowAll.Click += new System.EventHandler(this.buttonEmployeesShowAll_Click);
             // 
@@ -231,7 +231,7 @@
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
             this.labelEmployeesInfo.Size = new System.Drawing.Size(147, 13);
             this.labelEmployeesInfo.TabIndex = 0;
-            this.labelEmployeesInfo.Text = "Here you can view data data.";
+            this.labelEmployeesInfo.Text = "Here you can view dataLeaves dataLeaves.";
             // 
             // tabPageReplacements
             // 

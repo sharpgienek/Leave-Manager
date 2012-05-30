@@ -238,7 +238,7 @@
             this.labelDataSourceInfo.Name = "labelDataSourceInfo";
             this.labelDataSourceInfo.Size = new System.Drawing.Size(105, 13);
             this.labelDataSourceInfo.TabIndex = 19;
-            this.labelDataSourceInfo.Text = "Choose data source.";
+            this.labelDataSourceInfo.Text = "Choose dataLeaves source.";
             // 
             // radioButtonDataSourceRemote
             // 
@@ -306,7 +306,7 @@
             this.labelNewEmployeesInfo.Name = "labelNewEmployeesInfo";
             this.labelNewEmployeesInfo.Size = new System.Drawing.Size(405, 13);
             this.labelNewEmployeesInfo.TabIndex = 1;
-            this.labelNewEmployeesInfo.Text = "Here is the list of new data that needs to be informed about their login and pass" +
+            this.labelNewEmployeesInfo.Text = "Here is the list of new dataLeaves that needs to be informed about their login and pass" +
     "word.";
             // 
             // dataGridViewNewEmployees

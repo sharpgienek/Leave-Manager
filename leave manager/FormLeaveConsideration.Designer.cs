@@ -110,7 +110,7 @@
             this.groupBoxEmployee.Size = new System.Drawing.Size(171, 82);
             this.groupBoxEmployee.TabIndex = 5;
             this.groupBoxEmployee.TabStop = false;
-            this.groupBoxEmployee.Text = "Employee data";
+            this.groupBoxEmployee.Text = "Employee dataLeaves";
             // 
             // labelNameValue
             // 

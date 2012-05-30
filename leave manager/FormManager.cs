@@ -13,6 +13,10 @@ namespace leave_manager
     public partial class FormManager : Form
     {
         private SqlConnection connection;
+
+      //  public FormManager()
+       // { }
+
         public FormManager(SqlConnection connection)
         {
             InitializeComponent();
@@ -100,7 +104,7 @@ namespace leave_manager
             {
                 FormLeaveConsideration form = new FormLeaveConsideration(connection,
                    (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value, "Approved");
+                   (DateTime)row.Cells["Last day"].Value, this);
                 form.FormClosed += new FormClosedEventHandler(refreshDataGridViewNeedsAction);
                 form.Show();
             }
