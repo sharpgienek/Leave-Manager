@@ -15,7 +15,7 @@ namespace leave_manager
         /// </summary>
         [STAThread]
         static void Main()
-        {
+        {          
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             String connectionString = "";
@@ -34,30 +34,30 @@ namespace leave_manager
             if (!FormDefineDatabase.checkConnection(connection))
                 MessageBox.Show("Could not connect to database. Try again later. If this problem will not stop, contact your administrator.");
             else
-            {                
-                connection.Open();
-                FormLogin form = new FormLogin(connection);
+            {
+                DatabaseOperator databaseOperator = new DatabaseOperator(connection);
+                FormLogin form = new FormLogin(databaseOperator);
                 Application.Run(form);
                 if(form.LoggedIn)
                     switch (form.Employee.Permission)
                     {
                         case "administrator":
-                           // Application.Run(new FormAdmin(connection));
-                         //  Application.Run(new FormEmployee(connection, form.Employee));
-                            Application.Run(new FormAssistant(connection));
-                          //  Application.Run(new FormManager(connection));
+                          //Application.Run(new FormAdmin(connection));
+                          // Application.Run(new FormEmployee(databaseOperator, form.Employee));
+                            Application.Run(new FormAssistant(databaseOperator));
+                            //Application.Run(new FormManager(databaseOperator));
                             break;
                         case "manager":
-                            Application.Run(new FormManager(connection));
+                            Application.Run(new FormManager(databaseOperator));
                             break;
                         case "assistant":
-                            Application.Run(new FormAssistant(connection));
+                            Application.Run(new FormAssistant(databaseOperator));
                             break;
                         case "employee":
-                            Application.Run(new FormEmployee(connection, form.Employee));
+                            Application.Run(new FormEmployee(databaseOperator, form.Employee));
                             break;
                     }               
-                connection.Close();
+                databaseOperator.Close();
             }
         }
     }

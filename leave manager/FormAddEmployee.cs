@@ -16,18 +16,18 @@ namespace leave_manager
     {
        // private Employee addedEmployee;
         //public Employee AddedEmployee { get { return addedEmployee; } set { addedEmployee = value; } }
-        private SqlConnection connection;
-        public FormAddEmployee(SqlConnection connection)
+        private DatabaseOperator databaseOperator;
+        public FormAddEmployee(DatabaseOperator databaseOperator)
         {
             InitializeComponent();
-            this.connection = connection;
+            this.databaseOperator = databaseOperator;
             //Ustawienie ograniczeń dla wybrania daty urodzenia nowego pracownika.
             dateTimePickerBirthDate.MinDate = (DateTime.Today.AddYears(-100));
             dateTimePickerBirthDate.MaxDate = (DateTime.Today.AddYears(-16));
             dateTimePickerBirthDate.Value = (DateTime.Today.AddYears(-20));
 
-            comboBoxPermissions.DataSource = Dictionary.GetPermissions(connection);
-            comboBoxPossition.DataSource = Dictionary.GetPositions(connection);
+            comboBoxPermissions.DataSource = databaseOperator.GetPermissions();
+            comboBoxPossition.DataSource = databaseOperator.GetPositions();
             //todo usunąć dane wspomagające testy poniżej
             textBoxName.Text = "trol";
             textBoxSurname.Text = "trol";
@@ -139,7 +139,7 @@ namespace leave_manager
                 MessageBox.Show("Error! \n\n" + errorString);
             else
             {               
-                Random random = new Random();                
+               /* Random random = new Random();                
                 int login; 
                 SqlCommand commandCheckLogin = new SqlCommand("SELECT Login FROM Employee WHERE Login = @Login", connection);
                 SqlDataReader reader;
@@ -178,32 +178,10 @@ namespace leave_manager
                 commandInsertEmployee.Parameters.Add("@EMail", SqlDbType.VarChar).Value = textBoxEMail.Text;
                 commandInsertEmployee.Parameters.Add("@Year_leave_days", SqlDbType.Int).Value = daysPerYear;
                 commandInsertEmployee.Parameters.Add("@Leave_days", SqlDbType.Int).Value = daysPerYear;
-
-             
-              /*  try//todo uncomment
+*/
+                if (databaseOperator.AddEmployee(new Employee(-1, comboBoxPermissions.SelectedItem.ToString(), textBoxName.Text, textBoxSurname.Text, dateTimePickerBirthDate.Value, textBoxAdress.Text,
+                    textBoxPesel.Text, textBoxEMail.Text, comboBoxPossition.SelectedItem.ToString(), daysPerYear, daysPerYear, 0)))
                 {
-                    commandInsertEmployee.ExecuteNonQuery();
-                    this.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("There was an error in inserting new employee." +
-                        "If these error will keep repeating please contact your administrator.");
-                }*/
-                //todo try catch                
-                try
-                {                   
-                    commandInsertEmployee.ExecuteNonQuery();                    
-                    SqlCommand commandInsertUninformed = new SqlCommand("INSERT INTO Uninformed (Employee_ID, Password) " +
-                        "VALUES ((SELECT MAX(Employee_ID) FROM Employee), @Password)",
-                        connection, transaction);
-                    commandInsertUninformed.Parameters.Add("@Password", SqlDbType.VarChar).Value = password.ToString();
-                    commandInsertUninformed.ExecuteNonQuery();
-                    transaction.Commit();
-                }
-                catch (SqlException)
-                {
-                    transaction.Rollback();
                 }
                 this.Close();
             }

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseOperator.cs" />
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +164,7 @@
     <Compile Include="FormLeaveApplication.Designer.cs">
       <DependentUpon>FormLeaveApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Leave.cs" />
     <Compile Include="LeaveType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

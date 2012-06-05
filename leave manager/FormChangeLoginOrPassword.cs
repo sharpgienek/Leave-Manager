@@ -12,80 +12,32 @@ namespace leave_manager
 {
     public partial class FormChangeLoginOrPassword : Form
     {
-        private SqlConnection connection;
+        private DatabaseOperator databaseOperator;
         private int employeeId;
-        public FormChangeLoginOrPassword(SqlConnection connection, int employeeId)
+        public FormChangeLoginOrPassword(DatabaseOperator databaseOperator, int employeeId)
         {
             InitializeComponent();
-            this.connection = connection;
+            this.databaseOperator = databaseOperator;
             this.employeeId = employeeId;
         }
-
+        //todo więcej i ładniejsze komunikaty błędów.
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand("SELECT Employee_ID FROM Employee WHERE " +
-                "Employee_ID = @Employee_ID AND Password = @Password", connection);
-            command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-            command.Parameters.Add("@Password", SqlDbType.VarChar).Value = StringSha.GetSha256Managed(textBoxOldPassword.Text);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
+            if (textBoxNewPassword.Text.Equals(textBoxRepeatNewPassword.Text))
             {
-                reader.Close();
-                if (textBoxNewLogin.Text.Length != 0 && textBoxNewPassword.Text.Length != 0)
+                if (databaseOperator.ChangeLoginOrPassword(employeeId, textBoxOldPassword.Text, textBoxNewPassword.Text, textBoxNewLogin.Text))
                 {
-                    if (textBoxNewPassword.Text.Equals(textBoxRepeatNewPassword.Text))
-                    {
-                        command.CommandText = "UPDATE Employee SET Login = @Login, " +
-                            "Password = @Password WHERE Employee_ID = @Employee_ID";
-                        command.Parameters.Clear();
-                        command.Parameters.Add("@Login", SqlDbType.VarChar).Value = textBoxNewLogin.Text;
-                        command.Parameters.Add("@Password", SqlDbType.VarChar).Value = StringSha.GetSha256Managed(textBoxNewPassword.Text);
-                        command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-                        command.ExecuteNonQuery();//todo try catch
-                        textBoxNewLogin.Text = "";
-                        textBoxNewPassword.Text = "";
-                        textBoxRepeatNewPassword.Text = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Repeated password is not equal to new password. No changes will be made.");
-                    }
+                    MessageBox.Show("Operation compleated successfuly.");
+                    this.Close();
                 }
                 else
                 {
-                    if (textBoxNewLogin.Text.Length != 0)
-                    {
-                        command.CommandText = "UPDATE Employee SET Login = @Login WHERE Employee_ID = @Employee_ID";
-                        command.Parameters.Clear();
-                        command.Parameters.Add("@Login", SqlDbType.VarChar).Value = textBoxNewLogin.Text;
-                        command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-                        command.ExecuteNonQuery(); //todo try catch
-                        textBoxNewLogin.Text = "";
-                    }
-
-                    if (textBoxNewPassword.Text.Length != 0)
-                    {
-                        if (textBoxNewPassword.Text.Equals(textBoxRepeatNewPassword.Text))
-                        {
-                            command.CommandText = "UPDATE Employee SET Password = @Password WHERE Employee_ID = @Employee_ID";
-                            command.Parameters.Clear();
-                            command.Parameters.Add("@Password", SqlDbType.VarChar).Value = StringSha.GetSha256Managed(textBoxNewPassword.Text);
-                            command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-                            command.ExecuteNonQuery(); //todo try catch
-                            textBoxNewPassword.Text = "";
-                            textBoxRepeatNewPassword.Text = "";
-                        }
-                        else
-                        {
-                            MessageBox.Show("Repeated password is not equal to new password. No changes will be made.");
-                        }
-                    }
+                    MessageBox.Show("Error occured. Plese retype your old password and try again.");
                 }
             }
             else
             {
-                reader.Close();
-                MessageBox.Show("Old password is incorrect.");
+                MessageBox.Show("Repeated password is not equal to new password. No changes will be made.");
             }
         }
 

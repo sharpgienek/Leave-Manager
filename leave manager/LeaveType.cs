@@ -5,7 +5,7 @@ using System.Text;
 
 namespace leave_manager
 {
-    class LeaveType 
+    public class LeaveType 
     {       
         private String name;
         public String Name { get { return name; }}

@@ -75,14 +75,14 @@ namespace leave_manager
                     con.Open();
                     using (SqlCommand command = new SqlCommand("SELECT * FROM Uninformed", con))
                     {
-                        command.ExecuteNonQuery();
+                        command.ExecuteReader();
                     }
                     con.Close();
                     return true;
                 }
                 catch (Exception)
                 {
-                    con.Close();
+                   con.Close();
                     return false;
                 }
                 

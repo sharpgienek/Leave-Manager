@@ -36,8 +36,14 @@ ver. 0.15
 	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke
 	- Dodano mo¿liwoœæ dodawania chorobowego
 
+ver 0.16
+	- przeniesiono wiêkszoœæ zapytañ do jednej klasy DatabaseOperator. Obiekt tej klasy jest przekazywany do formularzy.
+
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
+manager == 6EE4A469CD4E91053847F5D3FCB61DBCC91E8F0EF10BE7748DA4C4A1BA382D17
+assistant == A39A7FFAD4A3013F29DA97B84F264337F234C1CF9B3C40C7C30C677A8A18609A
+employee == 2FDC0177057D3A5C6C2C0821E01F4FA8D90F9A3BB7AFD82B0DB526AF98D68DE8
 
 Pytania:
 Jakie mo¿liwoœci edycji urlopu daæ rejestratorce/kierownikowi?
@@ -49,3 +55,4 @@ W tabeli Status_type typ Pending validation musi mieæ index 0, ¿eby by³ domyœlny
 Do zrobienia na koñcu:
 Obs³uga b³êdów przy wszystkich transakcjach, lub wykonaniach zapytañ.
 Przemyœlenie wszystich transakcji.
+Zmiana nazw metod na z du¿ych liter.
