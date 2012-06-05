@@ -39,7 +39,7 @@ namespace leave_manager
             connection.Close();
         }
 
-        public static bool login(this FormLogin form, String login, String password, ref Employee employee)
+        public bool login(String login, String password, ref Employee employee)
         {
           //  try
           //  {
