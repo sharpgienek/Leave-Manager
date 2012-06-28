@@ -6,13 +6,32 @@ using System.Text;
 //todo dodać ograniczenia w długościach stringów.
 namespace leave_manager
 {
+    /// <summary>
+    /// Klasa reprezentująca pracownika.
+    /// </summary>
     public class Employee
     {
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
         public Employee()
-        { 
+        { }
 
-        }
-
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="employeeId">Numer id pracownika.</param>
+        /// <param name="permission">Ciąg znaków reprezentujący poziom uprawnień.</param>
+        /// <param name="name">Imię pracownika.</param>
+        /// <param name="surname">Nazwisko.</param>
+        /// <param name="birthDate">Data urodzenia.</param>
+        /// <param name="address">Adres.</param>
+        /// <param name="pesel">Numer PESEL.</param>
+        /// <param name="eMail">Adres e-mail.</param>
+        /// <param name="position">Pozycja.</param>
+        /// <param name="yearLeaveDays">Liczba dni urlopowych na rok dla pracownika.</param>
+        /// <param name="leaveDays">Dostępne normlanie dni urlopowe.</param>
+        /// <param name="oldLeaveDays">Dostępne zaległe dni urlopowe.</param>
         public Employee(int employeeId, String permission, String name, String surname,
             DateTime birthDate, String address, String pesel, String eMail, 
             String position,int yearLeaveDays, int leaveDays, int oldLeaveDays)
@@ -30,40 +49,125 @@ namespace leave_manager
             this.leaveDays = leaveDays;
             this.oldLeaveDays = oldLeaveDays;
         }
+
+        /// <summary>
+        /// Numer id pracownika.
+        /// </summary>
         private int employeeId;
-        public int EmployeeId { get { return employeeId; } set { employeeId = value; } }
+
+        /// <summary>
+        /// Zwraca numer id pracownika.
+        /// </summary>
+        public int EmployeeId { get { return employeeId; }}
         
+        /// <summary>
+        /// Ciąg znaków reprezentujący poziom uprawnień pracownika.
+        /// </summary>
         private String permission;
-        public String Permission { get { return permission; } set { permission = value; } }
+
+        /// <summary>
+        /// Zwraca poziom uprawnień pracownika.
+        /// </summary>
+        public String Permission { get { return permission; }}
         
+        /// <summary>
+        /// Imię pracownika.
+        /// </summary>
         private String name;
-        public String Name { get { return name; } set { name = value; } }
+
+        /// <summary>
+        /// Zwraca imię pracownika.
+        /// </summary>
+        public String Name { get { return name; } }
         
+        /// <summary>
+        /// Nazwisko pracownika.
+        /// </summary>
         private String surname;
-        public String Surname { get { return surname; } set { surname = value; } }
 
+        /// <summary>
+        /// Zwraca nazwisko pracownika.
+        /// </summary>
+        public String Surname { get { return surname; }}
+
+        /// <summary>
+        /// Data urodzenia pracownika.
+        /// </summary>
         private DateTime birthDate;
-        public DateTime BirthDate { get { return birthDate; } set { birthDate = value; } }
 
+        /// <summary>
+        /// Zwraca datę urodzenia pracownika.
+        /// </summary>
+        public DateTime BirthDate { get { return birthDate; } }
+
+        /// <summary>
+        /// Adres pracownika.
+        /// </summary>
         private String address;
-        public String Address { get { return address; } set { address = value; } }
 
+        /// <summary>
+        /// Zwraca adres pracownika.
+        /// </summary>
+        public String Address { get { return address; }}
+
+        /// <summary>
+        /// Numer PESEL pracownika.
+        /// </summary>
         private String pesel;
-        public String Pesel { get { return pesel; } set { pesel = value; } }
 
+        /// <summary>
+        /// Zwraca numer PESEL pracownika.
+        /// </summary>
+        public String Pesel { get { return pesel; } }
+
+        /// <summary>
+        /// Adres e-mail pracownika.
+        /// </summary>
         private String eMail;
-        public String EMail { get { return eMail; } set { eMail = value; } }
 
+        /// <summary>
+        /// Zwraca adres e-mail pracownika.
+        /// </summary>
+        public String EMail { get { return eMail; } }
+
+        /// <summary>
+        /// Pozycja pracownika.
+        /// </summary>
         private String position;
-        public String Position { get { return position; } set { position = value; } }
 
+        /// <summary>
+        /// Zwraca pozycję pracownika.
+        /// </summary>
+        public String Position { get { return position; } }
+
+        /// <summary>
+        /// Liczba dni urlopowych przypadających na rok.
+        /// </summary>
         private int yearLeaveDays;
-        public int YearLeaveDays { get { return yearLeaveDays; } set { yearLeaveDays = value; } }
 
+        /// <summary>
+        /// Zwraca liczbę dni urlopowych przypadających na rok.
+        /// </summary>
+        public int YearLeaveDays { get { return yearLeaveDays; } }
+
+        /// <summary>
+        /// Liczba dostępnych normalnych dni urlopowych.
+        /// </summary>
         private int leaveDays;
+
+        /// <summary>
+        /// Zwraca liczbę dostępnych normalnych dni urlopowych.
+        /// </summary>
         public int LeaveDays { get { return leaveDays; } set { leaveDays = value; } }
         
+        /// <summary>
+        /// Liczba dostępnych zaległych dni urlopowych.
+        /// </summary>
         private int oldLeaveDays;
+
+        /// <summary>
+        /// Zwraca liczbę dostępnych zaległych dni urlopowych.
+        /// </summary>
         public int OldLeaveDays { get { return oldLeaveDays; } set { oldLeaveDays = value; } }
     }
 }

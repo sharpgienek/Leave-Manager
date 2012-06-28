@@ -10,80 +10,109 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormLeaveConsideration : Form
+    public partial class FormLeaveConsideration : LeaveManagerForm
     {
-        //private SqlConnection connection;
-        private DatabaseOperator databaseOperator;
+        /// <summary>
+        /// Numer id pracownika, którego dotyczy zgłoszenie urlopowe.
+        /// </summary>
         private int employeeId;
+
+        /// <summary>
+        /// Data rozpoczęcia urlopu.
+        /// </summary>
         private DateTime firstDay;
+
+        /// <summary>
+        /// Data zakończenia urlopu.
+        /// </summary>
         private DateTime lastDay;
-      //  private String aprovalStatus;
-        private object parent;
-      //  public FormLeaveConsideration(SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay, String aprovalStatus)
-        public FormLeaveConsideration(DatabaseOperator databaseOperator, int employeeId, DateTime firstDay, DateTime lastDay, object parent)
+
+        /// <summary>
+        /// Obiekt rodzica używany do określenia uprawnień.
+        /// </summary>
+        private LeaveManagerForm leaveManagerParentForm;
+
+        /// <summary>
+        /// Właściwość zwracająca obiekt formularza rodzica.
+        /// </summary>
+        public LeaveManagerForm LeaveManagerParentForm { get { return leaveManagerParentForm; } }
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="leaveManagerParentForm">Obiekt rodzica.</param>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie urlopowe.</param>
+        /// <param name="firstDay">Data rozpoczęcia urlopu.</param>
+        /// <param name="lastDay">Data zakończenia urlopu.</param>
+        public FormLeaveConsideration(LeaveManagerForm leaveManagerParentForm, SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay )
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
+            this.connection = connection;
             this.employeeId = employeeId;
             this.firstDay = firstDay;
             this.lastDay = lastDay;
-          //  this.aprovalStatus = aprovalStatus;
-            this.parent = parent;
-          /*  SqlCommand command = new SqlCommand("SELECT E.Name, E.Surname, P.Description AS 'Position' " +
-                "FROM Employee E, Position P WHERE E.Employee_ID = @Employee_ID " +
-                "AND E.Position_ID = P.Position_ID", connection);
-            command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-            SqlDataReader reader = command.ExecuteReader();//todo try catch
-            reader.Read();*/
-            Employee employee = new Employee();
-            if (databaseOperator.getEmployee(employeeId, ref employee))
+            this.leaveManagerParentForm = leaveManagerParentForm;
+            labelFirstDayValue.Text = firstDay.ToString("d");
+            labelLastDayValue.Text = lastDay.ToString("d");
+            try
             {
+                //Zczytanie imienia, nazwiska oraz pozycji pracownika.
+                Employee employee = this.getEmployee(employeeId);
                 labelNameValue.Text = employee.Name;
                 labelPositionValue.Text = employee.Position;
             }
-            else
-            {
-                //todo error message
-            }
-            labelFirstDayValue.Text = firstDay.ToString("d");
-            labelLastDayValue.Text = lastDay.ToString("d");
+            catch//todo obsługa wszystkich wyjątków.
+            { }            
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika pozostawienia zgłoszenia bez zmian.
+        /// Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonLeaveUnchanged_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda obsługująca wciśnięcie guzika zaakceptowania zgłoszenia.
+        /// Po wykonaniu tej operacji urlop zmieni swój stan w zależności od
+        /// typu obiektu rodzica. Zatwierdzenie przez rejestratorkę skutkuje
+        /// stanem: "Pending manager approval", natomiast przez kierownika
+        /// stanem: "Approved".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-            if (databaseOperator.acceptLeave(parent, employeeId, firstDay))
+            try
             {
+                this.acceptLeave(employeeId, firstDay);
                 this.Close();
             }
-            else
+            catch 
             {
-                //todo error message;
-            }
-            
+                throw new NotImplementedException();
+            }//todo obsługa wszystkich wyjątków           
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika odrzucenia zgłoszenia urlopowego.
+        /// Skutkuje przypisaniem do stanu zgłoszenia "Rejected".
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonReject_Click(object sender, EventArgs e)
         {
-           /* SqlCommand command = new SqlCommand("UPDATE Leave SET LS_ID = (SELECT ST_ID FROM " +
-                "Status_type WHERE Name = @Name) WHERE Employee_ID = @Employee_ID " +
-                "AND First_day = @First_day ", connection);
-            command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeId;
-            command.Parameters.Add("@First_day", SqlDbType.Date).Value = firstDay;
-            command.Parameters.Add("@Name", SqlDbType.VarChar).Value = "Rejected";
-            command.ExecuteNonQuery();*///todo try catch;
-            if (databaseOperator.rejectLeave(employeeId, firstDay))
+            try
             {
+                this.rejectLeave(employeeId, firstDay);
                 this.Close();
             }
-            else
-            {
-                //todo error message
-            }
+            catch { }//todo obsługa wszystkich wyjątków.
         }
 
     }

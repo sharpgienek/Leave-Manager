@@ -10,27 +10,48 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormChangeLoginOrPassword : Form
+    /// <summary>
+    /// Klasa formularza zmiany loginu i/lub hasła.
+    /// </summary>
+    public partial class FormChangeLoginOrPassword : LeaveManagerForm
     {
-        private DatabaseOperator databaseOperator;
+        /// <summary>
+        /// Id pracownika, który zmienia login i/lub hasło.
+        /// </summary>
         private int employeeId;
-        public FormChangeLoginOrPassword(DatabaseOperator databaseOperator, int employeeId)
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        /// <param name="employeeId">Id pracownika, który zmienia login i/lub hasło.</param>
+        public FormChangeLoginOrPassword(SqlConnection connection, int employeeId)
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
+            this.connection = connection;
             this.employeeId = employeeId;
         }
+
         //todo więcej i ładniejsze komunikaty błędów.
+        /// <summary>
+        /// Metoda obsługująca zdarzenie akceptacji zmian.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonAccept_Click(object sender, EventArgs e)
         {
+            //Jeżeli hasło i powtórzone hasło są takie same.
             if (textBoxNewPassword.Text.Equals(textBoxRepeatNewPassword.Text))
             {
-                if (databaseOperator.ChangeLoginOrPassword(employeeId, textBoxOldPassword.Text, textBoxNewPassword.Text, textBoxNewLogin.Text))
+                try
                 {
+                    //Próba zmiany hasła.
+                    this.ChangeLoginOrPassword(employeeId, textBoxOldPassword.Text, textBoxNewPassword.Text, textBoxNewLogin.Text);
+                    //Jeżeli nie było wyjątku (operacja się powiodła) to zostaje wyświetlony komunikat o powodzeniu.
                     MessageBox.Show("Operation compleated successfuly.");
                     this.Close();
                 }
-                else
+                catch
                 {
                     MessageBox.Show("Error occured. Plese retype your old password and try again.");
                 }
@@ -41,13 +62,14 @@ namespace leave_manager
             }
         }
 
+        /// <summary>
+        /// Metoda obsługująza kliknięcie guzika anulowania. Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
-
-
     }
 }

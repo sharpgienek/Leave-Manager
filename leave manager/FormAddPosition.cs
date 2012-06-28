@@ -10,43 +10,52 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormAddPosition : Form
+    /// <summary>
+    /// Klasa formularza dodawania nowego rodzaju pozycji pracowników.
+    /// </summary>
+    public partial class FormAddPosition : LeaveManagerForm
     {
-        private SqlConnection connection;
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie do bazy danych. Powinno być otwarte.</param>
         public FormAddPosition(SqlConnection connection)
         {
             InitializeComponent();
             this.connection = connection;
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika anulowania. Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika dodawania nowego 
+        /// rodzaju pozycji pracownika.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (!textBoxName.Text.Equals(""))
+            //Sprawdzenie, czy nazwa dodawanego rodzaju pozycji nie jest pusta.
+            if (textBoxName.Text.Length != 0)
             {
-                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);//todo try catch'e
-                SqlCommand commandCheckIfExists = new SqlCommand("SELECT Position_ID " +
-                    "FROM Position WHERE Description = @Description", connection, transaction);
-                commandCheckIfExists.Parameters.Add("@Description", SqlDbType.VarChar).Value = textBoxName.Text;
-                SqlDataReader reader = commandCheckIfExists.ExecuteReader();
-                if (reader.Read())
+                try
                 {
-                    reader.Close();
-                    transaction.Rollback();                    
-                    MessageBox.Show("This position already exists.");
-                    return;
-                }
-                reader.Close();
-                SqlCommand command = new SqlCommand("INSERT INTO Position " +
-                    "VALUES((SELECT MAX(Position_ID) + 1 FROM Position), @Name)", connection, transaction);
-                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = textBoxName.Text;
-                command.ExecuteNonQuery();//todo try catch;
-                transaction.Commit();
-                this.Close();
+                    //Próba dodania nowej pozycji.
+                    this.AddPositionType(textBoxName.Text);
+                    this.Close();
+                }//todo obsłużyć wszystkie wyjątki
+                catch 
+                {
+                    throw new NotImplementedException();
+                }                
             }
             else
             {

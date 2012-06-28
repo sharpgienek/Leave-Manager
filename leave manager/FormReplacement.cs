@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace leave_manager
 {
-    public partial class FormReplacement : Form
+    public partial class FormReplacement : LeaveManagerForm
     {
         public FormReplacement()
         {

@@ -10,59 +10,88 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormEmployeeData : Form
+    /// <summary>
+    /// Klasa formularza zawierającego szczegółowe dane odnośnie urlopów pracownika.
+    /// </summary>
+    public partial class FormEmployeeData : LeaveManagerForm
     {
-        private DatabaseOperator databaseOperator;
+        /// <summary>
+        /// Id pracownika, którego dotyczy formularz.
+        /// </summary>
         private int employeeId;
-      //  private int leaveDays;
-       // private int oldLeaveDays;
+
+        /// <summary>
+        /// Referencja do obiektu rodzica.
+        /// </summary>
         private object parent;
 
-        public FormEmployeeData(object parent, DatabaseOperator databaseOperator, int employeeId, String name, String surname, String position,
-            int leaveDays, int oldLeaveDays)
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="parent">Obiekt rodzica.</param>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        /// <param name="employeeId">Id pracownika, którego dotyczy formularz.</param>
+        /// <param name="name">Imię pracownika.</param>
+        /// <param name="surname">Nazwisko pracownika.</param>
+        /// <param name="position">Pozycja pracownika.</param>
+        public FormEmployeeData(object parent, SqlConnection connection, int employeeId, String name, String surname, String position)
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
+            this.connection = connection;
             this.employeeId = employeeId;
-        //    this.leaveDays = leaveDays;
-          //  this.oldLeaveDays = oldLeaveDays;
             this.parent = parent;
             labelNameValue.Text = name + " " + surname;
             labelPositionValue.Text = position;
             refreshData();
-        } 
+        }
 
+        /// <summary>
+        /// Metoda wczytująca aktualne dane pracownika, którego dotyczy formularz.
+        /// Korzysta z bezargumentowej metody o tej samej nazwie.
+        /// Stworzona celem umożliwienia podpięcia tej metody pod obsługę
+        /// zdarzenia zamknięcia formularza.
+        /// </summary>
+        /// <param name="o">Obiekt wysyłąjący.</param>
+        /// <param name="e">Argumenty.</param>
         private void refreshData(object o, FormClosedEventArgs e)
         {
             refreshData();
         }
 
+        /// <summary>
+        /// Metoda wczytująca aktualne dane pracownika, którego dotyczy formularz.
+        /// </summary>
         private void refreshData()
         {
-            //SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
-            
-                int leaveDays = 0;// (int)readerDays["Leave_days"];
-                int oldLeaveDays = 0;// (int)readerDays["Old_leave_days"];
-                if (databaseOperator.getDays(employeeId,ref leaveDays,ref oldLeaveDays))
-                {                       
-                    DataTable data = new DataTable();
-                    if (databaseOperator.getLeaves(ref data, employeeId))
-                    {
-                        dataGridView.DataSource = data;
-                        labelDaysToUseValue.Text = (leaveDays + oldLeaveDays).ToString();
-                    }
-                    else
-                    {
-                        //todo error message
-                    }
-                }
-                else
-                {
-                    //todo error message
-                }
-          
+            //Zmienne do których zostanie zczytana liczba dostępnych dni.
+            int leaveDays = 0;
+            int oldLeaveDays = 0;
+            //Transakcja celem zczytania zgodnych danych.
+            this.BeginTransaction(IsolationLevel.RepeatableRead);
+            try
+            {
+                //Zczytanie dostępnych dni.
+                this.getDays(employeeId, ref leaveDays, ref oldLeaveDays);
+                DataTable data = new DataTable();
+                //Wczytanie urlopów.
+                dataGridView.DataSource = this.getLeaves(employeeId);
+                //Zaktualizowanie etykiety mówiącej o liczbie dostępnych dni.
+                labelDaysToUseValue.Text = (leaveDays + oldLeaveDays).ToString();
+                this.CommitTransaction();
+            }
+            catch 
+            {
+                this.RollbackTransaction();
+                throw new NotImplementedException();
+            }//todo obsługa wszystkich wyjątków
         }
 
+        //todo wyeliminować tą metodę?
+        /// <summary>
+        /// Metoda obsługi wciśnięcia przycisku edycji urlopu.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewCell cell in dataGridView.SelectedCells)
@@ -71,20 +100,27 @@ namespace leave_manager
             }
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
-                FormLeaveApplication form = new FormLeaveApplication(this, databaseOperator, employeeId);/*new FormLeaveApplication(databaseOperator,
-                    employeeId, row.Cells["Type"].Value.ToString(), (DateTime)row.Cells["First day"].Value,
-                    (DateTime)row.Cells["Last day"].Value, row.Cells["Remarks"].Value.ToString(), row.Cells["Status"].Value.ToString());*/
+                FormLeaveApplication form = new FormLeaveApplication(this, connection, employeeId);
                 form.FormClosed += new FormClosedEventHandler(refreshData);
                 form.Show();
-            }           
+            }
         }
 
+        /// <summary>
+        /// Metoda obsługująca wciśnięcie przycisku dodawania nowego urlopu.
+        /// Powoduje pojawienie się formularza dodawania nowego zgłoszenia urlopowego.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            FormLeaveApplication form = new FormLeaveApplication(parent, databaseOperator, employeeId);
+            //Formularz zgłoszenia urlopowego.
+            FormLeaveApplication form = new FormLeaveApplication(parent, connection, employeeId);
+            /* Dodanie metody odświeżenia danych formularza do obsługi zdarzenia
+             * zamknięcia formularza zgłoszenia urlopowego.
+             */
             form.FormClosed += new FormClosedEventHandler(refreshData);
             form.Show();
         }
-        
     }
 }

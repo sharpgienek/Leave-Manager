@@ -55,7 +55,7 @@
             this.tabPageDictionaries = new System.Windows.Forms.TabPage();
             this.tabControlDictionaries = new System.Windows.Forms.TabControl();
             this.tabPagePositions = new System.Windows.Forms.TabPage();
-            this.buttonDeleteEntry = new System.Windows.Forms.Button();
+            this.buttonDeletePosition = new System.Windows.Forms.Button();
             this.buttonAddNewPosition = new System.Windows.Forms.Button();
             this.labelPositionsInfo = new System.Windows.Forms.Label();
             this.dataGridViewPositions = new System.Windows.Forms.DataGridView();
@@ -236,7 +236,7 @@
             this.labelDataSourceInfo.AutoSize = true;
             this.labelDataSourceInfo.Location = new System.Drawing.Point(8, 13);
             this.labelDataSourceInfo.Name = "labelDataSourceInfo";
-            this.labelDataSourceInfo.Size = new System.Drawing.Size(105, 13);
+            this.labelDataSourceInfo.Size = new System.Drawing.Size(140, 13);
             this.labelDataSourceInfo.TabIndex = 19;
             this.labelDataSourceInfo.Text = "Choose dataLeaves source.";
             // 
@@ -304,10 +304,10 @@
             this.labelNewEmployeesInfo.AutoSize = true;
             this.labelNewEmployeesInfo.Location = new System.Drawing.Point(8, 13);
             this.labelNewEmployeesInfo.Name = "labelNewEmployeesInfo";
-            this.labelNewEmployeesInfo.Size = new System.Drawing.Size(405, 13);
+            this.labelNewEmployeesInfo.Size = new System.Drawing.Size(440, 13);
             this.labelNewEmployeesInfo.TabIndex = 1;
-            this.labelNewEmployeesInfo.Text = "Here is the list of new dataLeaves that needs to be informed about their login and pass" +
-    "word.";
+            this.labelNewEmployeesInfo.Text = "Here is the list of new dataLeaves that needs to be informed about their login an" +
+    "d password.";
             // 
             // dataGridViewNewEmployees
             // 
@@ -342,7 +342,7 @@
             // 
             // tabPagePositions
             // 
-            this.tabPagePositions.Controls.Add(this.buttonDeleteEntry);
+            this.tabPagePositions.Controls.Add(this.buttonDeletePosition);
             this.tabPagePositions.Controls.Add(this.buttonAddNewPosition);
             this.tabPagePositions.Controls.Add(this.labelPositionsInfo);
             this.tabPagePositions.Controls.Add(this.dataGridViewPositions);
@@ -354,15 +354,15 @@
             this.tabPagePositions.Text = "Positions";
             this.tabPagePositions.UseVisualStyleBackColor = true;
             // 
-            // buttonDeleteEntry
+            // buttonDeletePosition
             // 
-            this.buttonDeleteEntry.Location = new System.Drawing.Point(411, 270);
-            this.buttonDeleteEntry.Name = "buttonDeleteEntry";
-            this.buttonDeleteEntry.Size = new System.Drawing.Size(96, 44);
-            this.buttonDeleteEntry.TabIndex = 3;
-            this.buttonDeleteEntry.Text = "Delete selected entry";
-            this.buttonDeleteEntry.UseVisualStyleBackColor = true;
-            this.buttonDeleteEntry.Click += new System.EventHandler(this.buttonDeleteEntry_Click);
+            this.buttonDeletePosition.Location = new System.Drawing.Point(411, 270);
+            this.buttonDeletePosition.Name = "buttonDeletePosition";
+            this.buttonDeletePosition.Size = new System.Drawing.Size(96, 44);
+            this.buttonDeletePosition.TabIndex = 3;
+            this.buttonDeletePosition.Text = "Delete selected entry";
+            this.buttonDeletePosition.UseVisualStyleBackColor = true;
+            this.buttonDeletePosition.Click += new System.EventHandler(this.buttonDeletePosition_Click);
             // 
             // buttonAddNewPosition
             // 
@@ -436,9 +436,15 @@
             // 
             // dataGridViewLeaveTypes
             // 
+            this.dataGridViewLeaveTypes.AllowUserToAddRows = false;
+            this.dataGridViewLeaveTypes.AllowUserToDeleteRows = false;
+            this.dataGridViewLeaveTypes.AllowUserToOrderColumns = true;
+            this.dataGridViewLeaveTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewLeaveTypes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLeaveTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLeaveTypes.Location = new System.Drawing.Point(82, 73);
             this.dataGridViewLeaveTypes.Name = "dataGridViewLeaveTypes";
+            this.dataGridViewLeaveTypes.ReadOnly = true;
             this.dataGridViewLeaveTypes.Size = new System.Drawing.Size(457, 150);
             this.dataGridViewLeaveTypes.TabIndex = 4;
             // 
@@ -449,7 +455,7 @@
             this.ClientSize = new System.Drawing.Size(644, 447);
             this.Controls.Add(this.tabControl);
             this.Name = "FormAdmin";
-            this.Text = "FormAdmin";
+            this.Text = "Leave Manager";
             this.tabDataSource.ResumeLayout(false);
             this.tabDataSource.PerformLayout();
             this.groupBoxDataSourceLocal.ResumeLayout(false);
@@ -505,7 +511,7 @@
         private System.Windows.Forms.DataGridView dataGridViewPositions;
         private System.Windows.Forms.TabPage tabPageLeaveTypes;
         private System.Windows.Forms.Button buttonAddNewPosition;
-        private System.Windows.Forms.Button buttonDeleteEntry;
+        private System.Windows.Forms.Button buttonDeletePosition;
         private System.Windows.Forms.Button buttonDeleteLeaveType;
         private System.Windows.Forms.Button buttonAddLeaveType;
         private System.Windows.Forms.Label labelLeaveTypesInfo;

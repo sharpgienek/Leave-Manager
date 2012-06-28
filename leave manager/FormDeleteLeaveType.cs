@@ -10,43 +10,68 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormDeleteLeaveType : Form
-    {            
-        private SqlConnection connection;
-        private String replacedLeaveType;
-       // private List<LeaveType> leaveTypes;
-        public FormDeleteLeaveType(SqlConnection connection, String replacedLeaveType)
+    /// <summary>
+    /// Klasa formularza usuwania typu urlopu.
+    /// </summary>
+    public partial class FormDeleteLeaveType : LeaveManagerForm
+    {    
+        /// <summary>
+        /// Atrybut przechowujący nazwę usuwanego typu.
+        /// </summary>
+        private String deletedLeaveType;
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        /// <param name="deletedLeaveType">Nazwa usuwanego typu.</param>
+        public FormDeleteLeaveType(SqlConnection connection, String deletedLeaveType)
         {
             InitializeComponent();
-           List<LeaveType> leaveTypes = Dictionary.GetLeaveTypes(connection);
-            leaveTypes.Remove(new LeaveType(replacedLeaveType));
-            comboBoxPositions.DataSource = leaveTypes;
             this.connection = connection;
-            this.replacedLeaveType = replacedLeaveType;
-        }
+            this.deletedLeaveType = deletedLeaveType;
+            //Zczytanie listy typów urlopów.
+            List<LeaveType> leaveTypes = this.GetLeaveTypesList();
+            //Usunięcie z tej listy usuwanego typu.
+            leaveTypes.Remove(new LeaveType(deletedLeaveType));
+            /* Za pomocą elementu comboBoxLeaveTypes użytkownik wybiera jaki typ
+             * urlopu ma zostać przypisany do tych wszystkich urlopów, których typ
+             * jest usuwany. Poniżej przypisana do niego zostaje lista typów,
+             * które mogą być do tego celu użyte.
+             */
+            comboBoxLeaveTypes.DataSource = leaveTypes;  
+        }      
 
+        /// <summary>
+        /// Metoda obsługująca kliknięcie w przycisk anulujący
+        /// usuwanie typu urlopu. Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda obsługująca kliknięcie w przycisk OK. Kasuje dany typ.
+        /// Typ wszystkich urlopów, które były typu kasowanego są zamieniane
+        /// na typ wybrany w combo box'ie.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłąjący.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            SqlTransaction transaction = connection.BeginTransaction();//todo try catch
-            SqlCommand commandUpdate = new SqlCommand("UPDATE Leave SET LT_ID = " +
-                "(SELECT LT_ID FROM Leave_type WHERE Name = @Name_new) " +
-                "WHERE LT_ID = " +
-                "(SELECT LT_ID FROM Leave_type WHERE Name = @Name_replaced)", connection, transaction);
-            commandUpdate.Parameters.Add("@Name_new", SqlDbType.VarChar).Value = comboBoxPositions.SelectedValue.ToString();
-            commandUpdate.Parameters.Add("@Name_replaced", SqlDbType.VarChar).Value = replacedLeaveType;
-           commandUpdate.ExecuteNonQuery();
-           SqlCommand commandDelete = new SqlCommand("DELETE FROM Leave_type WHERE " +
-               "Name = @Name", connection, transaction);
-           commandDelete.Parameters.Add("@Name", SqlDbType.VarChar).Value = replacedLeaveType;
-           commandDelete.ExecuteNonQuery();
-            transaction.Commit();
-            this.Close();
-        }
+            try
+            {
+                this.DeleteLeaveType(comboBoxLeaveTypes.SelectedItem.ToString(), deletedLeaveType);
+                this.Close();
+            }
+            catch//todo obsługa wszystkich wyjątków.
+            {
+                throw new NotImplementedException();
+            }
+       }
        
     }
 }

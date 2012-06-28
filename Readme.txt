@@ -29,15 +29,20 @@ ver. 0.14
 	- Dodano mo¿liwoœæ zg³oszenia chêci odbycia urlopu
 
 ver. 0.15
-	- Naprawiono zg³aszanie chêci urlopu	
-	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez asystentke	
-	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez kierownika
-	- Dodano mo¿liwoœæ dodawania/usuwania nowych wpisów do s³owników pozycji i typów urlopów przez administratora
-	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke
-	- Dodano mo¿liwoœæ dodawania chorobowego
+	- Naprawiono zg³aszanie chêci urlopu.
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez asystentke.
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez kierownika.
+	- Dodano mo¿liwoœæ dodawania/usuwania nowych wpisów do s³owników pozycji i typów urlopów przez administratora.
+	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke.
+	- Dodano mo¿liwoœæ dodawania chorobowego.
 
-ver 0.16
+ver. 0.16
 	- przeniesiono wiêkszoœæ zapytañ do jednej klasy DatabaseOperator. Obiekt tej klasy jest przekazywany do formularzy.
+
+ver. 0.17
+	- Poprawiono kilka b³êdów.
+	- Skomentowano wiêkszoœæ kodu (klasa DatabaseOperator wymaga dokomentowania).
+	- Program wymaga gruntownego testowania po przebudowie.
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
@@ -46,7 +51,6 @@ assistant == A39A7FFAD4A3013F29DA97B84F264337F234C1CF9B3C40C7C30C677A8A18609A
 employee == 2FDC0177057D3A5C6C2C0821E01F4FA8D90F9A3BB7AFD82B0DB526AF98D68DE8
 
 Pytania:
-Jakie mo¿liwoœci edycji urlopu daæ rejestratorce/kierownikowi?
 
 Wymagania do danych
 W tabeli Permission id musi byæ od 0 do max bez wartoœci pustych (nie mo¿e byæ np. takiej sytuacji {0,1,3})

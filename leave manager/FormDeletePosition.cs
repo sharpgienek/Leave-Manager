@@ -10,44 +10,68 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormDeletePosition : Form
-    {        
-       // private String newPosition;
-       // public String NewPosition { get { return newPosition; } }
-        private SqlConnection connection;
-        private String replacedPosition;
+    /// <summary>
+    /// Klasa formularza kasowania typu pozycji ze słownika pozycji.
+    /// </summary>
+    public partial class FormDeletePosition : LeaveManagerForm
+    {
+
+        /// <summary>
+        /// Atrybut przechowujący nazwę usuwanego typu.
+        /// </summary>
+        private String deletedPosition;
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        /// <param name="deletedLeaveType">Nazwa usuwanego typu.</param>
         public FormDeletePosition(SqlConnection connection, String replacedPosition)
         {
-            InitializeComponent();
-            List<String> positions = Dictionary.GetPositions(connection);
-            positions.Remove(replacedPosition);
-            comboBoxPositions.DataSource = positions;
             this.connection = connection;
-            this.replacedPosition = replacedPosition;
+            this.deletedPosition = replacedPosition;
+            InitializeComponent();
+            //Zczytanie listy typów pozycji.
+            List<String> positions = this.GetPositionsList();
+            //Usunięcie z tej listy usuwanego typu.
+            positions.Remove(replacedPosition);
+            /* Za pomocą elementu comboBoxLeaveTypes użytkownik wybiera jaki typ
+             * pozycji ma zostać przypisany do tych wszystkich pracowników, których typ
+             * pozycji jest usuwany. Poniżej przypisana do niego zostaje lista typów,
+             * które mogą być do tego celu użyte.
+             */
+            comboBoxPositions.DataSource = positions;
         }
 
+        /// <summary>
+        /// Metoda obsługująca kliknięcie w przycisk anulujący
+        /// usuwanie typu pozycji. Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda obsługująca kliknięcie w przycisk OK. Kasuje dany typ.
+        /// Typ wszystkich pracowników, którzy zajmowali kasowaną pozycję 
+        /// zostaje przypisana pozycja wybrana za pomocą combo box'a.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłąjący.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            SqlTransaction transaction = connection.BeginTransaction();//todo try catch
-            SqlCommand commandUpdate = new SqlCommand("UPDATE Employee SET Position_ID = " +
-                "(SELECT Position_ID FROM Position WHERE Description = @Description_new) " +
-                "WHERE Position_ID = " +
-                "(SELECT Position_ID FROM Position WHERE Description = @Description_replaced)", connection, transaction);
-            commandUpdate.Parameters.Add("@Description_new", SqlDbType.VarChar).Value = comboBoxPositions.SelectedValue.ToString();
-            commandUpdate.Parameters.Add("@Description_replaced", SqlDbType.VarChar).Value = replacedPosition;
-           commandUpdate.ExecuteNonQuery();
-           SqlCommand commandDelete = new SqlCommand("DELETE FROM Position WHERE " +
-               "Description = @Description", connection, transaction);
-           commandDelete.Parameters.Add("@Description", SqlDbType.VarChar).Value = replacedPosition;
-           commandDelete.ExecuteNonQuery();
-            transaction.Commit();
-            this.Close();
-        }
-       
+            try
+            {
+                this.DeletePosition(comboBoxPositions.SelectedItem.ToString(), deletedPosition);
+                this.Close();
+            }
+            catch 
+            {
+                throw new NotImplementedException();
+            }//todo obsłużyć wszystkie wyjątki
+        }       
     }
 }

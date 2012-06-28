@@ -62,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseOperator.cs" />
+    <Compile Include="Exceptions\EntryExistsException.cs" />
+    <Compile Include="Exceptions\NoFreeLoginException.cs" />
+    <Compile Include="Exceptions\WrongEmployeeIdException.cs" />
+    <Compile Include="Exceptions\WrongIsolationLevelException.cs" />
+    <Compile Include="Exceptions\WrongLoginOrPasswordException.cs" />
+    <Compile Include="Exceptions\WrongPasswordException.cs" />
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,11 +171,13 @@
       <DependentUpon>FormLeaveApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="Leave.cs" />
+    <Compile Include="LeaveManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LeaveType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringSha.cs" />
-    <Compile Include="Dictionary.cs" />
     <Compile Include="TimeTools.cs" />
     <EmbeddedResource Include="FormDeleteLeaveType.resx">
       <DependentUpon>FormDeleteLeaveType.cs</DependentUpon>

@@ -43,12 +43,12 @@
             this.comboBoxPermissions = new System.Windows.Forms.ComboBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxSurname = new System.Windows.Forms.TextBox();
-            this.textBoxAdress = new System.Windows.Forms.TextBox();
+            this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.dateTimePickerBirthDate = new System.Windows.Forms.DateTimePicker();
             this.textBoxPesel = new System.Windows.Forms.TextBox();
             this.textBoxEMail = new System.Windows.Forms.TextBox();
             this.comboBoxPossition = new System.Windows.Forms.ComboBox();
-            this.textBoxNumerOfLeaveDays = new System.Windows.Forms.TextBox();
+            this.textBoxNumberOfLeaveDays = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelPermissions
@@ -185,14 +185,14 @@
             this.textBoxSurname.TabIndex = 14;
             this.textBoxSurname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSurname_KeyPress);
             // 
-            // textBoxAdress
+            // textBoxAddress
             // 
-            this.textBoxAdress.Location = new System.Drawing.Point(87, 144);
-            this.textBoxAdress.Multiline = true;
-            this.textBoxAdress.Name = "textBoxAdress";
-            this.textBoxAdress.Size = new System.Drawing.Size(286, 51);
-            this.textBoxAdress.TabIndex = 15;
-            this.textBoxAdress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAdress_KeyPress);
+            this.textBoxAddress.Location = new System.Drawing.Point(87, 144);
+            this.textBoxAddress.Multiline = true;
+            this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.Size = new System.Drawing.Size(286, 51);
+            this.textBoxAddress.TabIndex = 15;
+            this.textBoxAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAddress_KeyPress);
             // 
             // dateTimePickerBirthDate
             // 
@@ -208,7 +208,7 @@
             this.textBoxPesel.Name = "textBoxPesel";
             this.textBoxPesel.Size = new System.Drawing.Size(286, 20);
             this.textBoxPesel.TabIndex = 17;
-            this.textBoxPesel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPESEL_KeyPress);
+            this.textBoxPesel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPesel_KeyPress);
             // 
             // textBoxEMail
             // 
@@ -226,25 +226,25 @@
             this.comboBoxPossition.Size = new System.Drawing.Size(286, 21);
             this.comboBoxPossition.TabIndex = 19;
             // 
-            // textBoxNumerOfLeaveDays
+            // textBoxNumberOfLeaveDays
             // 
-            this.textBoxNumerOfLeaveDays.Location = new System.Drawing.Point(176, 288);
-            this.textBoxNumerOfLeaveDays.Name = "textBoxNumerOfLeaveDays";
-            this.textBoxNumerOfLeaveDays.Size = new System.Drawing.Size(55, 20);
-            this.textBoxNumerOfLeaveDays.TabIndex = 20;
-            this.textBoxNumerOfLeaveDays.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumerOfLeaveDays_KeyPress);
+            this.textBoxNumberOfLeaveDays.Location = new System.Drawing.Point(176, 288);
+            this.textBoxNumberOfLeaveDays.Name = "textBoxNumberOfLeaveDays";
+            this.textBoxNumberOfLeaveDays.Size = new System.Drawing.Size(55, 20);
+            this.textBoxNumberOfLeaveDays.TabIndex = 20;
+            this.textBoxNumberOfLeaveDays.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberOfLeaveDays_KeyPress);
             // 
-            // FormManagerAddEmployee
+            // FormAddEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(411, 420);
-            this.Controls.Add(this.textBoxNumerOfLeaveDays);
+            this.Controls.Add(this.textBoxNumberOfLeaveDays);
             this.Controls.Add(this.comboBoxPossition);
             this.Controls.Add(this.textBoxEMail);
             this.Controls.Add(this.textBoxPesel);
             this.Controls.Add(this.dateTimePickerBirthDate);
-            this.Controls.Add(this.textBoxAdress);
+            this.Controls.Add(this.textBoxAddress);
             this.Controls.Add(this.textBoxSurname);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.comboBoxPermissions);
@@ -260,7 +260,7 @@
             this.Controls.Add(this.labelSurname);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelPermissions);
-            this.Name = "FormManagerAddEmployee";
+            this.Name = "FormAddEmployee";
             this.Text = "Leave Manager";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -284,11 +284,11 @@
         private System.Windows.Forms.ComboBox comboBoxPermissions;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxSurname;
-        private System.Windows.Forms.TextBox textBoxAdress;
+        private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.DateTimePicker dateTimePickerBirthDate;
         private System.Windows.Forms.TextBox textBoxPesel;
         private System.Windows.Forms.TextBox textBoxEMail;
         private System.Windows.Forms.ComboBox comboBoxPossition;
-        private System.Windows.Forms.TextBox textBoxNumerOfLeaveDays;
+        private System.Windows.Forms.TextBox textBoxNumberOfLeaveDays;
     }
 }

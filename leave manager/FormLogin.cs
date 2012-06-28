@@ -10,34 +10,72 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormLogin : Form
-    {
-        private DatabaseOperator databaseOperator;
+    /// <summary>
+    /// Klasa formularza logowania.
+    /// </summary>
+    public partial class FormLogin : LeaveManagerForm
+    { 
+        /// <summary>
+        /// Atrybut zawierający dane zalogowanego użytkownika. Przed zalogowaniem jest pusty.
+        /// </summary>
         private Employee employee;
-        public Employee Employee { get { return employee; } set { employee = value; } }
+
+        /// <summary>
+        /// Właściwość zwracająca dane zalogowanego użytkownika.
+        /// </summary>
+        public Employee Employee { get { return employee; } }
+
+        /// <summary>
+        /// Atrybut określający czy poprawnie zalogowano użytkownika.
+        /// </summary>
         private bool loggedIn;
+
+        /// <summary>
+        /// Właściwość zwracająca informację o tym, czy poprawnie zalogowano użytkownika.
+        /// </summary>
         public bool LoggedIn { get { return loggedIn; } }
 
-        public FormLogin(DatabaseOperator databaseOperator)
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie do bazy danych.</param>
+        public FormLogin(SqlConnection connection)
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
+            //Zachowanie połączenia do bazy danych.
+            this.connection = connection;
             this.loggedIn = false;
-          //  textBoxLogin.Text = StringSha.GetSha256Managed("employee");
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika "Exit".
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika logowania.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonLogin_Click(object sender, EventArgs e)
-        {            
-            loggedIn = databaseOperator.login(textBoxLogin.Text, textBoxPassword.Text, ref employee);
-            if (loggedIn)
+        {
+            try
+            {
+                //Próba zalogowania
+                employee = this.login(textBoxLogin.Text, textBoxPassword.Text);
+                //Jeżeli próba zalogowania powiodła się to ustawiamy flagę zalogowania.
+                loggedIn = true;
                 this.Close();
-            else
-                MessageBox.Show("Wrong login or password!");
+            }
+                //todo obsłuż wszystkie rodzaje wyjątków
+            catch
+            {
+            }           
         }
     }
 }

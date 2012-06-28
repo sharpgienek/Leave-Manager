@@ -6,9 +6,17 @@ using System.Security.Cryptography;
 
 namespace leave_manager
 {
-    class StringSha
+    /// <summary>
+    /// Klasa rozszerzająca klasę String o metody kryptograficzne.
+    /// </summary>
+   static class StringSha
     {
-        public static string GetSha256Managed(string value)
+       /// <summary>
+       /// Metoda zwracająca skrót Sha256Managed w postaci ciągu znaków.
+       /// </summary>
+       /// <param name="value">Ciąg znaków, dla którego obliczany jest skrót.</param>
+       /// <returns>Ciąg znaków reprezentujący skrót ciągu znaków, na rzecz którego została wywołana metoda.</returns>
+        public static string GetSha256Managed(this string value)
         {
             Byte[] sha256 = new SHA256Managed().ComputeHash(Encoding.ASCII.GetBytes(value));
             String result = "";

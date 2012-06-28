@@ -10,94 +10,125 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormManager : Form
+    public partial class FormManager : LeaveManagerForm
     {
-        private DatabaseOperator databaseOperator;
+        /// <summary>
+        /// Konstruktor bezargumentowy. 
+        /// </summary>
+        public FormManager() { }
 
-        
-
-        public FormManager(DatabaseOperator databaseOperator)
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
+        public FormManager(SqlConnection connection)
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
-            refreshDataGridViewNeedsAction();
+            this.connection = connection;
+            //Pierwsze uzupełnienie tabeli zawierającej zgłoszenia wymagające ropatrzenia przez kierownika.
+            LoadDataGridViewNeedsAction();
         }
 
-        private void refreshDataGridViewNeedsAction(object o, FormClosedEventArgs e)
+        /// <summary>
+        /// Metoda wczytywania zawartości tabeli zawierającej zgłoszenia wymagające rozpatrzenia przez kierownika.
+        /// Wywołuje bezparametrową metodę o tej samej nazwie. Stworzona celem umożliwienia podpięcia jej
+        /// do obsługi zdarzenia zamknięcia formularza.
+        /// </summary>
+        /// <param name="o">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
+        private void LoadDataGridViewNeedsAction(object o, FormClosedEventArgs e)
         {
-            refreshDataGridViewNeedsAction();
+            LoadDataGridViewNeedsAction();
         }
 
-        private void refreshDataGridViewNeedsAction()
-        {           
-            DataTable data = new DataTable();
-            if (databaseOperator.getNeedsAction(this, ref data))
+        /// <summary>
+        /// Metoda wczytywania zawartości tabeli zawierającej zgłoszenia wymagające rozpatrzenia przez kierownika.
+        /// </summary>
+        private void LoadDataGridViewNeedsAction()
+        {
+            try
             {
-                dataGridViewNeedsAction.DataSource = data;
+                dataGridViewNeedsAction.DataSource = this.getNeedsAction();
             }
-            else
-            {
-                //todo error message
-            }
+            catch//todo obsługa wszystkich rodzajów wyjątków.
+            { }
         }
 
+        /// <summary>
+        /// Metoda wczytywania zawartości tabeli zawierającej pracowników.
+        /// Wywołuje bezargumentową metodę o tej samej nazwie.
+        /// Stworzona celem umożliwienia podpięcia do obsługi zdarzenia.
+        /// </summary>
+        /// <param name="o">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void refreshDataGridViewEmployees(Object o, EventArgs e)
         {
             refreshDataGridViewEmployees();
         }
 
+        /// <summary>
+        /// Metoda wczytywania zawartości tabeli zawierającej pracowników.
+        /// </summary>
         private void refreshDataGridViewEmployees()
         {
-           /* SqlCommand command = new SqlCommand("SELECT E.Name, E.Surname, E.Birth_date AS 'Birth date'," +
-                "E.Address, E.PESEL, E.EMail AS 'e-mail', Pos.Description AS Position, " +
-                "Perm.Description AS Permission, E.Leave_days AS 'Remaining leave days', "+
-                "E.Old_leave_days AS 'Old left leave days' " +
-                "FROM Employee E, Position Pos, Permission Perm " +
-                "WHERE E.Permission_ID = Perm.Permission_ID " +
-                "AND E.Position_ID = Pos.Position_ID", connection);
-
-            SqlDataReader reader = command.ExecuteReader();
-            DataTable employees = new DataTable();
-            employees.Load(reader);
-            reader.Close();*/
-            DataTable employees = new DataTable();
-            if (databaseOperator.getEmployees(ref employees))
+            try
             {
-                dataGridViewEmployees.DataSource = employees;
+                dataGridViewEmployees.DataSource = this.getEmployees();
             }
-            else
-            {
-                //todo error message
-            }
+            catch { }//todo obsługa wszystkich wyjątków.           
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika dodawania pracownika.
+        /// Wyświetla formularz dodawania pracownika.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonEmployeesAdd_Click(object sender, EventArgs e)
         {
-            FormAddEmployee form = new FormAddEmployee(databaseOperator);
+            FormAddEmployee form = new FormAddEmployee(connection);
             form.Show();
             form.FormClosed += new FormClosedEventHandler(this.refreshDataGridViewEmployees);
         }
 
+        /// <summary>
+        /// Metoda obsługi zdarzenia zmiany zaznaczenia zakładki. W razie potrzeby
+        /// odświeża odpowiednie dane.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Jeżeli zaznaczono zakładkę pracowników to odśwież tabele pracowników.
             if (tabControl.SelectedTab.Text.Equals("Employees"))
                 refreshDataGridViewEmployees();
+            //Jeżeli zaznaczono zakładkę ze zgłoszeniami wymagającymi działania, to odśwież tam dane.
             if (tabControl.SelectedTab.Text.Equals("Needs your action"))
-                refreshDataGridViewNeedsAction();
+                LoadDataGridViewNeedsAction();
         }
         
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika rozważenia zgłoszenia urlopowego.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonConsider_Click(object sender, EventArgs e)
         {
+            //Dla każdej zaznaczonej komórki w tabeli zgłoszeń wymagających działania zaznacz jej cały wiersz.
             foreach (DataGridViewCell cell in dataGridViewNeedsAction.SelectedCells)
             {
                 dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
             }
+            //Dla każdego zaznaczonego wiersza w tabeli zgłoszeń wymagających działania.
             foreach (DataGridViewRow row in dataGridViewNeedsAction.SelectedRows)
             {
-                FormLeaveConsideration form = new FormLeaveConsideration(databaseOperator,
+                //Stwórz formularz rozważenia zgłoszenia.
+                FormLeaveConsideration form = new FormLeaveConsideration(this, connection, 
                    (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value, this);
-                form.FormClosed += new FormClosedEventHandler(refreshDataGridViewNeedsAction);
+                   (DateTime)row.Cells["Last day"].Value);
+                //Dodaj do obsługi zdarzenia zamknięcia formularza metodę wczytywania zgłoszeń wymagających działania.
+                form.FormClosed += new FormClosedEventHandler(LoadDataGridViewNeedsAction);
+                //Wyświetl formularz rozważenia zgłoszenia.
                 form.Show();
             }
         }      

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.labelInfo = new System.Windows.Forms.Label();
-            this.comboBoxPositions = new System.Windows.Forms.ComboBox();
+            this.comboBoxLeaveTypes = new System.Windows.Forms.ComboBox();
             this.labelNewPosition = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -40,18 +40,18 @@
             this.labelInfo.AutoSize = true;
             this.labelInfo.Location = new System.Drawing.Point(13, 13);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(285, 26);
+            this.labelInfo.Size = new System.Drawing.Size(240, 26);
             this.labelInfo.TabIndex = 0;
-            this.labelInfo.Text = "You need to specify a new position for the employees \r\nthat you have labeled with" +
-    " the position ment to be deleted. ";
+            this.labelInfo.Text = "You need to specify a new type for the leaves\r\nthat are labeled with the type men" +
+    "t to be deleted. ";
             // 
             // comboBoxPositions
             // 
-            this.comboBoxPositions.FormattingEnabled = true;
-            this.comboBoxPositions.Location = new System.Drawing.Point(90, 73);
-            this.comboBoxPositions.Name = "comboBoxPositions";
-            this.comboBoxPositions.Size = new System.Drawing.Size(208, 21);
-            this.comboBoxPositions.TabIndex = 1;
+            this.comboBoxLeaveTypes.FormattingEnabled = true;
+            this.comboBoxLeaveTypes.Location = new System.Drawing.Point(90, 73);
+            this.comboBoxLeaveTypes.Name = "comboBoxPositions";
+            this.comboBoxLeaveTypes.Size = new System.Drawing.Size(208, 21);
+            this.comboBoxLeaveTypes.TabIndex = 1;
             // 
             // labelNewPosition
             // 
@@ -82,7 +82,7 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // FormDeletePosition
+            // FormDeleteLeaveType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -90,10 +90,10 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.labelNewPosition);
-            this.Controls.Add(this.comboBoxPositions);
+            this.Controls.Add(this.comboBoxLeaveTypes);
             this.Controls.Add(this.labelInfo);
-            this.Name = "FormDeletePosition";
-            this.Text = "FormDeletePosition";
+            this.Name = "FormDeleteLeaveType";
+            this.Text = "Leave Manager";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,7 +102,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.ComboBox comboBoxPositions;
+        private System.Windows.Forms.ComboBox comboBoxLeaveTypes;
         private System.Windows.Forms.Label labelNewPosition;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;

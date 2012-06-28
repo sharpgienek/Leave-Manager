@@ -11,24 +11,47 @@ using System.IO;
 
 namespace leave_manager
 {
-    public partial class FormDefineDatabase : Form
+    /// <summary>
+    /// Klasa formularza określania źródła danych.
+    /// </summary>
+    public partial class FormDefineDatabase : LeaveManagerForm
     {
-        private OpenFileDialog browseDialog;
+        /// <summary>
+        /// Atrybut przechowujący connection string.
+        /// </summary>
         private String connectionString;
-        public String ConnectionString
+
+        /// <summary>
+        /// Właściwość zwracająca connection string.
+        /// </summary>
+       public String ConnectionString
         {
             get { return connectionString; }
         }
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
         public FormDefineDatabase()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku zmiany zaznaczenia radioButtonLocal.
+        /// Odpowiada ona za wyświetlanie i chowanie elementów interfejsu użytkownika 
+        /// odpowiednich dla zaznaczonych opcji.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void radioButtonLocal_CheckedChanged(object sender, EventArgs e)
         {
+            //Jeżeli baza danych jest plikiem.
             if (radioButtonLocal.Checked)
             {
+                //Wyświetl grupę odpowiednią dla pliku.
                 groupBoxLocal.Visible = true;
+                //Schowaj grupę odpowiednią dla bazy zdalnej.
                 groupBoxRemote.Visible = false;
             }
             else
@@ -36,69 +59,70 @@ namespace leave_manager
                 groupBoxRemote.Visible = true;
                 groupBoxLocal.Visible = false;
             }
-        }        
+        }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za obsługę przycisku testu połączenia z bazą danych.
+        /// Wyświetla informację o wyniku próby połączenia.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonTestConnection_Click(object sender, EventArgs e)
         {
+            //Jeżeli źródłem bazy danych jest plik na dysku.
             if (radioButtonLocal.Checked)
-                if (!textBoxLocalPath.Text.Equals(""))
+                //Jeżeli ścieżka do pliku jest niepusta.
+                if (textBoxLocalPath.Text.Length != 0)
                 {
-                    if (checkConnection(new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;")))
+                    if (new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;").TestConnection())
                         MessageBox.Show("Test went ok.");
                     else
                         MessageBox.Show("Connection can not be established.");
                 }
                 else
                     MessageBox.Show("Empty Path!");//todo ładny tekst
-                else
+                else//todo
                     throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za obsługę przycisku przeglądania dysku w poszukiwaniu
+        /// pliku z bazą danych. Powoduje uzupełnienie texBox'a ścieżki do pliku.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonLocalBrowse_Click(object sender, EventArgs e)
-        {
-            if (browseDialog == null)
-            {
-                browseDialog = new OpenFileDialog();
-            }
-
+        {            
+            OpenFileDialog browseDialog = new OpenFileDialog();
             if (browseDialog.ShowDialog() == DialogResult.OK)
             {
                 textBoxLocalPath.Text = browseDialog.FileName;
             }
         }
 
-      static public bool checkConnection(SqlConnection con)
-        {
-            con.Close();
-             try
-                {          
-                    con.Open();
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM Uninformed", con))
-                    {
-                        command.ExecuteReader();
-                    }
-                    con.Close();
-                    return true;
-                }
-                catch (Exception)
-                {
-                   con.Close();
-                    return false;
-                }
-                
-        }
-
+        /// <summary>
+        /// Metoda odpowiedzialna za obsługę guzika akceptacji nowych ustawień połączenia z bazą danych.
+        /// Sprawdza możliwość połączenia z bazą i jeżeli połączenie powiedzie się to zapisuje
+        /// nowe ustawienia w pliku "config.ini" oraz zachowuje connection string.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             if (radioButtonLocal.Checked)
                 if (!textBoxLocalPath.Text.Equals(""))
                 {
-                    if (checkConnection(new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;")))
+                    if (new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + 
+                        "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;").TestConnection())
                     {
                         using (StreamWriter outfile = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + @"\config.ini"))
                         {
-                            outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
-                            connectionString += @"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;";
+                            //Zapisanie nowej konfiguracji do pliku.
+                            outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + 
+                                textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
+                            //Zachowanie nowego connection string.
+                            connectionString += @"Data Source=.\SQLEXPRESS;AttachDbFilename=" + 
+                                "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;";
                             this.Close();
                         }
                     }
@@ -111,13 +135,15 @@ namespace leave_manager
                 throw new NotImplementedException(); 
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika wyłączenia programu.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonExit_Click(object sender, EventArgs e)
         {
             connectionString = "";
             this.Close();
         }
-
-       
-       
     }
 }

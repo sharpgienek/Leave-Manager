@@ -11,51 +11,52 @@ using System.Data.SqlClient;
 namespace leave_manager
 {
     //todo ograniczenia w tekście nazwy.
-    public partial class FormAddLeaveType : Form
+    /// <summary>
+    /// Klasa formularza dodawania nowego typu urlopu.
+    /// </summary>
+    public partial class FormAddLeaveType : LeaveManagerForm
     {
-        private SqlConnection connection;
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
         public FormAddLeaveType(SqlConnection connection)
         {
             InitializeComponent();
             this.connection = connection;
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika anulowania.
+        /// Zamyka formularz.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda wywoływana w przypadku naciśnięcia guzika dodawania nowego typu urlopu.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (!textBoxName.Text.Equals(""))
+            //Sprawdzenie, czy nazwa nowego typu nie jest pusta.
+            if (textBoxName.Text.Length != 0)
             {
-                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);//todo try catch'e
-                SqlCommand commandCheckIfExists = new SqlCommand("SELECT LT_ID " +
-                    "FROM Leave_type WHERE Name = @Name", connection, transaction);
-                commandCheckIfExists.Parameters.Add("@Name", SqlDbType.VarChar).Value = textBoxName.Text;
-                SqlDataReader reader = commandCheckIfExists.ExecuteReader();
-                if (reader.Read())
+                try
                 {
-                    reader.Close();
-                    transaction.Rollback();                    
-                    MessageBox.Show("This type already exists.");
-                    return;
+                    //Dodanie nowego typu.
+                    this.addLeaveType(textBoxName.Text, checkBoxConsumesDays.Checked);
+                    this.Close();
                 }
-                reader.Close();
-                SqlCommand command = new SqlCommand("INSERT INTO Leave_type " +
-                    "VALUES((SELECT MAX(LT_ID) + 1 FROM Leave_type), @Name, @Consumes_days)", connection, transaction);
-                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = textBoxName.Text;
-                if (checkBoxConsumesDays.Checked)
+                catch //todo obsłużyć wszystkie wyjątki  
                 {
-                    command.Parameters.Add("@Consumes_days", SqlDbType.Bit).Value = true;
-                }
-                else
-                {
-                    command.Parameters.Add("@Consumes_days", SqlDbType.Bit).Value = false;
-                }
-                command.ExecuteNonQuery();//todo try catch;
-                transaction.Commit();
-                this.Close();
+                    throw new NotImplementedException();
+                }              
             }
             else
             {

@@ -5,26 +5,80 @@ using System.Text;
 
 namespace leave_manager
 {
+    /// <summary>
+    /// Klasa reprezentująca zgłoszenie urlopowe.
+    /// </summary>
     public class Leave
-    {        
+    {      
+        /// <summary>
+        /// Numer id pracownika, którego dotyczy zgłoszenie urlopowe.
+        /// </summary>
         private int employeeId;
+
+        /// <summary>
+        /// Właściwość zwracająca numer id pracownika, którego dotyczy zgłoszenie urlopowe.
+        /// </summary>
         public int EmployeeId { get { return employeeId; } }
 
+        /// <summary>
+        /// Typ urlopu.
+        /// </summary>
         private String leaveType;
+
+        /// <summary>
+        /// Zwraca typ urlopu.
+        /// </summary>
         public String LeaveType { get { return leaveType; } }
 
+        /// <summary>
+        /// Stan urlopu.
+        /// </summary>
         private String leaveStatus;
+        
+        /// <summary>
+        /// Zwraca stan urlopu.
+        /// </summary>
         public String LeaveStatus { get { return leaveStatus; } }
 
+        /// <summary>
+        /// Data rozpoczęcia urlopu.
+        /// </summary>
         private DateTime firstDay;
+
+        /// <summary>
+        /// Zwraca datę rozpoczęcia urlopu.
+        /// </summary>
         public DateTime FirstDay { get { return firstDay; } }
 
+        /// <summary>
+        /// Data zakończenia urlopu.
+        /// </summary>
         private DateTime lastDay;
+
+        /// <summary>
+        /// Zwraca datę zakończenia urlopu.
+        /// </summary>
         public DateTime LastDay { get { return lastDay; } }
 
+        /// <summary>
+        /// Uwagi.
+        /// </summary>
         private String remarks;
+
+        /// <summary>
+        /// Zwraca uwagi.
+        /// </summary>
         public String Remarks { get { return remarks; } }
 
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="employeeId">Numer id pracownika, tkórego dotyczy zgłoszenie urlopowe.</param>
+        /// <param name="leaveType">Typ urlopu.</param>
+        /// <param name="leaveStatus">Stan urlopu.</param>
+        /// <param name="firstDay">Dzień rozpoczęcia urlopu.</param>
+        /// <param name="lastDay">Dzień zakończenia urlopu.</param>
+        /// <param name="remarks">Uwagi.</param>
         public Leave(int employeeId, String leaveType, String leaveStatus, DateTime firstDay, DateTime lastDay, String remarks)
         {
             this.employeeId = employeeId;

@@ -10,112 +10,143 @@ using System.Data.SqlClient;
 
 namespace leave_manager
 {
-    public partial class FormAssistant : Form
+    /// <summary>
+    /// Klasa formularza użytkownika z uprawnieniamy rejestratorki.
+    /// </summary>
+    public partial class FormAssistant : LeaveManagerForm
     {
-        private DatabaseOperator databaseOperator;
-
+        /// <summary>
+        /// Konstruktor bezargumentowy.
+        /// </summary>
         public FormAssistant()
         { }
 
-        public FormAssistant(DatabaseOperator databaseOperator)
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="connection">Połączenie do bazy danych. Powinno być otwarte.</param>
+        public FormAssistant(SqlConnection connection)
         {
             InitializeComponent();
-            this.databaseOperator = databaseOperator;
+            this.connection = connection;
+            //Wczytanie danych do tabeli ze zgłoszeniami wymagającymi działania.
             refreshDataGridViewPendingAplications();
+            //Wczytanie wszystkich pracowników do tabeli z pracownikami.
             loadAllDataGridViewEmployees();
         }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za odświeżenie tabeli ze zgłoszeniami wymagającymi
+        /// działania. Korzysta z metody bezparametrowej o tej samej nazwie.
+        /// Stworzona po to, aby można było ją podpiąć pod obsługę zdarzenia.
+        /// </summary>
+        /// <param name="o">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void refreshDataGridViewPendingAplications(object o, FormClosedEventArgs e)
         {
             refreshDataGridViewPendingAplications();
         }
 
-        private void loadAllDataGridViewEmployees()
-        {
-           /* SqlCommand command = new SqlCommand("SELECT E.Employee_ID AS 'Employee ID', " +
-                "Pos.Description AS 'Position', E.Name, E.Surname, " +
-                "E.EMail AS 'e-mail', E.Birth_date AS 'Birth date', E.PESEL, E.Address, E.Leave_days, E.Old_leave_days FROM Position Pos, Employee E " +
-                "WHERE E.Position_ID = Pos.Position_ID", connection);
-            SqlDataReader reader = command.ExecuteReader(); //todo try catch
-            DataTable data = new DataTable();
-            data.Load(reader);
-            dataGridViewEmployees.DataSource = data;
-            dataGridViewEmployees.Columns["Leave_days"].Visible = false;
-            dataGridViewEmployees.Columns["Old_leave_days"].Visible = false;*/
-            DataTable data = new DataTable();
-            if (databaseOperator.getEmployees(ref data))
-            {
-                dataGridViewEmployees.DataSource = data;
-                dataGridViewEmployees.Columns["Employee id"].Visible = false;
-            }
-            else
-            {
-                //todo error + czyszczenie datagridview?
-            }
-        }
-
+        /// <summary>
+        /// Metoda odpowiedzialna za odświeżenie tabeli ze zgłoszeniami wymagającymi
+        /// działania.
+        /// </summary>
         private void refreshDataGridViewPendingAplications()
         {
-          /*  SqlCommand command = new SqlCommand("SELECT E.Employee_ID AS 'Employee id', P.Description AS 'Position', " +
-                "E.Name, E.Surname, E.EMail AS 'e-mail', LT.Name AS 'Type', " +
-                "L.First_day AS 'First day', L.Last_day AS 'Last day' FROM Employee E, " +
-                "Leave L, Leave_type LT, Position P, Status_type LS WHERE L.Employee_ID = E.Employee_ID " +
-                "AND L.LT_ID = LT.LT_ID AND P.Position_ID = E.Position_ID AND LS.ST_ID = L.LS_ID AND LS.Name = @Name ORDER BY L.First_day", connection);
-            command.Parameters.Add("@Name", SqlDbType.VarChar).Value = "Pending validation";
-            SqlDataReader reader = command.ExecuteReader();
-            DataTable table = new DataTable();
-            table.Load(reader);
-            reader.Close();
-            table.Columns.Add("No. work days");
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                table.Rows[i]["No. work days"] = TimeTools.GetNumberOfWorkDays((DateTime)table.Rows[i]["First day"], (DateTime)table.Rows[i]["Last day"]);
-            }*/
-            DataTable table = new DataTable();
-            if (databaseOperator.getNeedsAction(this, ref table))
-            {
-                dataGridViewPendingAplications.DataSource = table;
+            try
+            {                
+                dataGridViewPendingAplications.DataSource = this.getNeedsAction();
             }
-            else
+            catch//todo obsługa wszystkich rodzajów wyjątków.
             {
-                //todo error + czyszczenie datagridview?
-            }            
+                throw new NotImplementedException();
+            }
         }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za wczytanie danych do tabeli zawierającej
+        /// informacje o pracownikach.
+        /// </summary>
+        private void loadAllDataGridViewEmployees()
+        {
+            try
+            {
+                dataGridViewEmployees.DataSource = this.getEmployees();
+                dataGridViewEmployees.Columns["Employee id"].Visible = false;
+            }
+            catch 
+            {
+                throw new NotImplementedException();
+            }//todo obsługa wszystkich rodzajów błędów + czyszczenie datagridview
+        }        
+
+        /// <summary>
+        /// Metoda obsługująca przyciśnięcie guzika rozważenia zaznaczonych 
+        /// aplikacji o urlop.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonConsiderPendingAplication_Click(object sender, EventArgs e)
         {
+            //Dla każdej zaznaczonej komórki zaznaczamy cały wiersz.
             foreach (DataGridViewCell cell in dataGridViewPendingAplications.SelectedCells)
             {
                 dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
             }
+            //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewPendingAplications.SelectedRows)
             {
-                FormLeaveConsideration form = new FormLeaveConsideration(databaseOperator,
+                //Tworzymy formularz rozważenia aplikacji.
+                FormLeaveConsideration form = new FormLeaveConsideration(this, connection,
                    (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value, this);
+                   (DateTime)row.Cells["Last day"].Value);
+                /* Dodajemy metodę odświeżania oczekujących aplikacji do obsługi zdarzenia zamknięcia
+                 * formularza rozważania aplikacji.
+                 */
                 form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPendingAplications);
+                //Wyświetlenie formularza rozważenia aplikacji.
                 form.Show();
             }
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika pokazania wszystkich pracowników.
+        /// W tabeli pracowników wyświetla aktualne dane o znajdujących 
+        /// się w bazie danych pracownikach.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonEmployeesShowAll_Click(object sender, EventArgs e)
         {
             loadAllDataGridViewEmployees();
         }
 
+        /// <summary>
+        /// Metoda obsługi wciśnięcia guzika wyświtlenia szczegółowych danych 
+        /// o zaznaczonych pracownikach.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
         private void buttonEmployeesDetailedData_Click(object sender, EventArgs e)
         {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
                 dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
+            //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
             {
-                FormEmployeeData form = new FormEmployeeData(this, databaseOperator, (int)row.Cells["Employee id"].Value,
+                //Tworzymy formularz danych pracownika.
+                FormEmployeeData form = new FormEmployeeData(this, connection, (int)row.Cells["Employee id"].Value,
                     row.Cells["Name"].Value.ToString(), row.Cells["Surname"].Value.ToString(),
-                    row.Cells["Position"].Value.ToString(), (int)row.Cells["Remaining leave days"].Value,
-                    (int)row.Cells["Old left leave days"].Value);
+                    row.Cells["Position"].Value.ToString());
+                /* Dodana zostaje metoda odświeżania tabeli oczekujących aplikacji urlopowych do obsługi
+                 * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
+                 * pracownika zmiany właściwości jego aplikacji urlopowych.
+                 */
                 form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPendingAplications);
+                //Wyświetlenie formularza danych pracownika.
                 form.Show();
             }           
         }      
