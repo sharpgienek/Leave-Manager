@@ -21,26 +21,26 @@ namespace leave_manager
         private bool transactionOn;
         public SqlConnection Connection { get { return connection; } }
 
-        protected void BeginTransaction()
+        public void BeginTransaction()
         {
             transaction = connection.BeginTransaction();
             transactionOn = true;
         }
 
-        protected void CommitTransaction()
+        public void CommitTransaction()
         {
             transaction.Commit();
             transaction = null;
             transactionOn = false;
         }
 
-        protected void BeginTransaction(IsolationLevel isolationLeavel)
+        public void BeginTransaction(IsolationLevel isolationLeavel)
         {
             transaction = connection.BeginTransaction(isolationLeavel);
             transactionOn = true;
         }
 
-        protected void RollbackTransaction()
+        public void RollbackTransaction()
         {
             transaction.Rollback();
             transaction = null;

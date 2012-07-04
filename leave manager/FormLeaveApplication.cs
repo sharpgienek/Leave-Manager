@@ -77,7 +77,7 @@ namespace leave_manager
             }
             else
             {
-                dateTimePickerLastDay.MinDate = dateTimePickerFirstDay.MinDate = DateTime.Now.Trim(TimeSpan.TicksPerDay);                
+                dateTimePickerLastDay.MinDate = dateTimePickerFirstDay.MinDate = DateTime.Now.Trim(TimeSpan.TicksPerDay);
             }
             //Ograniczenie wyboru dnia rozpoczęcia i zakończenia. Najpóźniej na rok od dnia dzisiejszego.
             dateTimePickerFirstDay.MaxDate = DateTime.Now.Trim(TimeSpan.TicksPerDay).AddYears(1);
@@ -85,7 +85,7 @@ namespace leave_manager
             /* Ustawienie wartości początkowej dla elementu wyboru dni rozpoczęcia i zakończenia
              * na dni rozpoczęcia i zakończenia w edytowanym zgłoszeniu.
              */
-            dateTimePickerFirstDay.Value = firstDay;  
+            dateTimePickerFirstDay.Value = firstDay;
             dateTimePickerLastDay.Value = lastDay;
             /* Jeżli zgłoszenie urlopowe jest typu, który konsumuje dni urlopowe, to następuje 
              * obliczenie i ustawienie wartości etykiety z liczbą zużywanych przez urlop dni.
@@ -208,50 +208,64 @@ namespace leave_manager
         /// <param name="e"></param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-           
-                int numberOfUsedDays = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value);
-                int leaveDays = 0;
-                int oldLeaveDays = 0;
-                int yearDays = 0;
-            
-                //Zczytanie aktualnych wartości dostępnych dni urlopowych.
-                this.getDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
-                //Uaktualnienie warotości etykiet.
-                labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
-                labelNormalValue.Text = leaveDays.ToString();
-                labelOldValue.Text = oldLeaveDays.ToString();
-                //Sprawdzenie, czy nowe zgłoszenie nie wykorzystuje więcej dni, niż pracownik ma ich dostępnych.
-                if (numberOfUsedDays <= oldLeaveDays + leaveDays)
+            int numberOfUsedDays = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value);
+            int leaveDays = 0;
+            int oldLeaveDays = 0;
+            int yearDays = 0;
+
+            //Zczytanie aktualnych wartości dostępnych dni urlopowych.
+            this.getDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            //Uaktualnienie warotości etykiet.
+            labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
+            labelNormalValue.Text = leaveDays.ToString();
+            labelOldValue.Text = oldLeaveDays.ToString();
+            //Sprawdzenie, czy nowe zgłoszenie nie wykorzystuje więcej dni, niż pracownik ma ich dostępnych.
+            if (numberOfUsedDays <= oldLeaveDays + leaveDays)
+            {
+                //Sprawdzenie, czy zgłoszenie urlopowe wykorzystuje jakiekolwiek dni.
+                if (numberOfUsedDays != 0)
                 {
-                    //Sprawdzenie, czy zgłoszenie urlopowe wykorzystuje jakiekolwiek dni.
-                    if (numberOfUsedDays != 0)
+                    /* Sprawdzenie, czy zgłoszenie nie koliduje z już istniejącym.
+                     * Jeżeli jest to nowe zgłoszenie (!editMode), to należy po prostu sprawdzić, czy 
+                     * któryś z dni zgłoszenia nie jest już wykorzystany w innym zgłoszeniu.
+                     * Jeżeli jest to zgłoszenie edytowane, to należy sprawdzić, czy któryś z dni zgłoszenia
+                     * nie jest już wykorzystany w innym zgłoszeniu, ale należy pominąć sprawdzanie wpisu 
+                     * edytowanego. 
+                     * Jeżeli zgłoszenie jest zgłoszeniem chorobowego, to może kolidować z innymi zgłoszeniami.
+                     */
+                    if ((!editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId))
+                        || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, oldFirstDay))
+                        || comboBoxType.SelectedItem.ToString().Equals("Sick"))
                     {
-                        /* Sprawdzenie, czy zgłoszenie nie koliduje z już istniejącym.
-                         * Jeżeli jest to nowe zgłoszenie (!editMode), to należy po prostu sprawdzić, czy 
-                         * któryś z dni zgłoszenia nie jest już wykorzystany w innym zgłoszeniu.
-                         * Jeżeli jest to zgłoszenie edytowane, to należy sprawdzić, czy któryś z dni zgłoszenia
-                         * nie jest już wykorzystany w innym zgłoszeniu, ale należy pominąć sprawdzanie wpisu 
-                         * edytowanego. 
-                         * Jeżeli zgłoszenie jest zgłoszeniem chorobowego, to może kolidować z innymi zgłoszeniami.
-                         */
-                        if ((!editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId))
-                            || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, oldFirstDay))
-                            || comboBoxType.SelectedItem.ToString().Equals("Sick"))
+                        //Stworzenie nowego obiektu urlopu.
+                        Leave leave = new Leave(employeeId, comboBoxType.SelectedItem.ToString(),
+                            comboBoxStatus.SelectedItem.ToString(), dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text);
+                        if (editMode)
                         {
-                            //Stworzenie nowego obiektu urlopu.
-                            Leave leave = new Leave(employeeId, comboBoxType.SelectedItem.ToString(),
-                                comboBoxStatus.SelectedItem.ToString(), dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text);
+                            try
+                            {
+                                this.EditLeave(leave, oldFirstDay);
+                                this.Close();
+                            }
+                            catch//todo obsłużyć wszystkie wyjątki.
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
+                        else
+                        {                            
                             //Jeżeli wybrano zgłoszenie chorobowe.
                             if (comboBoxType.SelectedItem.ToString().Equals("Sick"))
                             {
                                 try
                                 {
                                     //Dodanie urlopu.
-                                    this.addSickLeave(leave, ref leaveDays, ref oldLeaveDays, yearDays);
+                                    this.addSickLeave(leave);
                                     this.Close();
                                 }
                                 catch//todo obsłużyć wszystkie wyjątki.
                                 {
+                                    throw new NotImplementedException();
                                 }
                             }
                             else
@@ -261,20 +275,24 @@ namespace leave_manager
                                     this.addLeave(leave);
                                     this.Close();
                                 }
-                                catch { }//todo obsługa wszystkich wyjątków.
+                                catch 
+                                {
+                                    throw new NotImplementedException();
+                                }//todo obsługa wszystkich wyjątków.
                             }
-                        }
-                        else
-                        {
-                            MessageBox.Show("At least one day from selected period is already used for leave.");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("No work days selected.");
+                        MessageBox.Show("At least one day from selected period is already used for leave.");
                     }
                 }
-           
+                else
+                {
+                    MessageBox.Show("No work days selected.");
+                }
+            }
+
         }
 
         /// <summary>

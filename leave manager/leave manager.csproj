@@ -64,10 +64,11 @@
     <Compile Include="DatabaseOperator.cs" />
     <Compile Include="Exceptions\EntryExistsException.cs" />
     <Compile Include="Exceptions\NoFreeLoginException.cs" />
-    <Compile Include="Exceptions\WrongEmployeeIdException.cs" />
-    <Compile Include="Exceptions\WrongIsolationLevelException.cs" />
-    <Compile Include="Exceptions\WrongLoginOrPasswordException.cs" />
-    <Compile Include="Exceptions\WrongPasswordException.cs" />
+    <Compile Include="Exceptions\EmployeeIdException.cs" />
+    <Compile Include="Exceptions\IsolationLevelException.cs" />
+    <Compile Include="Exceptions\LoginException.cs" />
+    <Compile Include="Exceptions\LoginOrPasswordException.cs" />
+    <Compile Include="Exceptions\PasswordException.cs" />
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>

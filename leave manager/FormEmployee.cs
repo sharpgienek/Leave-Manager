@@ -21,6 +21,11 @@ namespace leave_manager
         private Employee employee;
 
         /// <summary>
+        /// Właściwość zwracająca id zalogowanego pracownika.
+        /// </summary>
+        public int EmployeeId { get { return employee.EmployeeId; } }
+
+        /// <summary>
         /// Konstruktor bezargumentowy.
         /// </summary>
         public FormEmployee()
@@ -135,7 +140,7 @@ namespace leave_manager
                     //Jeżeli status urlopu jest różny od zatwierdzonego.
                     if (!row.Cells["Status"].Value.ToString().Equals("Approved"))
                     {
-                        this.DeleteLeave(employee.EmployeeId, (DateTime)row.Cells["First day"].Value, (DateTime)row.Cells["Last day"].Value);                        
+                        this.DeleteLeave(this.GetLeave((DateTime)row.Cells["First day"].Value));                        
                     }
                     else
                     {                         

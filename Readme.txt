@@ -29,19 +29,23 @@ ver. 0.14
 	- Dodano mo¿liwoœæ zg³oszenia chêci odbycia urlopu
 
 ver. 0.15
-	- Naprawiono zg³aszanie chêci urlopu.
-	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez asystentke.
-	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez kierownika.
-	- Dodano mo¿liwoœæ dodawania/usuwania nowych wpisów do s³owników pozycji i typów urlopów przez administratora.
-	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke.
-	- Dodano mo¿liwoœæ dodawania chorobowego.
+	- Naprawiono zg³aszanie chêci urlopu	
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez asystentke	
+	- Dodano mo¿liwoœæ zatwierdzania/odrzucania urlopu przez kierownika
+	- Dodano mo¿liwoœæ dodawania/usuwania nowych wpisów do s³owników pozycji i typów urlopów przez administratora
+	- Dodano mo¿liwoœæ edycji wpisów urlopowych przez asystentke
+	- Dodano mo¿liwoœæ dodawania chorobowego
 
-ver. 0.16
+ver 0.16
 	- przeniesiono wiêkszoœæ zapytañ do jednej klasy DatabaseOperator. Obiekt tej klasy jest przekazywany do formularzy.
 
 ver. 0.17
 	- Poprawiono kilka b³êdów.
 	- Skomentowano wiêkszoœæ kodu (klasa DatabaseOperator wymaga dokomentowania).
+	- Program wymaga gruntownego testowania po przebudowie.
+ver. 0.18
+	- Poprawiono kilka b³êdów.
+	- Skoñczono komentowaæ klasê DatabaseOperator.
 	- Program wymaga gruntownego testowania po przebudowie.
 
 INFO
@@ -60,3 +64,33 @@ Do zrobienia na koñcu:
 Obs³uga b³êdów przy wszystkich transakcjach, lub wykonaniach zapytañ.
 Przemyœlenie wszystich transakcji.
 Zmiana nazw metod na z du¿ych liter.
+
+
+
+ todo list:
+ * - Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
+ * 
+ * - Przetestowaæ metodê z DatabaseOperator  GetLeave.
+ * 
+ * - Przetestowaæ metodê z DatabaseOperator  private static void DeleteLeave(LeaveManagerForm form, Leave leave)
+ * 
+ * - Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go.
+ * 
+ * - Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parz employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
+ * ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
+ * dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
+ * 
+ * - Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
+ * 
+ * - Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
+ * które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ).
+ * 
+ * - w metodzie private static void addLeave(LeaveManagerForm form, Leave leave)
+ * nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
+ * 
+ * - w metodzie private static void DeleteLeave(LeaveManagerForm form, Leave leave)
+ * nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
+ * 
+ * - Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) powiedzie siê?
+- Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
+- Zmiana nazw metod na z du¿ych liter.
