@@ -42,7 +42,7 @@ namespace leave_manager
             this.parent = parent;
             labelNameValue.Text = name + " " + surname;
             labelPositionValue.Text = position;
-            refreshData();
+            RefreshData();
         }
 
         /// <summary>
@@ -53,15 +53,15 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Obiekt wysyłąjący.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshData(object o, FormClosedEventArgs e)
+        private void RefreshData(object o, FormClosedEventArgs e)
         {
-            refreshData();
+            RefreshData();
         }
 
         /// <summary>
         /// Metoda wczytująca aktualne dane pracownika, którego dotyczy formularz.
         /// </summary>
-        private void refreshData()
+        private void RefreshData()
         {
             //Zmienne do których zostanie zczytana liczba dostępnych dni.
             int leaveDays = 0;
@@ -71,10 +71,10 @@ namespace leave_manager
             try
             {
                 //Zczytanie dostępnych dni.
-                this.getDays(employeeId, ref leaveDays, ref oldLeaveDays);
+                this.GetDays(employeeId, ref leaveDays, ref oldLeaveDays);
                 DataTable data = new DataTable();
                 //Wczytanie urlopów.
-                dataGridView.DataSource = this.getLeaves(employeeId);
+                dataGridView.DataSource = this.GetLeaves(employeeId);
                 //Zaktualizowanie etykiety mówiącej o liczbie dostępnych dni.
                 labelDaysToUseValue.Text = (leaveDays + oldLeaveDays).ToString();
                 this.CommitTransaction();
@@ -101,7 +101,7 @@ namespace leave_manager
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
                 FormLeaveApplication form = new FormLeaveApplication(this, connection, employeeId);
-                form.FormClosed += new FormClosedEventHandler(refreshData);
+                form.FormClosed += new FormClosedEventHandler(RefreshData);
                 form.Show();
             }
         }
@@ -119,7 +119,7 @@ namespace leave_manager
             /* Dodanie metody odświeżenia danych formularza do obsługi zdarzenia
              * zamknięcia formularza zgłoszenia urlopowego.
              */
-            form.FormClosed += new FormClosedEventHandler(refreshData);
+            form.FormClosed += new FormClosedEventHandler(RefreshData);
             form.Show();
         }
     }

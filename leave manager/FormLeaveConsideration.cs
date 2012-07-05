@@ -58,7 +58,7 @@ namespace leave_manager
             try
             {
                 //Zczytanie imienia, nazwiska oraz pozycji pracownika.
-                Employee employee = this.getEmployee(employeeId);
+                Employee employee = this.GetEmployee(employeeId);
                 labelNameValue.Text = employee.Name;
                 labelPositionValue.Text = employee.Position;
             }
@@ -90,7 +90,7 @@ namespace leave_manager
         {
             try
             {
-                this.acceptLeave(employeeId, firstDay);
+                this.AcceptLeave(employeeId, firstDay);
                 this.Close();
             }
             catch 
@@ -109,7 +109,7 @@ namespace leave_manager
         {
             try
             {
-                this.rejectLeave(employeeId, firstDay);
+                this.RejectLeave(employeeId, firstDay);
                 this.Close();
             }
             catch { }//todo obsługa wszystkich wyjątków.

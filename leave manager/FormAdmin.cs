@@ -27,9 +27,9 @@ namespace leave_manager
             /* Pierwsze wczytanie danych do tabeli zawierającej pracowników nie poinformowanych
              * o loginie i haśle.
              */
-            refreshDataGridViewNewEmployees();
+            RefreshDataGridViewNewEmployees();
             // Pierwsze wczytanie danych do tabeli zawierającej rodzaje możliwych pozycji pracowników.
-            refreshDataGridViewPositions();
+            RefreshDataGridViewPositions();
         }
 
         /// <summary>
@@ -40,15 +40,15 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Objekt wysyłający.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshDataGridViewLeaveTypes(object o, FormClosedEventArgs e)
+        private void RefreshDataGridViewLeaveTypes(object o, FormClosedEventArgs e)
         {
-            refreshDataGridViewLeaveTypes();
+            RefreshDataGridViewLeaveTypes();
         }
 
         /// <summary>
         /// Metoda odświeżania zawartości tabeli zawierającej rodzaje urlopów.
         /// </summary>
-        private void refreshDataGridViewLeaveTypes()
+        private void RefreshDataGridViewLeaveTypes()
         {
             try
             {
@@ -71,15 +71,15 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Objekt wysyłający.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshDataGridViewPositions(object o, FormClosedEventArgs e)
+        private void RefreshDataGridViewPositions(object o, FormClosedEventArgs e)
         {
-            refreshDataGridViewPositions();
+            RefreshDataGridViewPositions();
         }
 
         /// <summary>
         /// Metoda odświeżania zawartości tabeli zawierającej rodzaje pozycji pracowników.
         /// </summary>
-        private void refreshDataGridViewPositions()
+        private void RefreshDataGridViewPositions()
         {
             try
             {
@@ -96,7 +96,7 @@ namespace leave_manager
         /// Metoda odświeżania zawartości tabeli zawierającej pracowników nie poinformowanych o 
         /// loginie i haśle.
         /// </summary>
-        private void refreshDataGridViewNewEmployees()
+        private void RefreshDataGridViewNewEmployees()
         {
             try
             {
@@ -246,7 +246,7 @@ namespace leave_manager
             {
                 throw new NotImplementedException();
             }//todo obsługa wszystkich wyjątków.
-            refreshDataGridViewNewEmployees();
+            RefreshDataGridViewNewEmployees();
         }
 
         /// <summary>
@@ -258,10 +258,10 @@ namespace leave_manager
         {
             //Jeżeli zaznaczono zakładkę z pozycjami, to odśwież jej tabelę.
             if (tabControlDictionaries.SelectedTab.Text.Equals("Positions"))
-                refreshDataGridViewPositions();
+                RefreshDataGridViewPositions();
             //Jeżeli zaznaczono zakładkę z typami urlopów, to odśwież jej tabelę.
             if (tabControlDictionaries.SelectedTab.Text.Equals("Leave types"))
-                refreshDataGridViewLeaveTypes();
+                RefreshDataGridViewLeaveTypes();
         }
 
         /// <summary>
@@ -277,14 +277,14 @@ namespace leave_manager
             {
                 //Jeżeli w zakładce ze słownikami zaznaczono zakładkę ze słownikiem pozycji.
                 if (tabControlDictionaries.SelectedTab.Text.Equals("Positions"))
-                    refreshDataGridViewPositions();
+                    RefreshDataGridViewPositions();
                 //Jeżeli w zakładce ze słownikami zaznaczono zakładkę ze słownikiem typów urlopów.
                 if (tabControlDictionaries.SelectedTab.Text.Equals("Leave types"))
-                    refreshDataGridViewLeaveTypes();
+                    RefreshDataGridViewLeaveTypes();
             }
             //Jeżeli zaznaczono zakładkę z nie poinformowanymi pracownikami.
             if (tabControl.SelectedTab.Text.Equals("New Employees"))
-                refreshDataGridViewNewEmployees();
+                RefreshDataGridViewNewEmployees();
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace leave_manager
             /* Dodanie metody odświeżania tabeli z pozycjami do zdarzenia zamknięcia formularza
              * dodawania nowej pozycji.
              */
-            form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPositions);
+            form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewPositions);
             //Wyświetlenie formularza dodawania nowej pozycji.
             form.Show();
         }
@@ -331,7 +331,7 @@ namespace leave_manager
                     /* Dodanie metody odświeżania tabeli pozycji do obsługi zdarzenia zamknięcia
                      * formularza kasowania pozycji.
                      */
-                    form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPositions);
+                    form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewPositions);
                     //Wyświetlenie fomularza kasowania pozycji.
                     form.Show();
                 }
@@ -359,7 +359,7 @@ namespace leave_manager
             /* Dodanie metody odświeżania tabeli z typami urlopów do obsługi zdarzenia
              * zamknięcia formularza dodawania nowego typu urlopu.
              */
-            form.FormClosed += new FormClosedEventHandler(refreshDataGridViewLeaveTypes);
+            form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewLeaveTypes);
             //Wyświetlenie formularza dodawania nowego typu urlopu.
             form.Show();
         }
@@ -392,7 +392,7 @@ namespace leave_manager
                         /* Dodanie metody odświeżania tabeli zawierającej typy urlopów do zdarzenia
                          * zamknięcia formularza usuwania typu urlopu.
                          */
-                        form.FormClosed += new FormClosedEventHandler(refreshDataGridViewLeaveTypes);
+                        form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewLeaveTypes);
                         //Wyświetlenie formularza usuwania typu urlopu.
                         form.Show();
                     }

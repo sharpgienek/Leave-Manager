@@ -48,7 +48,7 @@ namespace leave_manager
         {
             try
             {
-                dataGridViewNeedsAction.DataSource = this.getNeedsAction();
+                dataGridViewNeedsAction.DataSource = this.GetNeedsAction();
             }
             catch//todo obsługa wszystkich rodzajów wyjątków.
             { }
@@ -61,19 +61,19 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Obiekt wysyłający.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshDataGridViewEmployees(Object o, EventArgs e)
+        private void RefreshDataGridViewEmployees(Object o, EventArgs e)
         {
-            refreshDataGridViewEmployees();
+            RefreshDataGridViewEmployees();
         }
 
         /// <summary>
         /// Metoda wczytywania zawartości tabeli zawierającej pracowników.
         /// </summary>
-        private void refreshDataGridViewEmployees()
+        private void RefreshDataGridViewEmployees()
         {
             try
             {
-                dataGridViewEmployees.DataSource = this.getEmployees();
+                dataGridViewEmployees.DataSource = this.GetEmployees();
             }
             catch { }//todo obsługa wszystkich wyjątków.           
         }
@@ -88,7 +88,7 @@ namespace leave_manager
         {
             FormAddEmployee form = new FormAddEmployee(connection);
             form.Show();
-            form.FormClosed += new FormClosedEventHandler(this.refreshDataGridViewEmployees);
+            form.FormClosed += new FormClosedEventHandler(this.RefreshDataGridViewEmployees);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace leave_manager
         {
             //Jeżeli zaznaczono zakładkę pracowników to odśwież tabele pracowników.
             if (tabControl.SelectedTab.Text.Equals("Employees"))
-                refreshDataGridViewEmployees();
+                RefreshDataGridViewEmployees();
             //Jeżeli zaznaczono zakładkę ze zgłoszeniami wymagającymi działania, to odśwież tam dane.
             if (tabControl.SelectedTab.Text.Equals("Needs your action"))
                 LoadDataGridViewNeedsAction();

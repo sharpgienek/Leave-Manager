@@ -181,7 +181,7 @@ namespace leave_manager
                 int leaveDays = 0;
                 int oldLeaveDays = 0;
                 // Zczytanie wartości do zmiennych.
-                this.getDays(employeeId, ref leaveDays, ref oldLeaveDays);
+                this.GetDays(employeeId, ref leaveDays, ref oldLeaveDays);
                 //Przypisanie wartości do etykiet.
                 labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
                 labelNormalValue.Text = leaveDays.ToString();
@@ -214,7 +214,7 @@ namespace leave_manager
             int yearDays = 0;
 
             //Zczytanie aktualnych wartości dostępnych dni urlopowych.
-            this.getDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            this.GetDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
             //Uaktualnienie warotości etykiet.
             labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
             labelNormalValue.Text = leaveDays.ToString();
@@ -237,9 +237,14 @@ namespace leave_manager
                         || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, oldFirstDay))
                         || comboBoxType.SelectedItem.ToString().Equals("Sick"))
                     {
+                        string choosenStatus;
+                        if (comboBoxStatus.SelectedItem != null)
+                            choosenStatus = comboBoxStatus.SelectedItem.ToString();
+                        else
+                            choosenStatus = "Pending validation";
                         //Stworzenie nowego obiektu urlopu.
                         Leave leave = new Leave(employeeId, comboBoxType.SelectedItem.ToString(),
-                            comboBoxStatus.SelectedItem.ToString(), dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text);
+                            choosenStatus, dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text);
                         if (editMode)
                         {
                             try
@@ -260,7 +265,7 @@ namespace leave_manager
                                 try
                                 {
                                     //Dodanie urlopu.
-                                    this.addSickLeave(leave);
+                                    this.AddSickLeave(leave);
                                     this.Close();
                                 }
                                 catch//todo obsłużyć wszystkie wyjątki.
@@ -272,7 +277,7 @@ namespace leave_manager
                             {
                                 try
                                 {
-                                    this.addLeave(leave);
+                                    this.AddLeave(leave);
                                     this.Close();
                                 }
                                 catch 
@@ -306,13 +311,13 @@ namespace leave_manager
             //Ustawienie ograniczenia minimalnej daty zakończenia urlopu na datę rozpoczęcia.
             dateTimePickerLastDay.MinDate = dateTimePickerFirstDay.Value;
             //Aktualizacja wartości etykiety używanych dni.
-            updateLabelUsedDaysValue();
+            UpdateLabelUsedDaysValue();
         }
 
         /// <summary>
         /// Metoda służąca do aktualizacji wartości etykiety używanych przez urlop dni urlopowych.
         /// </summary>
-        private void updateLabelUsedDaysValue()
+        private void UpdateLabelUsedDaysValue()
         {
             //Jeżeli wybrany typ urlopu konsumuje dni urlopowe.
             if (leaveTypes[comboBoxType.SelectedIndex].ConsumesDays)
@@ -335,7 +340,7 @@ namespace leave_manager
         /// <param name="e">Argumenty.</param>
         private void dateTimePickerLastDay_ValueChanged(object sender, EventArgs e)
         {
-            updateLabelUsedDaysValue();
+            UpdateLabelUsedDaysValue();
         }
 
         /// <summary>
@@ -351,7 +356,7 @@ namespace leave_manager
         private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Aktualizacja etykiety używanych dni urlopu.
-            updateLabelUsedDaysValue();
+            UpdateLabelUsedDaysValue();
             //Jeżeli wybrany typ urlopu to chorobowe.
             if (comboBoxType.SelectedItem.ToString().Equals("Sick"))
             {

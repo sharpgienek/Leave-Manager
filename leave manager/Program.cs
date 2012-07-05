@@ -56,10 +56,10 @@ namespace leave_manager
                     switch (form.Employee.Permission)
                     {
                         case "administrator":
-                         // Application.Run(new FormAdmin(connection));
-                           //Application.Run(new FormEmployee(connection, form.Employee));
-                            Application.Run(new FormAssistant(connection));
-                          //  Application.Run(new FormManager(connection));
+                          //Application.Run(new FormAdmin(connection));                           
+                          //Application.Run(new FormEmployee(connection, form.Employee));
+                            //Application.Run(new FormAssistant(connection));
+                            Application.Run(new FormManager(connection));
                             break;
                         case "manager":
                             Application.Run(new FormManager(connection));

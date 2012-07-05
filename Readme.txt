@@ -47,6 +47,11 @@ ver. 0.18
 	- Poprawiono kilka b³êdów.
 	- Skoñczono komentowaæ klasê DatabaseOperator.
 	- Program wymaga gruntownego testowania po przebudowie.
+ver. 0.19
+	- Uzupe³niono listê todo w pliku Readme.txt.
+	- Przeprowadzono powierzchowne testy wszystkich funkcji.
+	- Naprawiono dodawanie zg³oszenia urlopowego przez pracownika.
+	- Skomentowano LeaveManagerForm.
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
@@ -56,41 +61,76 @@ employee == 2FDC0177057D3A5C6C2C0821E01F4FA8D90F9A3BB7AFD82B0DB526AF98D68DE8
 
 Pytania:
 
-Wymagania do danych
+Wymagania do danych:
 W tabeli Permission id musi byæ od 0 do max bez wartoœci pustych (nie mo¿e byæ np. takiej sytuacji {0,1,3})
 W tabeli Status_type typ Pending validation musi mieæ index 0, ¿eby by³ domyœlnym statusem wpisywanym przy braniu urlopu przez pracownika.
 
 Do zrobienia na koñcu:
 Obs³uga b³êdów przy wszystkich transakcjach, lub wykonaniach zapytañ.
 Przemyœlenie wszystich transakcji.
-Zmiana nazw metod na z du¿ych liter.
+
 
 
 
  todo list:
- * - Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
- * 
- * - Przetestowaæ metodê z DatabaseOperator  GetLeave.
- * 
- * - Przetestowaæ metodê z DatabaseOperator  private static void DeleteLeave(LeaveManagerForm form, Leave leave)
- * 
- * - Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go.
- * 
- * - Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parz employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
- * ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
- * dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
- * 
- * - Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
- * 
- * - Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
- * które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ).
- * 
- * - w metodzie private static void addLeave(LeaveManagerForm form, Leave leave)
- * nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
- * 
- * - w metodzie private static void DeleteLeave(LeaveManagerForm form, Leave leave)
- * nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
- * 
- * - Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) powiedzie siê?
+
+- Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
+  
+- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go.
+  
+- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parz employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
+ ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
+ dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
+  
+- Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
+
+- Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
+które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ). 
+<<<Rozwi¹za³o by to te¿ problem
+z usuwanymi typami konsumuj¹cymi i podmian¹ przez typ nie konsumuj¹cy. W takim wyj¹tkowym wypadku
+typ nie konsumuj¹cy konsumowa³by dni.
+ 
+- w metodzie private static void addLeave(LeaveManagerForm form, Leave leave)
+nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
+ 
+- w metodzie private static void DeleteLeave(LeaveManagerForm form, Leave leave)
+nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
+ 
+- Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) 
+powiedzie siê?: NIE!! A POWINNO!
+
 - Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
+
 - Zmiana nazw metod na z du¿ych liter.
+
+- Usun¹æ mo¿liwoœæ usuniêcia typu urlopu: maternal i normal. 
+
+- Jest zgrzyt: Gdy usunie siê typ, który konsumuje dni i przypisze w jego miejsce jakiœ, który dni nie konsumuje.
+
+- Employee>usuwanie urlopu nie dzia³a (gdzieœ nie jest zamkniêty SqlDataReader)
+
+- Assistant>zabraæ mo¿liwoœæ edycji wpisów urlopowych (mo¿e oprócz uwag.)
+
+- Dodawanie urlopu pracownikowi przez assistant> Trzeba z listy statusów usun¹æ Canceled, bo to bez sensu.
+
+- Metoda dodawani chorobowego szwankuje: gdy np. biore urlop na 16-17, a dostaje 
+chorobowe na 16, to urlop mi anuluje, a nie powinno.
+
+
+
+Nie zaiplementowane:
+- Usuwanie pracownika.
+- Wyszukiwanie pracowników
+- Manager>ogl¹danie danych pracowników
+- Zastêpstwa
+- Manager>Raportowanie
+- Dodanie stanu urlop w trakcie i urlop zakoñczony.
+- Assistant/Manager>Reject without consideration
+- Rozpisywanie dni zajêtych przez innych pracowników tego samego typu w oknie rozwa¿ania zg³oszenia urlopowego.
+- Liczby wymaganych pracowników na danej pozycji
+- Resetowania dni urlopowych przy zmianie roku
+- Przydzielanie tylko czêœci przys³uguj¹cych dni urlopowych przy rozpoczêciu pracy w zale¿noœci 
+od dnia zatrudnienia.
+- EmployeeData>Delete leave entry
+- Ewidencja godzin/dni pracy.
+

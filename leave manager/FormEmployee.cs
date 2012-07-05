@@ -43,7 +43,7 @@ namespace leave_manager
             this.employee = employee;
             labelNameValue.Text = employee.Name + " " + employee.Surname;
             labelPositionValue.Text = employee.Position;
-            refreshData();
+            RefreshData();
         }
 
         /// <summary>
@@ -54,27 +54,27 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Obiekt wysyłający.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshData(object o, FormClosedEventArgs e)
+        private void RefreshData(object o, FormClosedEventArgs e)
         {
-            refreshData();
+            RefreshData();
         }
 
         /// <summary>
         /// Metoda odpowiedzialna za ponowne wczytanie aktualnych danych użytkownika.
         /// </summary>
-        private void refreshData()
+        private void RefreshData()
         {
             try
             {
                 //Wczytanie danych urlopowych.
-                dataGridView.DataSource = this.getLeaves(employee.EmployeeId);
+                dataGridView.DataSource = this.GetLeaves(employee.EmployeeId);
                 /* Zmienne do których zczytane zostaną odpowiednio liczba dostępnych
                  * dni urlopu z bieżącego roku i liczba dostępnych dni zaległych.
                  */
                 int leaveDays = 0;
                 int oldLeaveDays = 0;        
                 //Zczytanie wartości dostępnych dni.
-                this.getDays(employee.EmployeeId, ref leaveDays, ref oldLeaveDays);
+                this.GetDays(employee.EmployeeId, ref leaveDays, ref oldLeaveDays);
                 employee.LeaveDays = leaveDays;
                 employee.OldLeaveDays = oldLeaveDays;
                 //Przypisanie do etykiety dni dostępnych.
@@ -110,7 +110,7 @@ namespace leave_manager
             /* Dodanie metody odświeżającej dane formularza związane z urlopami do obsługi
              * wydarzenia zamknięcia formularza aplikacji o urlop.
              */
-            form.FormClosed += new FormClosedEventHandler(refreshData);
+            form.FormClosed += new FormClosedEventHandler(RefreshData);
             form.Show();
         }
 
@@ -150,7 +150,7 @@ namespace leave_manager
                     }
                 }
                 this.CommitTransaction();
-                refreshData();
+                RefreshData();
             }
             catch//todo obsługa wszystkich wyjątków.
             {

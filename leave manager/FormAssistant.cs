@@ -30,9 +30,9 @@ namespace leave_manager
             InitializeComponent();
             this.connection = connection;
             //Wczytanie danych do tabeli ze zgłoszeniami wymagającymi działania.
-            refreshDataGridViewPendingAplications();
+            RefreshDataGridViewPendingAplications();
             //Wczytanie wszystkich pracowników do tabeli z pracownikami.
-            loadAllDataGridViewEmployees();
+            LoadAllDataGridViewEmployees();
         }
 
         /// <summary>
@@ -42,20 +42,20 @@ namespace leave_manager
         /// </summary>
         /// <param name="o">Obiekt wysyłający.</param>
         /// <param name="e">Argumenty.</param>
-        private void refreshDataGridViewPendingAplications(object o, FormClosedEventArgs e)
+        private void RefreshDataGridViewPendingAplications(object o, FormClosedEventArgs e)
         {
-            refreshDataGridViewPendingAplications();
+            RefreshDataGridViewPendingAplications();
         }
 
         /// <summary>
         /// Metoda odpowiedzialna za odświeżenie tabeli ze zgłoszeniami wymagającymi
         /// działania.
         /// </summary>
-        private void refreshDataGridViewPendingAplications()
+        private void RefreshDataGridViewPendingAplications()
         {
             try
             {                
-                dataGridViewPendingAplications.DataSource = this.getNeedsAction();
+                dataGridViewPendingAplications.DataSource = this.GetNeedsAction();
             }
             catch//todo obsługa wszystkich rodzajów wyjątków.
             {
@@ -67,11 +67,11 @@ namespace leave_manager
         /// Metoda odpowiedzialna za wczytanie danych do tabeli zawierającej
         /// informacje o pracownikach.
         /// </summary>
-        private void loadAllDataGridViewEmployees()
+        private void LoadAllDataGridViewEmployees()
         {
             try
             {
-                dataGridViewEmployees.DataSource = this.getEmployees();
+                dataGridViewEmployees.DataSource = this.GetEmployees();
                 dataGridViewEmployees.Columns["Employee id"].Visible = false;
             }
             catch 
@@ -103,7 +103,7 @@ namespace leave_manager
                 /* Dodajemy metodę odświeżania oczekujących aplikacji do obsługi zdarzenia zamknięcia
                  * formularza rozważania aplikacji.
                  */
-                form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPendingAplications);
+                form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewPendingAplications);
                 //Wyświetlenie formularza rozważenia aplikacji.
                 form.Show();
             }
@@ -118,7 +118,7 @@ namespace leave_manager
         /// <param name="e">Argumenty.</param>
         private void buttonEmployeesShowAll_Click(object sender, EventArgs e)
         {
-            loadAllDataGridViewEmployees();
+            LoadAllDataGridViewEmployees();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace leave_manager
                  * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
                  * pracownika zmiany właściwości jego aplikacji urlopowych.
                  */
-                form.FormClosed += new FormClosedEventHandler(refreshDataGridViewPendingAplications);
+                form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewPendingAplications);
                 //Wyświetlenie formularza danych pracownika.
                 form.Show();
             }           

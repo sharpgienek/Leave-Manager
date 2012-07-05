@@ -25,9 +25,9 @@ namespace leave_manager
         /// <param name="login">Login.</param>
         /// <param name="password">Hasło.</param>
         /// <returns>Zwraca obiekt reprezentujący zalogowanego pracownika.</returns>
-        public static Employee login(this FormLogin form, String login, String password)
+        public static Employee Login(this FormLogin form, String login, String password)
         {
-            return DatabaseOperator.login((LeaveManagerForm)form, login, password);
+            return DatabaseOperator.Login((LeaveManagerForm)form, login, password);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace leave_manager
         /// <param name="login">Login.</param>
         /// <param name="password">Hasło.</param>
         /// <returns>Zwraca obiekt reprezentujący zalogowanego pracownika.</returns>
-        private static Employee login(LeaveManagerForm form, String login, String password)
+        private static Employee Login(LeaveManagerForm form, String login, String password)
         {
             //Zapytanie sql zczytujące dane pracownika o podanym loginie i haśle.
             SqlCommand command = new SqlCommand("SELECT E.Employee_ID, Perm.Description AS Permission, E.Name, E.Surname, E.Birth_date," +
@@ -450,9 +450,9 @@ namespace leave_manager
         /// <returns>Zwraca tabelę zawierającą zgłoszenia urlopowe wymagające zatwierdzenia/odrzucenia.
         /// Tabela zawiera kolumny: "Employee id", "Position", "Name", "Surname", "e-mail", "Type",
         /// "First day", "Last day", "No. used work days".</returns>
-        public static DataTable getNeedsAction(this FormManager form)
+        public static DataTable GetNeedsAction(this FormManager form)
         {
-            return getNeedsAction((LeaveManagerForm)form);
+            return GetNeedsAction((LeaveManagerForm)form);
         }
 
         /// <summary>
@@ -463,9 +463,9 @@ namespace leave_manager
         /// <returns>Zwraca tabelę zawierającą zgłoszenia urlopowe wymagające zatwierdzenia/odrzucenia.
         /// Tabela zawiera kolumny: "Employee id", "Position", "Name", "Surname", "e-mail", "Type",
         /// "First day", "Last day", "No. used work days".</returns>
-        public static DataTable getNeedsAction(this FormAssistant form)
+        public static DataTable GetNeedsAction(this FormAssistant form)
         {
-            return getNeedsAction((LeaveManagerForm)form);
+            return GetNeedsAction((LeaveManagerForm)form);
         }
 
         /// <summary>
@@ -476,7 +476,7 @@ namespace leave_manager
         /// <returns>Zwraca tabelę zawierającą zgłoszenia urlopowe wymagające zatwierdzenia/odrzucenia.
         /// Tabela zawiera kolumny: "Employee id", "Position", "Name", "Surname", "e-mail", "Type",
         /// "First day", "Last day", "No. used work days".</returns>
-        private static DataTable getNeedsAction(LeaveManagerForm form)
+        private static DataTable GetNeedsAction(LeaveManagerForm form)
         {
             //Zapytanie sql zczytujące zgłoszenia wymagające zatwierdzenia/odrzucenia.
             SqlCommand command = new SqlCommand("SELECT E.Employee_ID AS 'Employee id', P.Description AS 'Position', " +
@@ -529,9 +529,9 @@ namespace leave_manager
         /// "Employee id", "Name", "Surname", "Birth date", "Address",
         /// "PESEL", "e-mail", "Position", "Permission", "Remaining leave days",
         /// "Old leave days".</returns>
-        public static DataTable getEmployees(this FormManager form)
+        public static DataTable GetEmployees(this FormManager form)
         {
-            return getEmployees((LeaveManagerForm)form);
+            return GetEmployees((LeaveManagerForm)form);
         }
 
         /// <summary>
@@ -543,9 +543,9 @@ namespace leave_manager
         /// "Employee id", "Name", "Surname", "Birth date", "Address",
         /// "PESEL", "e-mail", "Position", "Permission", "Remaining leave days",
         /// "Old leave days".</returns>
-        public static DataTable getEmployees(this FormAssistant form)
+        public static DataTable GetEmployees(this FormAssistant form)
         {
-            return getEmployees((LeaveManagerForm)form);
+            return GetEmployees((LeaveManagerForm)form);
         }
 
         /// <summary>
@@ -556,7 +556,7 @@ namespace leave_manager
         /// "Employee id", "Name", "Surname", "Birth date", "Address",
         /// "PESEL", "e-mail", "Position", "Permission", "Remaining leave days",
         /// "Old leave days".</returns>
-        private static DataTable getEmployees(LeaveManagerForm form)
+        private static DataTable GetEmployees(LeaveManagerForm form)
         {
             //Zapytanie sql zwracające dane wszystkich pracowników.
             SqlCommand command = new SqlCommand("SELECT E.Employee_ID AS 'Employee id', " +
@@ -586,9 +586,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pobieranego pracownika.</param>
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
-        public static Employee getEmployee(this FormLogin form, int employeeId)
+        public static Employee GetEmployee(this FormLogin form, int employeeId)
         {
-            return getEmployee((LeaveManagerForm)form, employeeId);
+            return GetEmployee((LeaveManagerForm)form, employeeId);
         }
 
         /// <summary>
@@ -598,9 +598,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pobieranego pracownika.</param>
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
-        public static Employee getEmployee(this FormLeaveConsideration form, int employeeId)
+        public static Employee GetEmployee(this FormLeaveConsideration form, int employeeId)
         {
-            return getEmployee((LeaveManagerForm)form, employeeId);
+            return GetEmployee((LeaveManagerForm)form, employeeId);
         }
 
         /// <summary>
@@ -609,7 +609,7 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pobieranego pracownika.</param>
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
-        private static Employee getEmployee(LeaveManagerForm form, int employeeId)
+        private static Employee GetEmployee(LeaveManagerForm form, int employeeId)
         {
             //Zapytanie sql czytające dane pracownika o danym numerze id.
             SqlCommand command = new SqlCommand("SELECT E.Employee_ID, Perm.Description AS Permission, E.Name, E.Surname, E.Birth_date," +
@@ -651,7 +651,7 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie.</param>
         /// <param name="firstDay">Dzień rozpoczęcia urlopu.</param>
-        public static void acceptLeave(this FormLeaveConsideration form, int employeeId, DateTime firstDay)
+        public static void AcceptLeave(this FormLeaveConsideration form, int employeeId, DateTime firstDay)
         {
             //Polecenie sql które zmienia stan akceptowanego zgłoszenia.
             SqlCommand commandUpdateLeave = new SqlCommand("UPDATE Leave SET LS_ID = (SELECT ST_ID FROM " +
@@ -684,9 +684,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie.</param>
         /// <param name="firstDay">Pierwszy dzień zgłoszenia urlopowego.</param>
-        public static void rejectLeave(this FormLeaveConsideration form, int employeeId, DateTime firstDay)
+        public static void RejectLeave(this FormLeaveConsideration form, int employeeId, DateTime firstDay)
         {
-            rejectLeave((LeaveManagerForm)form, employeeId, firstDay);
+            RejectLeave((LeaveManagerForm)form, employeeId, firstDay);
         }
 
         /// <summary>
@@ -695,7 +695,7 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie.</param>
         /// <param name="firstDay">Pierwszy dzień zgłoszenia urlopowego.</param>
-        private static void rejectLeave(LeaveManagerForm form, int employeeId, DateTime firstDay)
+        private static void RejectLeave(LeaveManagerForm form, int employeeId, DateTime firstDay)
         {
             //Polecenie sql służące do aktualizacji stanu zgłoszenia.
             SqlCommand command = new SqlCommand("UPDATE Leave SET LS_ID = (SELECT ST_ID FROM " +
@@ -720,9 +720,9 @@ namespace leave_manager
         /// zczytana liczba dni urlopowych pracownika.</param>
         /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
-        public static void getDays(this FormEmployee form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
+        public static void GetDays(this FormEmployee form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
         {
-            getDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
+            GetDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
         }
 
         /// <summary>
@@ -735,9 +735,9 @@ namespace leave_manager
         /// zczytana liczba dni urlopowych pracownika.</param>
         /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
-        public static void getDays(this FormEmployeeData form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
+        public static void GetDays(this FormEmployeeData form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
         {
-            getDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
+            GetDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
         }
 
         /// <summary>
@@ -750,9 +750,9 @@ namespace leave_manager
         /// zczytana liczba dni urlopowych pracownika.</param>
         /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
-        public static void getDays(this FormLeaveApplication form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
+        public static void GetDays(this FormLeaveApplication form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
         {
-            getDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
+            GetDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays);
         }
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace leave_manager
         /// zczytana liczba dni urlopowych pracownika.</param>
         /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
-        private static void getDays(LeaveManagerForm form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
+        private static void GetDays(LeaveManagerForm form, int employeeId, ref int leaveDays, ref int oldLeaveDays)
         {
             //Zapytanie zczytujące.
             SqlCommand commandSelectDays = new SqlCommand("SELECT Leave_days, Old_leave_days FROM Employee " +
@@ -795,9 +795,9 @@ namespace leave_manager
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
-        public static void getDays(this FormLeaveApplication form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
+        public static void GetDays(this FormLeaveApplication form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
         {
-            getDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            GetDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
         }
 
         /// <summary>
@@ -812,9 +812,9 @@ namespace leave_manager
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
-        public static void getDays(this FormEmployeeData form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
+        public static void GetDays(this FormEmployeeData form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
         {
-            getDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            GetDays((LeaveManagerForm)form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
         }
 
         /// <summary>
@@ -828,7 +828,7 @@ namespace leave_manager
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
-        private static void getDays(LeaveManagerForm form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
+        private static void GetDays(LeaveManagerForm form, int employeeId, ref int leaveDays, ref int oldLeaveDays, ref int yearDays)
         {
             //Zapytanie sql zczytujące dane.
             SqlCommand commandSelectDays = new SqlCommand("SELECT Leave_days, Old_leave_days, Year_leave_days FROM Employee " +
@@ -857,9 +857,9 @@ namespace leave_manager
         /// <returns>Zwraca tabelę z danymi urlopowymi pracownika.
         /// Kolumny tabeli: "Status", "First day", "Last day", "Type",
         /// "Remarks", "No. used days"</returns>
-        public static DataTable getLeaves(this FormEmployee form, int employeeId)
+        public static DataTable GetLeaves(this FormEmployee form, int employeeId)
         {
-            return getLeaves((LeaveManagerForm)form, employeeId);
+            return GetLeaves((LeaveManagerForm)form, employeeId);
         }
 
         /// <summary>
@@ -871,9 +871,9 @@ namespace leave_manager
         /// <returns>Zwraca tabelę z danymi urlopowymi pracownika.
         /// Kolumny tabeli: "Status", "First day", "Last day", "Type",
         /// "Remarks", "No. used days"</returns>
-        public static DataTable getLeaves(this FormEmployeeData form, int employeeId)
+        public static DataTable GetLeaves(this FormEmployeeData form, int employeeId)
         {
-            return getLeaves((LeaveManagerForm)form, employeeId);
+            return GetLeaves((LeaveManagerForm)form, employeeId);
         }
 
         /// <summary>
@@ -884,7 +884,7 @@ namespace leave_manager
         /// <returns>Zwraca tabelę z danymi urlopowymi pracownika.
         /// Kolumny tabeli: "Status", "First day", "Last day", "Type",
         /// "Remarks", "No. used days"</returns>
-        private static DataTable getLeaves(LeaveManagerForm form, int employeeId)
+        private static DataTable GetLeaves(LeaveManagerForm form, int employeeId)
         {
             //Zapytanie zczytujące dane.
             SqlCommand commandSelectLeaves = new SqlCommand("SELECT LS.Name AS 'Status', L.First_day AS 'First day', " +
@@ -1106,7 +1106,7 @@ namespace leave_manager
                  * nie było ryzyka, obliczamy i wpisujemy do bazy liczbę dni na podstawie danych 
                  * nie aktualnych.
                  */
-                getDays(form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+                GetDays(form, employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
                 //Polecenie sql aktualizujące liczbę dni danego pracownika.
                 SqlCommand commandUpdateEmployee = new SqlCommand("UPDATE Employee SET " +
                     "Leave_days = @Leave_days, Old_leave_days = @Old_leave_days " +
@@ -1348,9 +1348,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="leave">Obiekt reprezentujący nowy wpis urlopowy.</param>
-        public static void addLeave(this FormLeaveApplication form, Leave leave)
+        public static void AddLeave(this FormLeaveApplication form, Leave leave)
         {
-            addLeave((LeaveManagerForm)form, leave);
+            AddLeave((LeaveManagerForm)form, leave);
         }
 
         /// <summary>
@@ -1358,7 +1358,7 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz potrzebujący metody.</param>
         /// <param name="leave">Obiekt reprezentujący nowy wpis urlopowy.</param>
-        private static void addLeave(LeaveManagerForm form, Leave leave)
+        private static void AddLeave(LeaveManagerForm form, Leave leave)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
            * o odpowiednim poziomie izolacji.
@@ -1427,9 +1427,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="leave">Obiekt reprezentujący dodawany urlop.</param>
-        public static void addSickLeave(this FormLeaveApplication form, Leave leave)
+        public static void AddSickLeave(this FormLeaveApplication form, Leave leave)
         {
-            addSickLeave((LeaveManagerForm)form, leave);
+            AddSickLeave((LeaveManagerForm)form, leave);
         }
 
         /// <summary>
@@ -1437,7 +1437,7 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz potrzebujący metody.</param>
         /// <param name="leave">Obiekt reprezentujący dodawany urlop.</param>
-        private static void addSickLeave(LeaveManagerForm form, Leave leave)
+        private static void AddSickLeave(LeaveManagerForm form, Leave leave)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
            * o odpowiednim poziomie izolacji.
@@ -1462,7 +1462,7 @@ namespace leave_manager
             try
             {
                 //Zczytanie urlopów pracownika, któremu dodajemy chorobowe.
-                DataTable dataLeaves = getLeaves(form, leave.EmployeeId);
+                DataTable dataLeaves = GetLeaves(form, leave.EmployeeId);
                 /* Zmienna w której będzie przechowywana liczba dni do zwrócenia pracownikowi.
                  * Powiększa się w przypadku, gdy chorobowe zachodzi na jakiś urlop.
                  */
@@ -1508,7 +1508,7 @@ namespace leave_manager
                 //Zwrócenie pracownikowi dni.
                 AddLeaveDays(form, leave.EmployeeId, returnedLeaveDays);
                 //Dodanie urlopu.
-                addLeave(form, leave);
+                AddLeave(form, leave);
             }
             catch (Exception e)
             {
@@ -1705,9 +1705,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="name">Nazwa nowego typu.</param>
         /// <param name="consumesDays">Czy nowy typ konsumuje dni.</param>
-        public static void addLeaveType(this FormAddLeaveType form, string name, bool consumesDays)
+        public static void AddLeaveType(this FormAddLeaveType form, string name, bool consumesDays)
         {
-            addLeaveType((LeaveManagerForm)form, name, consumesDays);
+            AddLeaveType((LeaveManagerForm)form, name, consumesDays);
         }
 
         /// <summary>
@@ -1716,7 +1716,7 @@ namespace leave_manager
         /// <param name="form">Formularz potrzebujący metody.</param>
         /// <param name="name">Nazwa nowego typu.</param>
         /// <param name="consumesDays">Czy nowy typ konsumuje dni.</param>
-        private static void addLeaveType(LeaveManagerForm form, string name, bool consumesDays)
+        private static void AddLeaveType(LeaveManagerForm form, string name, bool consumesDays)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
               * o odpowiednim poziomie izolacji.

@@ -67,7 +67,7 @@ namespace leave_manager
             try
             {
                 //Próba zalogowania
-                employee = this.login(textBoxLogin.Text, textBoxPassword.Text);
+                employee = this.Login(textBoxLogin.Text, textBoxPassword.Text);
                 //Jeżeli próba zalogowania powiodła się to ustawiamy flagę zalogowania.
                 loggedIn = true;
                 this.Close();

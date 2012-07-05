@@ -50,7 +50,7 @@ namespace leave_manager
                 try
                 {
                     //Dodanie nowego typu.
-                    this.addLeaveType(textBoxName.Text, checkBoxConsumesDays.Checked);
+                    this.AddLeaveType(textBoxName.Text, checkBoxConsumesDays.Checked);
                     this.Close();
                 }
                 catch //todo obsłużyć wszystkie wyjątki  
