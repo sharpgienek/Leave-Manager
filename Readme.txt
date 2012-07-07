@@ -76,13 +76,13 @@ Przemyœlenie wszystich transakcji.
 
 - Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
   
-- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go.
-  
-- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parz employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
- ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
- dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
+- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go. 
   
 - Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
+	- Przy zmianie dni pracy trzeba przetestowaæ, czy liczba konsumowanych dni siê zgadza i nie przekracza
+	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
+	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
+	liczbê konsumowanych dni.
 
 - Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
 które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ). 
@@ -100,8 +100,6 @@ nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
 powiedzie siê?: NIE!! A POWINNO!
 
 - Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
-
-- Zmiana nazw metod na z du¿ych liter.
 
 - Usun¹æ mo¿liwoœæ usuniêcia typu urlopu: maternal i normal. 
 
@@ -134,3 +132,11 @@ od dnia zatrudnienia.
 - EmployeeData>Delete leave entry
 - Ewidencja godzin/dni pracy.
 
+In progress:
+- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parze employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
+ ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
+ dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
+	(Wojtek)
+
+Notki zrobione: 
+- Zmiana nazw metod na z du¿ych liter.
