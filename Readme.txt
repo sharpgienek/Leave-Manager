@@ -13,7 +13,7 @@ ver. 0.13
 	- Zaktualizowano diagram ERD
 	- Dodano FormAdmin
 	- Stworzono prowizoryczne logowanie
-ver. 0.14
+ver. 0.14 
 	- Zmodyfikowano ERD
 	- Dodano formularz dodawania pracownika
 	- Dodano mo¿liwoœæ informowania nowego pracownika o loginie i haœle przez administratora
