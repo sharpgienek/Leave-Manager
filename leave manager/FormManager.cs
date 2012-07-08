@@ -123,9 +123,9 @@ namespace leave_manager
             foreach (DataGridViewRow row in dataGridViewNeedsAction.SelectedRows)
             {
                 //Stwórz formularz rozważenia zgłoszenia.
-                FormLeaveConsideration form = new FormLeaveConsideration(this, connection, 
-                   (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value);
+                FormLeaveConsideration form = new FormLeaveConsideration(this, connection,
+                    new Leave((int)row.Cells["Leave Id"].Value, (int)row.Cells["Employee Id"].Value, row.Cells["Type"].Value.ToString(), row.Cells["Status"].Value.ToString(),
+                        (DateTime)row.Cells["First day"].Value, (DateTime)row.Cells["Last day"].Value, row.Cells["Remarks"].Value.ToString(), (int)row.Cells["Used days"].Value));
                 //Dodaj do obsługi zdarzenia zamknięcia formularza metodę wczytywania zgłoszeń wymagających działania.
                 form.FormClosed += new FormClosedEventHandler(LoadDataGridViewNeedsAction);
                 //Wyświetl formularz rozważenia zgłoszenia.

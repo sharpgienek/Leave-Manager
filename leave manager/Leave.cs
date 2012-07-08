@@ -9,7 +9,17 @@ namespace leave_manager
     /// Klasa reprezentująca zgłoszenie urlopowe.
     /// </summary>
     public class Leave
-    {      
+    {
+        /// <summary>
+        /// Numer id urlopu.
+        /// </summary>
+        private int id;
+
+        /// <summary>
+        /// Właściwość zwracająca numer id urlopu.
+        /// </summary>
+        public int Id { get { return id; } }
+
         /// <summary>
         /// Numer id pracownika, którego dotyczy zgłoszenie urlopowe.
         /// </summary>
@@ -71,6 +81,16 @@ namespace leave_manager
         public String Remarks { get { return remarks; } }
 
         /// <summary>
+        /// Zawiera liczbę dni zużytych przez urlop.
+        /// </summary>
+        private int usedDays;
+
+        /// <summary>
+        /// Właściwość zwracająca liczbę dni zużytych przez urlop.
+        /// </summary>
+        public int UsedDays { get { return usedDays; } }
+
+        /// <summary>
         /// Konstruktor.
         /// </summary>
         /// <param name="employeeId">Numer id pracownika, tkórego dotyczy zgłoszenie urlopowe.</param>
@@ -87,6 +107,49 @@ namespace leave_manager
             this.firstDay = firstDay;
             this.lastDay = lastDay;
             this.remarks = remarks;
+        }
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="id">Numer id urlopu.</param>
+        /// <param name="employeeId">Numer id pracownika, tkórego dotyczy zgłoszenie urlopowe.</param>
+        /// <param name="leaveType">Typ urlopu.</param>
+        /// <param name="leaveStatus">Stan urlopu.</param>
+        /// <param name="firstDay">Dzień rozpoczęcia urlopu.</param>
+        /// <param name="lastDay">Dzień zakończenia urlopu.</param>
+        /// <param name="remarks">Uwagi.</param>
+        public Leave(int leaveId, int employeeId, String leaveType, String leaveStatus, DateTime firstDay, DateTime lastDay, String remarks)
+        {
+            this.id = leaveId;
+            this.employeeId = employeeId;
+            this.leaveType = leaveType;
+            this.leaveStatus = leaveStatus;
+            this.firstDay = firstDay;
+            this.lastDay = lastDay;
+            this.remarks = remarks;
+        }
+
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
+        /// <param name="id">Numer id urlopu.</param>
+        /// <param name="employeeId">Numer id pracownika, tkórego dotyczy zgłoszenie urlopowe.</param>
+        /// <param name="leaveType">Typ urlopu.</param>
+        /// <param name="leaveStatus">Stan urlopu.</param>
+        /// <param name="firstDay">Dzień rozpoczęcia urlopu.</param>
+        /// <param name="lastDay">Dzień zakończenia urlopu.</param>
+        /// <param name="remarks">Uwagi.</param>
+        public Leave(int leaveId, int employeeId, String leaveType, String leaveStatus, DateTime firstDay, DateTime lastDay, String remarks, int usedDays)
+        {
+            this.id = leaveId;
+            this.employeeId = employeeId;
+            this.leaveType = leaveType;
+            this.leaveStatus = leaveStatus;
+            this.firstDay = firstDay;
+            this.lastDay = lastDay;
+            this.remarks = remarks;
+            this.usedDays = usedDays;
         }
 
     }

@@ -131,7 +131,7 @@ namespace leave_manager
              * Usuwanie jest objęte transakcją: Jeżeli choć jedna operacja 
              * usuwania nie powiedzie się, to żaden urlop nie będzie usunięty.
              */
-            this.BeginTransaction();
+            this.BeginTransaction(IsolationLevel.RepeatableRead);
             try
             {
                 //Dla każdego zaznaczonego wiersza.
@@ -140,7 +140,7 @@ namespace leave_manager
                     //Jeżeli status urlopu jest różny od zatwierdzonego.
                     if (!row.Cells["Status"].Value.ToString().Equals("Approved"))
                     {
-                        this.DeleteLeave(this.GetLeave((DateTime)row.Cells["First day"].Value));                        
+                        this.DeleteLeave(this.GetLeave((int)row.Cells["Leave Id"].Value));                        
                     }
                     else
                     {                         

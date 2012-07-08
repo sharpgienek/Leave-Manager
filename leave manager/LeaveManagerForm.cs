@@ -86,7 +86,11 @@ namespace leave_manager
         /// </summary>
         public void RollbackTransaction()
         {
-            transaction.Rollback();
+            try
+            {
+                transaction.Rollback();
+            }
+            catch { }
             transaction = null;
             transactionOn = false;
         }

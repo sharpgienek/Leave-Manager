@@ -33,10 +33,12 @@ namespace leave_manager
         private bool editMode;
 
         /// <summary>
-        /// Zmienna przechowująca datę rozpoczęcia urlopu z przed modyfikacji,
+        /// Zmienna przechowująca numer id modyfikowanego urlopu,
         /// o ile editMode == true;
         /// </summary>
-        private DateTime oldFirstDay;
+       // private int oldLeaveId;
+
+        private Leave editedLeave;
 
         /// <summary>
         /// Konstruktor przeznaczony do tworzenia instancji edytującej istniejący wpis
@@ -47,33 +49,29 @@ namespace leave_manager
         /// <param name="leaveDays">Dostępna liczba dni urlopowych (bez dni zaległych).</param>
         /// <param name="oldLeaveDays">Dostępna liczba zaległych dni urlopowych.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie urlopowe.</param>
-        /// <param name="leaveType">Typ edytowanego zgłoszenia urlopowego.</param>
-        /// <param name="firstDay">Data rozpoczęcia urlopu w edytowanym zgłoszeniu urlopowym.</param>
-        /// <param name="lastDay">Data zakończenia urlopu w edytowanym zgłoszeniu urlopowym.</param>
-        /// <param name="remarks">Uwagi edytowanego zgłoszenia urlopowego.</param>
-        /// <param name="leaveStatus">Stan edytowanego złoszenia urlopowego.</param>
+        /// <param name="editedLeave">Obiekt reprezentujący edytowany wpis urlopowy.</param>
         public FormLeaveApplication(SqlConnection connection, int leaveDays, int oldLeaveDays, int employeeId,
-            String leaveType, DateTime firstDay, DateTime lastDay, String remarks, String leaveStatus)
+            Leave editedLeave)
         {
             InitializeComponent();
             this.connection = connection;
             this.employeeId = employeeId;
             this.editMode = true;
-            this.oldFirstDay = firstDay;
+            this.editedLeave = editedLeave;
             //Zczytanie listy typów urlopów i przypisanie do atrybutu klasy oraz do odpowiedniego
             //comboBox'a.
             comboBoxType.DataSource = leaveTypes = this.GetLeaveTypesList();
             //Zaznaczenie w comboBox'ie zawierającym typy urlopów typu edytowanego zgłoszenia.
-            comboBoxType.SelectedIndex = comboBoxType.FindStringExact(leaveType);
+            comboBoxType.SelectedIndex = comboBoxType.FindStringExact(editedLeave.LeaveType);
             /* Ustawienie ograniczenia odnośnie możliwości wyboru dnia rozpoczęcia i zakończenia urlopu.
              * Jeżeli pierwszy dzień w zgłoszeniu już był (jest wcześniej niż teraz),
              * to najwcześniejszą możliwą datą jest ten właśnie dzień. W innym wypadku najwcześniejszą możliwą
              * datą jest dzisiaj.
              */
-            if (firstDay.CompareTo(DateTime.Now) <= 0)
+            if (editedLeave.FirstDay.CompareTo(DateTime.Now) <= 0)
             {
-                dateTimePickerFirstDay.MinDate = firstDay.Trim(TimeSpan.TicksPerDay);
-                dateTimePickerLastDay.MinDate = firstDay.Trim(TimeSpan.TicksPerDay);
+                dateTimePickerFirstDay.MinDate = editedLeave.FirstDay.Trim(TimeSpan.TicksPerDay);
+                dateTimePickerLastDay.MinDate = editedLeave.FirstDay.Trim(TimeSpan.TicksPerDay);
             }
             else
             {
@@ -85,14 +83,14 @@ namespace leave_manager
             /* Ustawienie wartości początkowej dla elementu wyboru dni rozpoczęcia i zakończenia
              * na dni rozpoczęcia i zakończenia w edytowanym zgłoszeniu.
              */
-            dateTimePickerFirstDay.Value = firstDay;
-            dateTimePickerLastDay.Value = lastDay;
+            dateTimePickerFirstDay.Value = editedLeave.FirstDay;
+            dateTimePickerLastDay.Value = editedLeave.LastDay;
             /* Jeżli zgłoszenie urlopowe jest typu, który konsumuje dni urlopowe, to następuje 
              * obliczenie i ustawienie wartości etykiety z liczbą zużywanych przez urlop dni.
              */
             if (leaveTypes[comboBoxType.SelectedIndex].ConsumesDays)
             {
-                labelUsedDaysValue.Text = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
+                labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
                     dateTimePickerLastDay.Value).ToString();
             }
             else
@@ -103,16 +101,16 @@ namespace leave_manager
             labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
             labelNormalValue.Text = leaveDays.ToString();
             labelOldValue.Text = oldLeaveDays.ToString();
-            textBoxRemarks.Text = remarks;
+            textBoxRemarks.Text = editedLeave.Remarks;
             //Zczytanie listy statusów.
             List<String> statusList = this.GetStatusTypes();
             //Jeżeli status bieżącego urlopu nie jest approved, to usuwana jest możliwość wyboru tego statusu.
-            if (!leaveStatus.Equals("Approved"))
+            if (!editedLeave.LeaveStatus.Equals("Approved"))
             {
                 statusList.Remove("Approved");
             }
             comboBoxStatus.DataSource = statusList;
-            comboBoxStatus.SelectedIndex = comboBoxStatus.FindStringExact(leaveStatus);
+            comboBoxStatus.SelectedIndex = comboBoxStatus.FindStringExact(editedLeave.LeaveStatus);
         }
 
         /// <summary>
@@ -165,7 +163,7 @@ namespace leave_manager
                 /* Obliczenie i przypisanie do etykiety liczby używanych dni przez okres zaznaczony w
                  * elementach dateTimePicker.
                  */
-                labelUsedDaysValue.Text = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
+                labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
                     dateTimePickerLastDay.Value).ToString();
             }
             else
@@ -208,7 +206,7 @@ namespace leave_manager
         /// <param name="e"></param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            int numberOfUsedDays = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value);
+            int numberOfUsedDays = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value);
             int leaveDays = 0;
             int oldLeaveDays = 0;
             int yearDays = 0;
@@ -234,7 +232,7 @@ namespace leave_manager
                      * Jeżeli zgłoszenie jest zgłoszeniem chorobowego, to może kolidować z innymi zgłoszeniami.
                      */
                     if ((!editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId))
-                        || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, oldFirstDay))
+                        || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, editedLeave.FirstDay))
                         || comboBoxType.SelectedItem.ToString().Equals("Sick"))
                     {
                         string choosenStatus;
@@ -249,7 +247,7 @@ namespace leave_manager
                         {
                             try
                             {
-                                this.EditLeave(leave, oldFirstDay);
+                                this.EditLeave(leave, editedLeave.Id);
                                 this.Close();
                             }
                             catch//todo obsłużyć wszystkie wyjątki.
@@ -323,7 +321,7 @@ namespace leave_manager
             if (leaveTypes[comboBoxType.SelectedIndex].ConsumesDays)
             {
                 //Aktualizacja etykiety 
-                labelUsedDaysValue.Text = TimeTools.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
+                labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
                     dateTimePickerLastDay.Value).ToString();
             }
             else

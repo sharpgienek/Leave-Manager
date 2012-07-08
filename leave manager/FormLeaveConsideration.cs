@@ -13,19 +13,9 @@ namespace leave_manager
     public partial class FormLeaveConsideration : LeaveManagerForm
     {
         /// <summary>
-        /// Numer id pracownika, którego dotyczy zgłoszenie urlopowe.
+        /// Obiekt reprezentujący rozważany wpis urlopowy.
         /// </summary>
-        private int employeeId;
-
-        /// <summary>
-        /// Data rozpoczęcia urlopu.
-        /// </summary>
-        private DateTime firstDay;
-
-        /// <summary>
-        /// Data zakończenia urlopu.
-        /// </summary>
-        private DateTime lastDay;
+        private Leave consideredLeave;
 
         /// <summary>
         /// Obiekt rodzica używany do określenia uprawnień.
@@ -45,20 +35,18 @@ namespace leave_manager
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie urlopowe.</param>
         /// <param name="firstDay">Data rozpoczęcia urlopu.</param>
         /// <param name="lastDay">Data zakończenia urlopu.</param>
-        public FormLeaveConsideration(LeaveManagerForm leaveManagerParentForm, SqlConnection connection, int employeeId, DateTime firstDay, DateTime lastDay )
+        public FormLeaveConsideration(LeaveManagerForm leaveManagerParentForm, SqlConnection connection, Leave consideredLeave )
         {
             InitializeComponent();
             this.connection = connection;
-            this.employeeId = employeeId;
-            this.firstDay = firstDay;
-            this.lastDay = lastDay;
+            this.consideredLeave = consideredLeave;
             this.leaveManagerParentForm = leaveManagerParentForm;
-            labelFirstDayValue.Text = firstDay.ToString("d");
-            labelLastDayValue.Text = lastDay.ToString("d");
+            labelFirstDayValue.Text = consideredLeave.FirstDay.ToString("d");
+            labelLastDayValue.Text = consideredLeave.LastDay.ToString("d");
             try
             {
                 //Zczytanie imienia, nazwiska oraz pozycji pracownika.
-                Employee employee = this.GetEmployee(employeeId);
+                Employee employee = this.GetEmployee(consideredLeave.EmployeeId);
                 labelNameValue.Text = employee.Name;
                 labelPositionValue.Text = employee.Position;
             }
@@ -90,7 +78,7 @@ namespace leave_manager
         {
             try
             {
-                this.AcceptLeave(employeeId, firstDay);
+                this.AcceptLeave(consideredLeave.Id);
                 this.Close();
             }
             catch 
@@ -109,10 +97,13 @@ namespace leave_manager
         {
             try
             {
-                this.RejectLeave(employeeId, firstDay);
+                this.RejectLeave(consideredLeave);
                 this.Close();
             }
-            catch { }//todo obsługa wszystkich wyjątków.
+            catch 
+            {
+                throw new NotImplementedException();
+            }//todo obsługa wszystkich wyjątków.
         }
 
     }

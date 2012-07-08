@@ -52,6 +52,13 @@ ver. 0.19
 	- Przeprowadzono powierzchowne testy wszystkich funkcji.
 	- Naprawiono dodawanie zg³oszenia urlopowego przez pracownika.
 	- Skomentowano LeaveManagerForm.
+ver. 0.2
+	- Dodano pole Leave_ID w tabeli urlopów.
+	- Zmieniono nazwy metod na z du¿ej litery.
+	- Naprawiono kilka b³êdów.
+	- Dodano pole Used_days w tabeli urlopów. Przechowuje ono liczbê dni zu¿ytych przez urlop.
+	- Skomentowano rodzaje wyj¹tków rzucanych przez metody zdefiniowane w klasie DataOperator.
+	
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
@@ -74,21 +81,7 @@ Przemyœlenie wszystich transakcji.
 
  todo list:
 
-- Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
-  
 - Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go. 
-  
-- Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
-	- Przy zmianie dni pracy trzeba przetestowaæ, czy liczba konsumowanych dni siê zgadza i nie przekracza
-	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
-	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
-	liczbê konsumowanych dni.
-
-- Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
-które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ). 
-<<<Rozwi¹za³o by to te¿ problem
-z usuwanymi typami konsumuj¹cymi i podmian¹ przez typ nie konsumuj¹cy. W takim wyj¹tkowym wypadku
-typ nie konsumuj¹cy konsumowa³by dni.
  
 - w metodzie private static void addLeave(LeaveManagerForm form, Leave leave)
 nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
@@ -101,11 +94,7 @@ powiedzie siê?: NIE!! A POWINNO!
 
 - Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
 
-- Usun¹æ mo¿liwoœæ usuniêcia typu urlopu: maternal i normal. 
-
 - Jest zgrzyt: Gdy usunie siê typ, który konsumuje dni i przypisze w jego miejsce jakiœ, który dni nie konsumuje.
-
-- Employee>usuwanie urlopu nie dzia³a (gdzieœ nie jest zamkniêty SqlDataReader)
 
 - Assistant>zabraæ mo¿liwoœæ edycji wpisów urlopowych (mo¿e oprócz uwag.)
 
@@ -114,11 +103,12 @@ powiedzie siê?: NIE!! A POWINNO!
 - Metoda dodawani chorobowego szwankuje: gdy np. biore urlop na 16-17, a dostaje 
 chorobowe na 16, to urlop mi anuluje, a nie powinno.
 
-
+- Przy dodaniu chorobowego stan urlopu Rejected zmienia siê na Canceled. Zastanowiæ siê nad tym.
 
 Nie zaiplementowane:
 - Usuwanie pracownika.
-- Wyszukiwanie pracowników
+- Wyszukiwanie pracowników.
+- Edycja danych pracowników.
 - Manager>ogl¹danie danych pracowników
 - Zastêpstwa
 - Manager>Raportowanie
@@ -130,13 +120,26 @@ Nie zaiplementowane:
 - Przydzielanie tylko czêœci przys³uguj¹cych dni urlopowych przy rozpoczêciu pracy w zale¿noœci 
 od dnia zatrudnienia.
 - EmployeeData>Delete leave entry
-- Ewidencja godzin/dni pracy.
+- Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
+	- Przy zmianie dni pracy trzeba przetestowaæ, czy liczba konsumowanych dni siê zgadza i nie przekracza
+	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
+	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
+	liczbê konsumowanych dni.
 
 In progress:
-- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parze employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
- ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
- dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
-	(Wojtek)
+
+
 
 Notki zrobione: 
 - Zmiana nazw metod na z du¿ych liter.
+
+- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parze employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
+ ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
+ dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
+
+- Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
+które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ). 
+
+- Employee>usuwanie urlopu nie dzia³a (gdzieœ nie jest zamkniêty SqlDataReader)
+
+- Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.

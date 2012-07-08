@@ -98,8 +98,8 @@ namespace leave_manager
             {
                 //Tworzymy formularz rozważenia aplikacji.
                 FormLeaveConsideration form = new FormLeaveConsideration(this, connection,
-                   (int)row.Cells["Employee id"].Value, (DateTime)row.Cells["First day"].Value,
-                   (DateTime)row.Cells["Last day"].Value);
+                    new Leave((int)row.Cells["Leave Id"].Value, (int)row.Cells["Employee Id"].Value, row.Cells["Type"].Value.ToString(), row.Cells["Status"].Value.ToString(),
+                        (DateTime)row.Cells["First day"].Value, (DateTime)row.Cells["Last day"].Value, row.Cells["Remarks"].Value.ToString(), (int)row.Cells["Used days"].Value));
                 /* Dodajemy metodę odświeżania oczekujących aplikacji do obsługi zdarzenia zamknięcia
                  * formularza rozważania aplikacji.
                  */
