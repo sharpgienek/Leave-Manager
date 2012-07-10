@@ -43,21 +43,34 @@ ver. 0.17
 	- Poprawiono kilka b³êdów.
 	- Skomentowano wiêkszoœæ kodu (klasa DatabaseOperator wymaga dokomentowania).
 	- Program wymaga gruntownego testowania po przebudowie.
+
 ver. 0.18
 	- Poprawiono kilka b³êdów.
 	- Skoñczono komentowaæ klasê DatabaseOperator.
 	- Program wymaga gruntownego testowania po przebudowie.
+
 ver. 0.19
 	- Uzupe³niono listê todo w pliku Readme.txt.
 	- Przeprowadzono powierzchowne testy wszystkich funkcji.
 	- Naprawiono dodawanie zg³oszenia urlopowego przez pracownika.
 	- Skomentowano LeaveManagerForm.
+
 ver. 0.2
 	- Dodano pole Leave_ID w tabeli urlopów.
 	- Zmieniono nazwy metod na z du¿ej litery.
 	- Naprawiono kilka b³êdów.
 	- Dodano pole Used_days w tabeli urlopów. Przechowuje ono liczbê dni zu¿ytych przez urlop.
 	- Skomentowano rodzaje wyj¹tków rzucanych przez metody zdefiniowane w klasie DataOperator.
+
+ver. 0.21
+	- Dodano sta³y typ urlopu na ¿¹danie.
+	- Naprawiono b³ad zwi¹zany z dodawaniem urlopów w miejsce urlopów odrzuconych/anulowanych.
+	- Zabroniono zastêpowaæ usuwany typ urlopu typem, który ma inn¹ wartoœæ parametru okreœlaj¹cego
+		czy dany typ konsumuje dni, czy nie.
+	- Dodano mo¿liwoœæ usuwania typu urlopu bez zastêpowania go innym. W takim wypadku wszystkie
+		wpisy urlopowe danego typu zostaj¹ usuniête, a dni za nie zostaj¹ zwrócone.
+	- Zabrano rejestratorce mo¿liwoœæ edycji wpisu urlopowego za wyj¹tkiem uwag.
+	- Naprawiono kilka b³êdów.
 	
 
 INFO
@@ -81,29 +94,13 @@ Przemyœlenie wszystich transakcji.
 
  todo list:
 
-- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go. 
- 
+- Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
+
 - w metodzie private static void addLeave(LeaveManagerForm form, Leave leave)
 nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
  
 - w metodzie private static void DeleteLeave(LeaveManagerForm form, Leave leave)
 nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
- 
-- Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) 
-powiedzie siê?: NIE!! A POWINNO!
-
-- Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
-
-- Jest zgrzyt: Gdy usunie siê typ, który konsumuje dni i przypisze w jego miejsce jakiœ, który dni nie konsumuje.
-
-- Assistant>zabraæ mo¿liwoœæ edycji wpisów urlopowych (mo¿e oprócz uwag.)
-
-- Dodawanie urlopu pracownikowi przez assistant> Trzeba z listy statusów usun¹æ Canceled, bo to bez sensu.
-
-- Metoda dodawani chorobowego szwankuje: gdy np. biore urlop na 16-17, a dostaje 
-chorobowe na 16, to urlop mi anuluje, a nie powinno.
-
-- Przy dodaniu chorobowego stan urlopu Rejected zmienia siê na Canceled. Zastanowiæ siê nad tym.
 
 Nie zaiplementowane:
 - Usuwanie pracownika.
@@ -125,8 +122,7 @@ od dnia zatrudnienia.
 	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
 	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
 	liczbê konsumowanych dni.
-
-In progress:
+- Comiesiêczna aktualizacja liczby dostêpnych dni urlopowych.
 
 
 
@@ -143,3 +139,19 @@ które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ).
 - Employee>usuwanie urlopu nie dzia³a (gdzieœ nie jest zamkniêty SqlDataReader)
 
 - Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
+
+- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go. 
+
+- Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) 
+powiedzie siê?: NIE!! A POWINNO!
+
+- Jest zgrzyt: Gdy usunie siê typ, który konsumuje dni i przypisze w jego miejsce jakiœ, który dni nie konsumuje.
+
+- Assistant>zabraæ mo¿liwoœæ edycji wpisów urlopowych.
+
+- Dodawanie urlopu pracownikowi przez assistant> Trzeba z listy statusów usun¹æ Canceled, bo to bez sensu.
+
+- Metoda dodawania chorobowego szwankuje: gdy np. biore urlop na 16-17, a dostaje 
+chorobowe na 16, to urlop mi anuluje, a nie powinno. A POWINNO!
+
+- Przy dodaniu chorobowego stan urlopu Rejected zmienia siê na Canceled. Zastanowiæ siê nad tym.

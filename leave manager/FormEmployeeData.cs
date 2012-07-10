@@ -43,6 +43,15 @@ namespace leave_manager
             labelNameValue.Text = name + " " + surname;
             labelPositionValue.Text = position;
             RefreshData();
+            if (parent.GetType() == new FormAssistant().GetType())
+            {
+                this.buttonEdit.Text = "Edit remarks";
+                this.buttonDelete.Visible = false;
+            }
+            if (parent.GetType() == new FormManager().GetType())
+            {
+                this.buttonEdit.Text = "Edit leave entry";
+            }
         }
 
         /// <summary>
@@ -99,8 +108,8 @@ namespace leave_manager
                 dataGridView.Rows[cell.RowIndex].Selected = true;
             }
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
-            {
-                FormLeaveApplication form = new FormLeaveApplication(this, connection, employeeId);
+            {                
+                FormLeaveApplication form = new FormLeaveApplication(this.parent, connection, this.GetLeave((int)row.Cells["Leave id"].Value));
                 form.FormClosed += new FormClosedEventHandler(RefreshData);
                 form.Show();
             }

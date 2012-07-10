@@ -14,33 +14,39 @@ namespace leave_manager
     /// Klasa formularza usuwania typu urlopu.
     /// </summary>
     public partial class FormDeleteLeaveType : LeaveManagerForm
-    {    
+    {
+        /// <summary>
+        /// Lista typów urlopów.
+        /// </summary>
+        List<LeaveType> leaveTypes;
+
         /// <summary>
         /// Atrybut przechowujący nazwę usuwanego typu.
         /// </summary>
-        private String deletedLeaveType;
+        private LeaveType deletedLeaveType;
 
         /// <summary>
         /// Konstruktor.
         /// </summary>
         /// <param name="connection">Połączenie z bazą danych. Powinno być otwarte.</param>
-        /// <param name="deletedLeaveType">Nazwa usuwanego typu.</param>
-        public FormDeleteLeaveType(SqlConnection connection, String deletedLeaveType)
+        /// <param name="deletedLeaveType">Usuwany typ urlopu.</param>
+        public FormDeleteLeaveType(SqlConnection connection, LeaveType deletedLeaveType)
         {
             InitializeComponent();
             this.connection = connection;
             this.deletedLeaveType = deletedLeaveType;
             //Zczytanie listy typów urlopów.
-            List<LeaveType> leaveTypes = this.GetLeaveTypesList();
+            leaveTypes = this.GetLeaveTypesList();
             //Usunięcie z tej listy usuwanego typu.
-            leaveTypes.Remove(new LeaveType(deletedLeaveType));
+            leaveTypes.Remove(deletedLeaveType);
             /* Za pomocą elementu comboBoxLeaveTypes użytkownik wybiera jaki typ
              * urlopu ma zostać przypisany do tych wszystkich urlopów, których typ
              * jest usuwany. Poniżej przypisana do niego zostaje lista typów,
              * które mogą być do tego celu użyte.
              */
-            comboBoxLeaveTypes.DataSource = leaveTypes;  
-        }      
+            comboBoxLeaveTypes.DataSource = leaveTypes;
+            radioButtonReplace.Checked = true;
+        }
 
         /// <summary>
         /// Metoda obsługująca kliknięcie w przycisk anulujący
@@ -62,16 +68,55 @@ namespace leave_manager
         /// <param name="e">Argumenty.</param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            try
+            //Jeżeli zamieniamy typ.
+            if (radioButtonReplace.Checked)
             {
-                this.DeleteLeaveType(comboBoxLeaveTypes.SelectedItem.ToString(), deletedLeaveType);
-                this.Close();
+                //Jeżeli typy nie mają konfliktu na poziomie konsumowania dni.
+                if (this.leaveTypes[comboBoxLeaveTypes.SelectedIndex].ConsumesDays == deletedLeaveType.ConsumesDays)
+                {
+                    try
+                    {
+                        this.DeleteLeaveType(comboBoxLeaveTypes.SelectedItem.ToString(), deletedLeaveType.Name);
+                        this.Close();
+                    }
+                    catch//todo obsługa wszystkich wyjątków.
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    if (deletedLeaveType.ConsumesDays)
+                        MessageBox.Show("You can't replace type that consumes days with type that doesn't consume days.");
+                    else
+                        MessageBox.Show("You can't replace type that doesn't consume days with type that consumes days.");
+                }
             }
-            catch//todo obsługa wszystkich wyjątków.
+            else
             {
-                throw new NotImplementedException();
+                try
+                {
+                    this.DeleteLeaveType(deletedLeaveType);
+                    this.Close();
+                }
+                catch//todo obsługa wszystkich wyjątków.
+                {
+                    throw new NotImplementedException();
+                }
             }
-       }
-       
+        }
+
+        private void radioButtonReplace_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonReplace.Checked)
+            {
+                comboBoxLeaveTypes.Enabled = true;
+            }
+            else
+            {
+                comboBoxLeaveTypes.Enabled = false;
+            }
+        }
+
     }
 }

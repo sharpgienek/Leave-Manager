@@ -215,7 +215,7 @@ namespace leave_manager
                     this.AddEmployee(new Employee(-1, comboBoxPermissions.SelectedItem.ToString(), textBoxName.Text,
                         textBoxSurname.Text, dateTimePickerBirthDate.Value, textBoxAddress.Text,
                         textBoxPesel.Text, textBoxEMail.Text, comboBoxPossition.SelectedItem.ToString(),
-                        daysPerYear, daysPerYear, 0));
+                        daysPerYear, daysPerYear, 0, 4));
                     this.Close();
                 }
                 catch//todo obsłuż wszystkie wyjątki.

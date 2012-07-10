@@ -22,23 +22,20 @@ namespace leave_manager
         private List<LeaveType> leaveTypes;
 
         /// <summary>
-        /// Id pracownika, którego dotyczy wniosek.
-        /// </summary>
-        private int employeeId;
-
-        /// <summary>
         /// Zmienna określająca czy formularz operuje na istniejącym urlopie i go
         /// modyfikuje (true), czy tworzy nowe zgłoszenie urlopowe (false).
         /// </summary>
         private bool editMode;
 
         /// <summary>
-        /// Zmienna przechowująca numer id modyfikowanego urlopu,
-        /// o ile editMode == true;
+        /// Obiekt reprezentujący edytowany urlop.
         /// </summary>
-       // private int oldLeaveId;
-
         private Leave editedLeave;
+
+        /// <summary>
+        /// Numer id pracownika, który jest właścicielem urlopu.
+        /// </summary>
+        private int employeeId;
 
         /// <summary>
         /// Konstruktor przeznaczony do tworzenia instancji edytującej istniejący wpis
@@ -50,14 +47,13 @@ namespace leave_manager
         /// <param name="oldLeaveDays">Dostępna liczba zaległych dni urlopowych.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie urlopowe.</param>
         /// <param name="editedLeave">Obiekt reprezentujący edytowany wpis urlopowy.</param>
-        public FormLeaveApplication(SqlConnection connection, int leaveDays, int oldLeaveDays, int employeeId,
-            Leave editedLeave)
+        public FormLeaveApplication(object parent, SqlConnection connection, Leave editedLeave)
         {
             InitializeComponent();
             this.connection = connection;
-            this.employeeId = employeeId;
             this.editMode = true;
             this.editedLeave = editedLeave;
+            this.employeeId = editedLeave.EmployeeId;
             //Zczytanie listy typów urlopów i przypisanie do atrybutu klasy oraz do odpowiedniego
             //comboBox'a.
             comboBoxType.DataSource = leaveTypes = this.GetLeaveTypesList();
@@ -97,20 +93,26 @@ namespace leave_manager
             {
                 labelUsedDaysValue.Text = "0";
             }
+            int leaveDays = 0;
+            int oldLeaveDays = 0;
+            this.GetDays(editedLeave.EmployeeId, ref leaveDays, ref oldLeaveDays);
             //Obliczenie i przypisanie do etykiety liczby dostępnych do zużycia dni.
             labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
             labelNormalValue.Text = leaveDays.ToString();
             labelOldValue.Text = oldLeaveDays.ToString();
             textBoxRemarks.Text = editedLeave.Remarks;
             //Zczytanie listy statusów.
-            List<String> statusList = this.GetStatusTypes();
-            //Jeżeli status bieżącego urlopu nie jest approved, to usuwana jest możliwość wyboru tego statusu.
-            if (!editedLeave.LeaveStatus.Equals("Approved"))
-            {
-                statusList.Remove("Approved");
-            }
+            List<String> statusList = this.GetStatusTypes();            
             comboBoxStatus.DataSource = statusList;
             comboBoxStatus.SelectedIndex = comboBoxStatus.FindStringExact(editedLeave.LeaveStatus);
+            //Zablokowanie elementów dla rejestratorki
+            if (parent.GetType() != new FormManager().GetType())
+            {
+                this.comboBoxStatus.Enabled = false;
+                this.comboBoxType.Enabled = false;
+                this.dateTimePickerFirstDay.Enabled = false;
+                this.dateTimePickerLastDay.Enabled = false;                
+            }
         }
 
         /// <summary>
@@ -129,8 +131,11 @@ namespace leave_manager
             List<String> statusList = this.GetStatusTypes();
             //Zczytanie listy możliwych typów urlopu.
             leaveTypes = this.GetLeaveTypesList();
-            //Usunięcie z listy statusów statusu odrzuconego. Nie można dodać zgłoszenia od razu odrzuconego.
+            /*Usunięcie z listy statusów statusu odrzuconego i anulowanego. Nie można dodać zgłoszenia,
+             * które od razu jest nie ważne.
+             */
             statusList.Remove("Rejected");
+            statusList.Remove("Canceled");
             //Tylko kierownik może dodać zgłoszenie od razu zatwierdzone.
             if (parent.GetType() != new FormManager().GetType())
             {
@@ -240,13 +245,14 @@ namespace leave_manager
                             choosenStatus = comboBoxStatus.SelectedItem.ToString();
                         else
                             choosenStatus = "Pending validation";
-                        //Stworzenie nowego obiektu urlopu.
-                        Leave leave = new Leave(employeeId, comboBoxType.SelectedItem.ToString(),
-                            choosenStatus, dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text);
+                        Leave leave = new Leave(-1, employeeId, comboBoxType.SelectedItem.ToString(),
+                                    choosenStatus, dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, textBoxRemarks.Text,
+                                    this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value));
                         if (editMode)
                         {
                             try
                             {
+                                //Stworzenie nowego obiektu urlopu.
                                 this.EditLeave(leave, editedLeave.Id);
                                 this.Close();
                             }
