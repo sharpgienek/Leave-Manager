@@ -131,6 +131,52 @@ namespace leave_manager
                 //Wyświetl formularz rozważenia zgłoszenia.
                 form.Show();
             }
+        }
+
+        private void buttonEmployeesDetailedData_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
+            {
+                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
+            {
+                //Tworzymy formularz danych pracownika.
+                FormEmployeeData form = new FormEmployeeData(this, connection, (int)row.Cells["Employee id"].Value,
+                    row.Cells["Name"].Value.ToString(), row.Cells["Surname"].Value.ToString(),
+                    row.Cells["Position"].Value.ToString());
+                /* Dodana zostaje metoda odświeżania tabeli oczekujących aplikacji urlopowych do obsługi
+                 * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
+                 * pracownika zmiany właściwości jego aplikacji urlopowych.
+                 */
+                form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewEmployees);
+                //Wyświetlenie formularza danych pracownika.
+                form.Show();
+            }           
+        }
+
+        private void buttonReject_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewNeedsAction.SelectedCells)
+            {
+                dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewNeedsAction.SelectedRows)
+            {
+                try
+                {
+                    this.RejectLeave((int)row.Cells["Leave id"].Value);
+                    LoadDataGridViewNeedsAction();
+                }
+                catch
+                {
+                    throw new NotImplementedException();
+                }//todo obsługa wszystkich wyjątków.
+            }      
         }      
     }
 }

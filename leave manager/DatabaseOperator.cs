@@ -18,6 +18,64 @@ namespace leave_manager
     /// </remarks>
     public static class DatabaseOperator
     {
+        private static DateTime GetServerTimeNow(LeaveManagerForm form)
+        {
+            SqlCommand commandGetServerTime = new SqlCommand("SELECT GETDATE()", form.Connection);
+            if (form.TransactionOn)
+                commandGetServerTime.Transaction = form.Transaction;
+            return (DateTime)commandGetServerTime.ExecuteScalar();
+        }
+
+        public static void UpdateLeaveDays(SqlConnection connection)
+        {
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
+            SqlCommand commandGetServerTime = new SqlCommand("SELECT GETDATE()", connection, transaction);
+            DateTime serverTime = (DateTime)commandGetServerTime.ExecuteScalar();
+            SqlCommand commandLastUpdateDate = new SqlCommand("SELECT Last_update_date FROM Dates", connection, transaction);
+            DateTime lastUpdateDate = (DateTime)commandLastUpdateDate.ExecuteScalar();
+            if (lastUpdateDate == null || serverTime.Year > lastUpdateDate.Year)
+            {
+                using (SqlCommand commandGetEmployees = new SqlCommand("SELECT Employee_ID, Year_leave_days, " +
+                    "Leave_days, Old_leave_days FROM Employee", connection, transaction))
+                {
+                    List<int> employeeIdList = new List<int>();
+                    List<int> yearLeaveDaysList = new List<int>();
+                    List<int> leaveDaysList = new List<int>();
+                    List<int> oldLeaveDaysList = new List<int>();
+                    using (SqlDataReader employeeReader = commandGetEmployees.ExecuteReader())
+                    {
+                        while (employeeReader.Read())
+                        {
+                            employeeIdList.Add((int)employeeReader["Employee_ID"]);
+                            yearLeaveDaysList.Add((int)employeeReader["Year_leave_days"]);
+                            leaveDaysList.Add((int)employeeReader["Leave_days"]);
+                            oldLeaveDaysList.Add((int)employeeReader["Old_leave_days"]);
+                        }
+                        employeeReader.Close();
+                    }
+                    using (SqlCommand updateEmployee = new SqlCommand("UPDATE Employee SET " +
+                           "Leave_days = @Leave_days, Old_leave_days = @Old_leave_days, " +
+                           "Demand_days = @Demand_days WHERE Employee_ID = @Employee_ID", connection, transaction))
+                    {
+                        for (int i = 0; i < employeeIdList.Count; ++i)
+                        {
+                            updateEmployee.Parameters.Clear();
+                            updateEmployee.Parameters.AddWithValue("@Employee_ID", employeeIdList[i]);
+                            updateEmployee.Parameters.AddWithValue("@Leave_days", yearLeaveDaysList[i]);
+                            updateEmployee.Parameters.AddWithValue("@Old_leave_days", leaveDaysList[i] + oldLeaveDaysList[i]);
+                            updateEmployee.Parameters.AddWithValue("@Demand_days", 0);
+                            updateEmployee.ExecuteNonQuery();
+                        }
+                    }
+                }
+                using(SqlCommand commandUpdateUpdateDate = new SqlCommand("UPDATE Dates SET " +
+                "Last_update_date = @Last_update_date", connection, transaction))
+                {
+                    commandUpdateUpdateDate.Parameters.AddWithValue("@Last_update_date", serverTime);
+                }
+            }
+            transaction.Commit();
+        }
         /// <summary>
         /// Metoda logowania rozszerzająca formularz logowania.
         /// </summary>
@@ -748,9 +806,39 @@ namespace leave_manager
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
         /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
-        public static void RejectLeave(this FormLeaveConsideration form, Leave rejectedLeave)
+        public static void RejectLeave(this FormAssistant form, int rejectedLeaveId)
         {
-            RejectLeave((LeaveManagerForm)form, rejectedLeave);
+            RejectLeave((LeaveManagerForm)form, rejectedLeaveId);
+        }
+
+        /// <summary>
+        /// Metoda służąca do odrzucania zgłoszeń urlopowych.
+        /// Rozszerza formularz rozważania zgłoszeń.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący.</param>
+        /// <param name="rejectedLeaveId">Numer id odrzucanego urlopu.</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
+        /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
+        public static void RejectLeave(this FormManager form, int rejectedLeaveId)
+        {
+            RejectLeave((LeaveManagerForm)form, rejectedLeaveId);
+        }
+
+        /// <summary>
+        /// Metoda służąca do odrzucania zgłoszeń urlopowych.
+        /// Rozszerza formularz rozważania zgłoszeń.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący.</param>
+        /// <param name="rejectedLeaveId">Numer id odrzucanego urlopu.</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
+        /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
+        public static void RejectLeave(this FormLeaveConsideration form, int rejectedLeaveId)
+        {
+            RejectLeave((LeaveManagerForm)form, rejectedLeaveId);
         }
 
         /// <summary>
@@ -762,7 +850,7 @@ namespace leave_manager
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
         /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
-        private static void RejectLeave(LeaveManagerForm form, Leave rejectedLeave)
+        private static void RejectLeave(LeaveManagerForm form, int rejectedLeaveId)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
               * o odpowiednim poziomie izolacji.
@@ -786,6 +874,7 @@ namespace leave_manager
 
             try
             {
+                Leave rejectedLeave = GetLeave(form, rejectedLeaveId);
                 //Polecenie sql służące do aktualizacji stanu zgłoszenia.
                 SqlCommand command = new SqlCommand("UPDATE Leave SET LS_ID = (SELECT ST_ID FROM " +
                     "Status_type WHERE Name = @Name), Used_days = @Used_days WHERE Leave_ID = @Leave_ID", form.Connection,
@@ -815,9 +904,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
@@ -832,9 +921,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
@@ -849,9 +938,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
@@ -865,9 +954,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
@@ -896,9 +985,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
@@ -915,9 +1004,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
@@ -933,9 +1022,9 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
         /// <param name="employeeId">Numer id pracownika.</param>
-        /// <param name="leaveDays">Referencja do zmiennej do której ma zostać
+        /// <param name="leaveDaysList">Referencja do zmiennej do której ma zostać
         /// zczytana liczba dni urlopowych pracownika.</param>
-        /// <param name="oldLeaveDays">Referencja do zmiennej do której ma zostać 
+        /// <param name="oldLeaveDaysList">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba zaległych dni urlopowych pracownika.</param>
         /// <param name="yearDays">Referencja do zmiennej do której ma zostać 
         /// zczytana liczba dni pracownika na rok.</param>
@@ -1388,19 +1477,6 @@ namespace leave_manager
         /// <summary>
         /// Metoda pobierająca wpis urlopowy.
         /// </summary>
-        /// <param name="form">Formularz wywołujący metodę.</param>
-        /// <param name="id">Numer id wpisu urlopowego.</param>
-        /// <returns>Obiekt reprezentujący dany urlop.</returns>
-        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
-        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
-        public static Leave GetLeave(this FormEmployee form, int leaveId)
-        {
-            return GetLeave((LeaveManagerForm)form, leaveId);
-        }
-
-        /// <summary>
-        /// Metoda pobierająca wpis urlopowy.
-        /// </summary>
         /// <param name="form">Formularz potrzebujący metody.</param>
         /// <param name="id">Numer id pobieranego urlopu.</param>
         /// <returns>Obiekt reprezentujący dany urlop.</returns>
@@ -1668,6 +1744,19 @@ namespace leave_manager
 
             try
             {
+                //Liczba zużytych przez urlop dni.
+                int usedDays;
+                //Jeżeli urlop konsumuje dni.
+                if (ConsumesDays(form, leave.LeaveType))
+                {
+                    usedDays = GetNumberOfWorkDays(form, leave.FirstDay, leave.LastDay);
+                    //Odejmujemy pracownikowi dni za dany urlop.
+                    AddLeaveDays(form, leave.EmployeeId, -usedDays);
+                }
+                else
+                {
+                    usedDays = 0;
+                }
                 //Polecenie sql Zczytujące największy nr id + 1
                 SqlCommand commandGetNewId = new SqlCommand("(SELECT MAX(Leave_ID) + 1 FROM Leave)", form.Connection, form.Transaction);
                 int newLeaveId;
@@ -1680,8 +1769,7 @@ namespace leave_manager
                     //Jeżeli nie udało się zczytać id, to możliwe, że żaden wpis w bazie nie istnieje. Wtedy przypisujemy id = 0
                     newLeaveId = 0;
                 }
-                //Liczba zużytych przez urlop dni.
-                int usedDays = GetNumberOfWorkDays(form, leave.FirstDay, leave.LastDay);
+
                 //Polecenie sql dodające nowy wpis urlopowy.
                 SqlCommand commandInsertLeave = new SqlCommand("INSERT INTO Leave VALUES (@Leave_ID, @Employee_ID, " +
                      "(SELECT LT_ID FROM Leave_type WHERE Name = @Leave_type_name), (SELECT ST_ID FROM Status_type WHERE Name = @Status_name), " +
@@ -1711,17 +1799,8 @@ namespace leave_manager
                 commandInsertLeave.Parameters.Add("@First_day", SqlDbType.Date).Value = leave.FirstDay;
                 commandInsertLeave.Parameters.Add("@Last_day", SqlDbType.Date).Value = leave.LastDay;
                 commandInsertLeave.Parameters.Add("@Remarks", SqlDbType.VarChar).Value = leave.Remarks;
-                if (ConsumesDays(form, leave.LeaveType))
-                    commandInsertLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value = usedDays;
-                else
-                    commandInsertLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value = 0;
+                commandInsertLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value = usedDays;
                 commandInsertLeave.ExecuteNonQuery();
-                //Jeżeli urlop konsumuje dni.
-                if (ConsumesDays(form, leave.LeaveType))
-                {
-                    //Odejmujemy pracownikowi dni za dany urlop.
-                    AddLeaveDays(form, leave.EmployeeId, -usedDays);
-                }
             }
             catch (Exception e)
             {
@@ -1980,32 +2059,46 @@ namespace leave_manager
             }
         }
 
+        /// <summary>
+        /// Metoda usuwania wpisu urlopowego.
+        /// Rozszerza formularz pracownika.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący.</param>
+        /// <param name="leaveId">Numer id usuwanego wpisu urlopowego.</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
+        /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
+        public static void DeleteLeave(this FormEmployeeData form, int leaveId)
+        {
+            DeleteLeave((LeaveManagerForm)form, leaveId);
+        }
 
         /// <summary>
         /// Metoda usuwania wpisu urlopowego.
         /// Rozszerza formularz pracownika.
         /// </summary>
         /// <param name="form">Formularz wywołujący.</param>
-        /// <param name="leave">Obiekt reprezentujący usuwany urlop.</param>
+        /// <param name="leaveId">Numer id usuwanego wpisu urlopowego.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
         /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
-        public static void DeleteLeave(this FormEmployee form, Leave leave)
+        public static void DeleteLeave(this FormEmployee form, int leaveId)
         {
-            DeleteLeave((LeaveManagerForm)form, leave);
+            DeleteLeave((LeaveManagerForm)form, leaveId);
         }
 
         /// <summary>
         /// Metoda usuwania wpisu urlopowego.
         /// </summary>
         /// <param name="form">Formularz potrzebujący metody.</param>
-        /// <param name="leave">Obiekt reprezentujący usuwany urlop.</param>
+        /// <param name="leaveId">Numer id usuwanego wpisu urlopowego.</param>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
         /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
-        private static void DeleteLeave(LeaveManagerForm form, Leave leave)
+        private static void DeleteLeave(LeaveManagerForm form, int leaveId)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
             * o odpowiednim poziomie izolacji.
@@ -2029,6 +2122,7 @@ namespace leave_manager
 
             try
             {
+                Leave leave = GetLeave(form, leaveId);
                 //Polecenie sql usuwające wpis urlopowy.
                 SqlCommand commandDeleteLeave = new SqlCommand("DELETE FROM Leave WHERE Leave_ID = @Leave_ID",
                     form.Connection, form.Transaction);
@@ -2401,7 +2495,7 @@ namespace leave_manager
                 form.CommitTransaction();
         }
 
-         /// <summary>
+        /// <summary>
         /// Metoda służąca do usuwania z bazy danych danego typu urlopu.
         /// </summary>
         /// <param name="form">Formularz wywołujący metodę.</param>
@@ -2457,16 +2551,16 @@ namespace leave_manager
                 List<Leave> leaveEntriesToDelete = new List<Leave>();
                 while (reader.Read())
                 {
-                     leaveEntriesToDelete.Add(new Leave((int)reader["Leave_ID"], (int)reader["Employee_ID"], deletedType.Name,
-                        reader["Status"].ToString(), (DateTime)reader["First_day"], 
-                        (DateTime)reader["Last_day"], reader["Remarks"].ToString(), (int)reader["Used_days"]));
+                    leaveEntriesToDelete.Add(new Leave((int)reader["Leave_ID"], (int)reader["Employee_ID"], deletedType.Name,
+                       reader["Status"].ToString(), (DateTime)reader["First_day"],
+                       (DateTime)reader["Last_day"], reader["Remarks"].ToString(), (int)reader["Used_days"]));
                 }
                 reader.Close();
-                foreach(Leave leave in leaveEntriesToDelete)
+                foreach (Leave leave in leaveEntriesToDelete)
                 {
-                    DeleteLeave(form, leave);
+                    DeleteLeave(form, leave.Id);
                 }
-                SqlCommand commandDeleteType = new SqlCommand("DELETE FROM Leave_type WHERE LT_ID = @LT_ID", 
+                SqlCommand commandDeleteType = new SqlCommand("DELETE FROM Leave_type WHERE LT_ID = @LT_ID",
                     form.Connection, form.Transaction);
                 commandDeleteType.Parameters.AddWithValue("@LT_ID", deletedType.Id);
                 commandDeleteType.ExecuteNonQuery();

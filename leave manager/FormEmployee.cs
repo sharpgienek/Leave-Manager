@@ -140,7 +140,7 @@ namespace leave_manager
                     //Jeżeli status urlopu jest różny od zatwierdzonego.
                     if (!row.Cells["Status"].Value.ToString().Equals("Approved"))
                     {
-                        this.DeleteLeave(this.GetLeave((int)row.Cells["Leave Id"].Value));                        
+                        this.DeleteLeave((int)row.Cells["Leave Id"].Value);                        
                     }
                     else
                     {                         

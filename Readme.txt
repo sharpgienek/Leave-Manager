@@ -71,6 +71,20 @@ ver. 0.21
 		wpisy urlopowe danego typu zostaj¹ usuniête, a dni za nie zostaj¹ zwrócone.
 	- Zabrano rejestratorce mo¿liwoœæ edycji wpisu urlopowego za wyj¹tkiem uwag.
 	- Naprawiono kilka b³êdów.
+
+
+ver. 0.22
+	- Edycja danych pracowników.
+	- Wyszukiwanie pracowników.
+	- Stworzono prototyp formatki ustalania godzin pracy pracownika.
+
+ver. 0.225
+	- FormLeaveApplication > po zmianie typu urlopu na extraordinary blokuje siê mo¿liwoœæ wyboru stanu urlopu.
+	- Dodano kierownikowi dostêp do formularza danych urlopowych pracownika.
+	- Dodano obs³ugê guzika Reject without consideration w formularzach rejestratorki i kierownika.
+	- Zmieniono argument przyjmowany przez metodê deleteLeave z obiektu urlopu na numer id urlopu.
+	- Dodano mo¿liwoœæ usuwania urlopów z poziomu formularza danych urlopowych pracownika.
+	- Coroczna aktualizacja liczby dostêpnych dni urlopowych.
 	
 
 INFO
@@ -90,9 +104,8 @@ Obs³uga b³êdów przy wszystkich transakcjach, lub wykonaniach zapytañ.
 Przemyœlenie wszystich transakcji.
 
 
-
-
  todo list:
+- Zamieniæ wszystkie DateTime.Now na pobieranie czasu z bazy danych.
 
 - Obs³uga b³êdów przy wszystkich odow³aniach do metod z DatabaseOperator.
 
@@ -102,56 +115,23 @@ nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ.
 - w metodzie private static void DeleteLeave(LeaveManagerForm form, Leave leave)
 nie zawsze jest konieczna transakcja. Mo¿naby nie zawsze jej wymagaæ
 
+- Przetestowaæ gruntownie edycjê urlopu przez managera (np. zmiana typu na nie konsumuj¹cy dni itp. itd.)
+
 Nie zaiplementowane:
-- Usuwanie pracownika.
-- Wyszukiwanie pracowników.
-- Edycja danych pracowników.
-- Manager>ogl¹danie danych pracowników
+
 - Zastêpstwa
 - Manager>Raportowanie
-- Dodanie stanu urlop w trakcie i urlop zakoñczony.
-- Assistant/Manager>Reject without consideration
 - Rozpisywanie dni zajêtych przez innych pracowników tego samego typu w oknie rozwa¿ania zg³oszenia urlopowego.
 - Liczby wymaganych pracowników na danej pozycji
-- Resetowania dni urlopowych przy zmianie roku
-- Przydzielanie tylko czêœci przys³uguj¹cych dni urlopowych przy rozpoczêciu pracy w zale¿noœci 
-od dnia zatrudnienia.
-- EmployeeData>Delete leave entry
 - Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
 	- Przy zmianie dni pracy trzeba przetestowaæ, czy liczba konsumowanych dni siê zgadza i nie przekracza
 	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
 	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
 	liczbê konsumowanych dni.
-- Comiesiêczna aktualizacja liczby dostêpnych dni urlopowych.
 
 
-
-Notki zrobione: 
-- Zmiana nazw metod na z du¿ych liter.
-
-- Zjeba³em grubo: Wszêdzie urlop rozpoznajê po parze employee.id i pierwszy dzieñ urlopu zak³adaj¹c, 
- ¿e s¹ unikalne a wcale nie musz¹ byæ (dodanie chorobowego identycznego z istniej¹cym urlopem). Trzeba
- dodaæ id do tabeli urlopów i po nim je rozpoznawaæ ;/.. no i wszystkie u¿ycia przekodziæ ;/
-
-- Du¿o praktyczniejsze by³oby rozwi¹zanie, w którym w urlopie przechowujemy liczbê dni, 
-które u¿ywa. (0 gdy nie dany urlop dni nie u¿ywa np. ze wzglêdu na typ). 
-
-- Employee>usuwanie urlopu nie dzia³a (gdzieœ nie jest zamkniêty SqlDataReader)
-
-- Zawrzeæ w komentarzu wszystkie wyj¹tki jakie rzucaj¹ metody z DatabaseOperator.
-
-- Dodaæ sta³y typ urlopu "na ¿¹danie". Pamiêtaæ, ¿e trzeba zablokowaæ mo¿liwoœæ usuniêcia go. 
-
-- Czy dodawanie urlopu zachodz¹cego na urlop ze stanem odrzuconym/anulowanym(przez chorobowe) 
-powiedzie siê?: NIE!! A POWINNO!
-
-- Jest zgrzyt: Gdy usunie siê typ, który konsumuje dni i przypisze w jego miejsce jakiœ, który dni nie konsumuje.
-
-- Assistant>zabraæ mo¿liwoœæ edycji wpisów urlopowych.
-
-- Dodawanie urlopu pracownikowi przez assistant> Trzeba z listy statusów usun¹æ Canceled, bo to bez sensu.
-
-- Metoda dodawania chorobowego szwankuje: gdy np. biore urlop na 16-17, a dostaje 
-chorobowe na 16, to urlop mi anuluje, a nie powinno. A POWINNO!
-
-- Przy dodaniu chorobowego stan urlopu Rejected zmienia siê na Canceled. Zastanowiæ siê nad tym.
+Opcjonalnie:
+- Usuwanie pracownika.
+- Dodanie stanu urlop w trakcie i urlop zakoñczony.
+- Auto logout
+- Usun¹æ konstruktory bezargumentowe > nie u¿ywaæ .GetType do porównania typów a s³owa kluczowego "is"

@@ -101,6 +101,7 @@
             this.buttonReject.TabIndex = 3;
             this.buttonReject.Text = "Reject without consideration";
             this.buttonReject.UseVisualStyleBackColor = true;
+            this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
             // 
             // buttonConsider
             // 
@@ -167,6 +168,7 @@
             this.buttonEmployeesDetailedData.TabIndex = 8;
             this.buttonEmployeesDetailedData.Text = "View detailed leave dataLeaves";
             this.buttonEmployeesDetailedData.UseVisualStyleBackColor = true;
+            this.buttonEmployeesDetailedData.Click += new System.EventHandler(this.buttonEmployeesDetailedData_Click);
             // 
             // dataGridViewEmployees
             // 
@@ -234,7 +236,7 @@
             this.labelEmployeesInfo.AutoSize = true;
             this.labelEmployeesInfo.Location = new System.Drawing.Point(7, 7);
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
-            this.labelEmployeesInfo.Size = new System.Drawing.Size(188, 13);
+            this.labelEmployeesInfo.Size = new System.Drawing.Size(258, 13);
             this.labelEmployeesInfo.TabIndex = 0;
             this.labelEmployeesInfo.Text = "Here you can view and edit dataLeaves dataLeaves.";
             // 

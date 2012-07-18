@@ -35,6 +35,10 @@
             this.labelTabNeedsActionInfo = new System.Windows.Forms.Label();
             this.dataGridViewPendingAplications = new System.Windows.Forms.DataGridView();
             this.tabPageEmployees = new System.Windows.Forms.TabPage();
+            this.textBoxEmployeesPesel = new System.Windows.Forms.TextBox();
+            this.textBoxEmployeesSurname = new System.Windows.Forms.TextBox();
+            this.labelEmployeesPesel = new System.Windows.Forms.Label();
+            this.labelEmployeesSurname = new System.Windows.Forms.Label();
             this.buttonEmployeesDetailedData = new System.Windows.Forms.Button();
             this.dataGridViewEmployees = new System.Windows.Forms.DataGridView();
             this.buttonEmployeesShowAll = new System.Windows.Forms.Button();
@@ -54,10 +58,6 @@
             this.ColumnReplacementsWorkersNeeded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsWorkersAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelEmployeesSurname = new System.Windows.Forms.Label();
-            this.labelEmployeesPesel = new System.Windows.Forms.Label();
-            this.textBoxEmployeesSurname = new System.Windows.Forms.TextBox();
-            this.textBoxEmployeesPesel = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageNeedsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPendingAplications)).BeginInit();
@@ -88,7 +88,7 @@
             this.tabPageNeedsAction.Location = new System.Drawing.Point(4, 22);
             this.tabPageNeedsAction.Name = "tabPageNeedsAction";
             this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNeedsAction.Size = new System.Drawing.Size(703, 392);
+            this.tabPageNeedsAction.Size = new System.Drawing.Size(703, 420);
             this.tabPageNeedsAction.TabIndex = 0;
             this.tabPageNeedsAction.Text = "Needs your action";
             this.tabPageNeedsAction.UseVisualStyleBackColor = true;
@@ -101,6 +101,7 @@
             this.buttonRejectPendingAplication.TabIndex = 3;
             this.buttonRejectPendingAplication.Text = "Reject without consideration";
             this.buttonRejectPendingAplication.UseVisualStyleBackColor = true;
+            this.buttonRejectPendingAplication.Click += new System.EventHandler(this.buttonRejectPendingAplication_Click);
             // 
             // buttonConsiderPendingAplication
             // 
@@ -151,6 +152,38 @@
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
             this.tabPageEmployees.UseVisualStyleBackColor = true;
+            // 
+            // textBoxEmployeesPesel
+            // 
+            this.textBoxEmployeesPesel.Location = new System.Drawing.Point(67, 60);
+            this.textBoxEmployeesPesel.Name = "textBoxEmployeesPesel";
+            this.textBoxEmployeesPesel.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesPesel.TabIndex = 12;
+            // 
+            // textBoxEmployeesSurname
+            // 
+            this.textBoxEmployeesSurname.Location = new System.Drawing.Point(387, 34);
+            this.textBoxEmployeesSurname.Name = "textBoxEmployeesSurname";
+            this.textBoxEmployeesSurname.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesSurname.TabIndex = 11;
+            // 
+            // labelEmployeesPesel
+            // 
+            this.labelEmployeesPesel.AutoSize = true;
+            this.labelEmployeesPesel.Location = new System.Drawing.Point(10, 63);
+            this.labelEmployeesPesel.Name = "labelEmployeesPesel";
+            this.labelEmployeesPesel.Size = new System.Drawing.Size(44, 13);
+            this.labelEmployeesPesel.TabIndex = 10;
+            this.labelEmployeesPesel.Text = "PESEL:";
+            // 
+            // labelEmployeesSurname
+            // 
+            this.labelEmployeesSurname.AutoSize = true;
+            this.labelEmployeesSurname.Location = new System.Drawing.Point(330, 37);
+            this.labelEmployeesSurname.Name = "labelEmployeesSurname";
+            this.labelEmployeesSurname.Size = new System.Drawing.Size(52, 13);
+            this.labelEmployeesSurname.TabIndex = 9;
+            this.labelEmployeesSurname.Text = "Surname:";
             // 
             // buttonEmployeesDetailedData
             // 
@@ -229,7 +262,7 @@
             this.labelEmployeesInfo.AutoSize = true;
             this.labelEmployeesInfo.Location = new System.Drawing.Point(7, 7);
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
-            this.labelEmployeesInfo.Size = new System.Drawing.Size(147, 13);
+            this.labelEmployeesInfo.Size = new System.Drawing.Size(217, 13);
             this.labelEmployeesInfo.TabIndex = 0;
             this.labelEmployeesInfo.Text = "Here you can view dataLeaves dataLeaves.";
             // 
@@ -243,7 +276,7 @@
             this.tabPageReplacements.Location = new System.Drawing.Point(4, 22);
             this.tabPageReplacements.Name = "tabPageReplacements";
             this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReplacements.Size = new System.Drawing.Size(703, 392);
+            this.tabPageReplacements.Size = new System.Drawing.Size(703, 420);
             this.tabPageReplacements.TabIndex = 2;
             this.tabPageReplacements.Text = "Replacements";
             this.tabPageReplacements.UseVisualStyleBackColor = true;
@@ -315,38 +348,6 @@
             // 
             this.ColumnReplacementsPosition.HeaderText = "position";
             this.ColumnReplacementsPosition.Name = "ColumnReplacementsPosition";
-            // 
-            // labelEmployeesSurname
-            // 
-            this.labelEmployeesSurname.AutoSize = true;
-            this.labelEmployeesSurname.Location = new System.Drawing.Point(330, 37);
-            this.labelEmployeesSurname.Name = "labelEmployeesSurname";
-            this.labelEmployeesSurname.Size = new System.Drawing.Size(52, 13);
-            this.labelEmployeesSurname.TabIndex = 9;
-            this.labelEmployeesSurname.Text = "Surname:";
-            // 
-            // labelEmployeesPesel
-            // 
-            this.labelEmployeesPesel.AutoSize = true;
-            this.labelEmployeesPesel.Location = new System.Drawing.Point(10, 63);
-            this.labelEmployeesPesel.Name = "labelEmployeesPesel";
-            this.labelEmployeesPesel.Size = new System.Drawing.Size(44, 13);
-            this.labelEmployeesPesel.TabIndex = 10;
-            this.labelEmployeesPesel.Text = "PESEL:";
-            // 
-            // textBoxEmployeesSurname
-            // 
-            this.textBoxEmployeesSurname.Location = new System.Drawing.Point(387, 34);
-            this.textBoxEmployeesSurname.Name = "textBoxEmployeesSurname";
-            this.textBoxEmployeesSurname.Size = new System.Drawing.Size(201, 20);
-            this.textBoxEmployeesSurname.TabIndex = 11;
-            // 
-            // textBoxEmployeesPesel
-            // 
-            this.textBoxEmployeesPesel.Location = new System.Drawing.Point(67, 60);
-            this.textBoxEmployeesPesel.Name = "textBoxEmployeesPesel";
-            this.textBoxEmployeesPesel.Size = new System.Drawing.Size(201, 20);
-            this.textBoxEmployeesPesel.TabIndex = 12;
             // 
             // FormAssistant
             // 

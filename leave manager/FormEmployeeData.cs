@@ -88,7 +88,7 @@ namespace leave_manager
                 labelDaysToUseValue.Text = (leaveDays + oldLeaveDays).ToString();
                 this.CommitTransaction();
             }
-            catch 
+            catch
             {
                 this.RollbackTransaction();
                 throw new NotImplementedException();
@@ -108,7 +108,7 @@ namespace leave_manager
                 dataGridView.Rows[cell.RowIndex].Selected = true;
             }
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
-            {                
+            {
                 FormLeaveApplication form = new FormLeaveApplication(this.parent, connection, this.GetLeave((int)row.Cells["Leave id"].Value));
                 form.FormClosed += new FormClosedEventHandler(RefreshData);
                 form.Show();
@@ -130,6 +130,52 @@ namespace leave_manager
              */
             form.FormClosed += new FormClosedEventHandler(RefreshData);
             form.Show();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki w tabeli urlopów zaznacz jej cały wiersz.
+            foreach (DataGridViewCell cell in dataGridView.SelectedCells)
+            {
+                dataGridView.Rows[cell.RowIndex].Selected = true;
+            }
+            /* Dla każdego wiersza zostaje wywołana metoda usunięcia urlopu.
+             * Usuwanie jest objęte transakcją: Jeżeli choć jedna operacja 
+             * usuwania nie powiedzie się, to żaden urlop nie będzie usunięty.
+             */
+            this.BeginTransaction(IsolationLevel.RepeatableRead);
+            try
+            {
+                //Dla każdego zaznaczonego wiersza.
+                foreach (DataGridViewRow row in dataGridView.SelectedRows)
+                {
+                    //Jeżeli status urlopu jest różny od zatwierdzonego.
+                    if (!row.Cells["Status"].Value.ToString().Equals("Approved"))
+                    {
+                        this.DeleteLeave((int)row.Cells["Leave Id"].Value);
+                    }
+                    else
+                    {
+                        if (parent is FormManager)
+                        {
+                            this.DeleteLeave((int)row.Cells["Leave Id"].Value);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You can not delete approved leaves.\n");
+                            this.RollbackTransaction();
+                            return;
+                        }
+                    }
+                }
+                this.CommitTransaction();
+                RefreshData();
+            }
+            catch//todo obsługa wszystkich wyjątków.
+            {
+                this.RollbackTransaction();
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -45,6 +45,9 @@ namespace leave_manager
             {
                 //Otworzenie połączenia.
                 connection.Open();
+
+                DatabaseOperator.UpdateLeaveDays(connection);
+
                 //Uruchomienie formularza logowania.
                 FormLogin form = new FormLogin(connection);
                 Application.Run(form);
@@ -57,9 +60,9 @@ namespace leave_manager
                     {
                         case "administrator":
                           //Application.Run(new FormAdmin(connection));                           
-                          //Application.Run(new FormEmployee(connection, form.Employee));
+                       //   Application.Run(new FormEmployee(connection, form.Employee));
                            Application.Run(new FormAssistant(connection));
-                           // Application.Run(new FormManager(connection));
+                          //  Application.Run(new FormManager(connection));
                             break;
                         case "manager":
                             Application.Run(new FormManager(connection));

@@ -43,8 +43,8 @@ namespace leave_manager
         /// zgodne z wartościami w edytowanym wpisie urlopowym.
         /// </summary>
         /// <param name="connection">Połączenie do bazy danych. Powinno być otwarte.</param>
-        /// <param name="leaveDays">Dostępna liczba dni urlopowych (bez dni zaległych).</param>
-        /// <param name="oldLeaveDays">Dostępna liczba zaległych dni urlopowych.</param>
+        /// <param name="leaveDaysList">Dostępna liczba dni urlopowych (bez dni zaległych).</param>
+        /// <param name="oldLeaveDaysList">Dostępna liczba zaległych dni urlopowych.</param>
         /// <param name="employeeId">Numer id pracownika, którego dotyczy zgłoszenie urlopowe.</param>
         /// <param name="editedLeave">Obiekt reprezentujący edytowany wpis urlopowy.</param>
         public FormLeaveApplication(object parent, SqlConnection connection, Leave editedLeave)
@@ -127,6 +127,9 @@ namespace leave_manager
             this.connection = connection;
             this.employeeId = employeeId;
             this.editMode = false;
+
+            dateTimePickerFirstDay.CustomFormat = "hh";
+
             //Zczytanie listy możliwych statusów urlopu.
             List<String> statusList = this.GetStatusTypes();
             //Zczytanie listy możliwych typów urlopu.
@@ -362,7 +365,8 @@ namespace leave_manager
             //Aktualizacja etykiety używanych dni urlopu.
             UpdateLabelUsedDaysValue();
             //Jeżeli wybrany typ urlopu to chorobowe.
-            if (comboBoxType.SelectedItem.ToString().Equals("Sick"))
+            if (comboBoxType.SelectedItem.ToString().Equals("Sick") ||
+                comboBoxType.SelectedItem.ToString().Equals("Extraordinary"))
             {
                 //Zablokuj listę rozwijaną stanów urlopów.
                 comboBoxStatus.Enabled = false;

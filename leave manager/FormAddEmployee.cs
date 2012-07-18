@@ -33,7 +33,6 @@ namespace leave_manager
             comboBoxPermissions.DataSource = this.GetPermissions();
             comboBoxPossition.DataSource = this.GetPositionsList();
 
-
             //todo usunąć dane wspomagające testy poniżej
             textBoxName.Text = "trol";
             textBoxSurname.Text = "trol";

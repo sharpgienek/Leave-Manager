@@ -97,7 +97,7 @@ namespace leave_manager
         {
             try
             {
-                this.RejectLeave(consideredLeave);
+                this.RejectLeave(consideredLeave.Id);
                 this.Close();
             }
             catch 

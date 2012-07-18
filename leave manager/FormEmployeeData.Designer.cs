@@ -109,7 +109,7 @@
             this.labelInfo.AutoSize = true;
             this.labelInfo.Location = new System.Drawing.Point(15, 13);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(191, 13);
+            this.labelInfo.Size = new System.Drawing.Size(226, 13);
             this.labelInfo.TabIndex = 21;
             this.labelInfo.Text = "You are viewing detailed leave dataLeaves of:";
             // 
@@ -141,6 +141,7 @@
             this.buttonDelete.TabIndex = 24;
             this.buttonDelete.Text = "Delete leave entry";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // FormEmployeeData
             // 

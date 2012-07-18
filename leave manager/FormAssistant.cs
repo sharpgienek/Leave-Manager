@@ -149,6 +149,28 @@ namespace leave_manager
                 //Wyświetlenie formularza danych pracownika.
                 form.Show();
             }           
+        }
+
+        private void buttonRejectPendingAplication_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in  dataGridViewPendingAplications.SelectedCells)
+            {
+                dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewPendingAplications.SelectedRows)
+            {
+                try
+                {
+                    this.RejectLeave((int)row.Cells["Leave id"].Value);
+                    RefreshDataGridViewPendingAplications();
+                }
+                catch
+                {
+                    throw new NotImplementedException();
+                }//todo obsługa wszystkich wyjątków.
+            }      
         }      
     }
 }

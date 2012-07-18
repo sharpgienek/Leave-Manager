@@ -29,9 +29,9 @@ namespace leave_manager
         /// <param name="pesel">Numer PESEL.</param>
         /// <param name="eMail">Adres e-mail.</param>
         /// <param name="position">Pozycja.</param>
-        /// <param name="yearLeaveDays">Liczba dni urlopowych na rok dla pracownika.</param>
-        /// <param name="leaveDays">Dostępne normlanie dni urlopowe.</param>
-        /// <param name="oldLeaveDays">Dostępne zaległe dni urlopowe.</param>
+        /// <param name="yearLeaveDaysList">Liczba dni urlopowych na rok dla pracownika.</param>
+        /// <param name="leaveDaysList">Dostępne normlanie dni urlopowe.</param>
+        /// <param name="oldLeaveDaysList">Dostępne zaległe dni urlopowe.</param>
         public Employee(int employeeId, String permission, String name, String surname,
             DateTime birthDate, String address, String pesel, String eMail, 
             String position,int yearLeaveDays, int leaveDays, int oldLeaveDays, int demandDays)
