@@ -27,8 +27,24 @@ namespace leave_manager
             this.connection = connection;
             //Pierwsze uzupełnienie tabeli zawierającej zgłoszenia wymagające ropatrzenia przez kierownika.
             LoadDataGridViewNeedsAction();
+            LoadAllPositionComboBox();
         }
 
+        private void LoadAllPositionComboBox()
+        {
+            List<String> positions;
+            try
+            {
+                positions = this.GetPositionsList();
+                positions.Insert(0, "");
+                comboBoxEmployeesPosition.DataSource = positions;
+                comboBoxReplacementsPosition.DataSource = positions;
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
         /// <summary>
         /// Metoda wczytywania zawartości tabeli zawierającej zgłoszenia wymagające rozpatrzenia przez kierownika.
         /// Wywołuje bezparametrową metodę o tej samej nazwie. Stworzona celem umożliwienia podpięcia jej
@@ -86,7 +102,7 @@ namespace leave_manager
         /// <param name="e">Argumenty.</param>
         private void buttonEmployeesAdd_Click(object sender, EventArgs e)
         {
-            FormAddEmployee form = new FormAddEmployee(connection);
+            FormAddOrEditEmployee form = new FormAddOrEditEmployee(connection);
             form.Show();
             form.FormClosed += new FormClosedEventHandler(this.RefreshDataGridViewEmployees);
         }
@@ -177,6 +193,47 @@ namespace leave_manager
                     throw new NotImplementedException();
                 }//todo obsługa wszystkich wyjątków.
             }      
-        }      
+        }    
+        
+
+        /// <summary>
+        /// Metoda obsługujące naciśnięcie przycisku Search (wyszukuje pracownika) 
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający</param>
+        /// <param name="e">Argumenty</param>
+        private void buttonEmployeesSearch_Click(object sender, EventArgs e)
+        {
+            dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text,
+                textBoxEmployeesSurname.Text,"", comboBoxEmployeesPosition.SelectedItem.ToString());
+        }
+
+        /// <summary>
+        /// Metoda obsługi przyciśnięcia guzika edycji pracownika 
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający</param>
+        /// <param name="e">Argumenty</param>
+        private void buttonEmployeeEdit_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
+            {
+                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
+            {   
+                
+                //Tworzymy formularz danych pracownika.
+                FormAddOrEditEmployee form = new FormAddOrEditEmployee(connection, (int)row.Cells["Employee id"].Value);
+                /* Dodana zostaje metoda odświeżania tabeli oczekujących aplikacji urlopowych do obsługi
+                 * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
+                 * pracownika zmiany właściwości jego aplikacji urlopowych.
+                 */
+                form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewEmployees);
+                //Wyświetlenie formularza danych pracownika.
+                form.Show();
+            }   
+        }
+   
     }
 }

@@ -74,9 +74,10 @@
             this.tabControl.Controls.Add(this.tabPageReplacements);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(711, 446);
+            this.tabControl.Size = new System.Drawing.Size(948, 549);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageNeedsAction
@@ -85,29 +86,31 @@
             this.tabPageNeedsAction.Controls.Add(this.buttonConsiderPendingAplication);
             this.tabPageNeedsAction.Controls.Add(this.labelTabNeedsActionInfo);
             this.tabPageNeedsAction.Controls.Add(this.dataGridViewPendingAplications);
-            this.tabPageNeedsAction.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNeedsAction.Location = new System.Drawing.Point(4, 25);
+            this.tabPageNeedsAction.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageNeedsAction.Name = "tabPageNeedsAction";
-            this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNeedsAction.Size = new System.Drawing.Size(703, 420);
+            this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageNeedsAction.Size = new System.Drawing.Size(940, 520);
             this.tabPageNeedsAction.TabIndex = 0;
             this.tabPageNeedsAction.Text = "Needs your action";
             this.tabPageNeedsAction.UseVisualStyleBackColor = true;
             // 
             // buttonRejectPendingAplication
             // 
-            this.buttonRejectPendingAplication.Location = new System.Drawing.Point(480, 330);
+            this.buttonRejectPendingAplication.Location = new System.Drawing.Point(640, 406);
+            this.buttonRejectPendingAplication.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRejectPendingAplication.Name = "buttonRejectPendingAplication";
-            this.buttonRejectPendingAplication.Size = new System.Drawing.Size(91, 41);
+            this.buttonRejectPendingAplication.Size = new System.Drawing.Size(121, 50);
             this.buttonRejectPendingAplication.TabIndex = 3;
             this.buttonRejectPendingAplication.Text = "Reject without consideration";
             this.buttonRejectPendingAplication.UseVisualStyleBackColor = true;
-            this.buttonRejectPendingAplication.Click += new System.EventHandler(this.buttonRejectPendingAplication_Click);
             // 
             // buttonConsiderPendingAplication
             // 
-            this.buttonConsiderPendingAplication.Location = new System.Drawing.Point(86, 339);
+            this.buttonConsiderPendingAplication.Location = new System.Drawing.Point(115, 417);
+            this.buttonConsiderPendingAplication.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConsiderPendingAplication.Name = "buttonConsiderPendingAplication";
-            this.buttonConsiderPendingAplication.Size = new System.Drawing.Size(75, 23);
+            this.buttonConsiderPendingAplication.Size = new System.Drawing.Size(100, 28);
             this.buttonConsiderPendingAplication.TabIndex = 2;
             this.buttonConsiderPendingAplication.Text = "Consider";
             this.buttonConsiderPendingAplication.UseVisualStyleBackColor = true;
@@ -116,18 +119,21 @@
             // labelTabNeedsActionInfo
             // 
             this.labelTabNeedsActionInfo.AutoSize = true;
-            this.labelTabNeedsActionInfo.Location = new System.Drawing.Point(6, 22);
+            this.labelTabNeedsActionInfo.Location = new System.Drawing.Point(8, 27);
+            this.labelTabNeedsActionInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTabNeedsActionInfo.Name = "labelTabNeedsActionInfo";
-            this.labelTabNeedsActionInfo.Size = new System.Drawing.Size(188, 13);
+            this.labelTabNeedsActionInfo.Size = new System.Drawing.Size(250, 17);
             this.labelTabNeedsActionInfo.TabIndex = 1;
             this.labelTabNeedsActionInfo.Text = "Here you can see pending aplications.";
             // 
             // dataGridViewPendingAplications
             // 
             this.dataGridViewPendingAplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPendingAplications.Location = new System.Drawing.Point(9, 49);
+            this.dataGridViewPendingAplications.Location = new System.Drawing.Point(12, 60);
+            this.dataGridViewPendingAplications.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewPendingAplications.Name = "dataGridViewPendingAplications";
-            this.dataGridViewPendingAplications.Size = new System.Drawing.Size(643, 266);
+            this.dataGridViewPendingAplications.RowTemplate.Height = 24;
+            this.dataGridViewPendingAplications.Size = new System.Drawing.Size(857, 327);
             this.dataGridViewPendingAplications.TabIndex = 0;
             // 
             // tabPageEmployees
@@ -145,51 +151,57 @@
             this.tabPageEmployees.Controls.Add(this.textBoxEmployeesName);
             this.tabPageEmployees.Controls.Add(this.labelEmployeesName);
             this.tabPageEmployees.Controls.Add(this.labelEmployeesInfo);
-            this.tabPageEmployees.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEmployees.Location = new System.Drawing.Point(4, 25);
+            this.tabPageEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageEmployees.Name = "tabPageEmployees";
-            this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEmployees.Size = new System.Drawing.Size(703, 420);
+            this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageEmployees.Size = new System.Drawing.Size(940, 520);
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
             this.tabPageEmployees.UseVisualStyleBackColor = true;
             // 
             // textBoxEmployeesPesel
             // 
-            this.textBoxEmployeesPesel.Location = new System.Drawing.Point(67, 60);
+            this.textBoxEmployeesPesel.Location = new System.Drawing.Point(89, 74);
+            this.textBoxEmployeesPesel.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEmployeesPesel.Name = "textBoxEmployeesPesel";
-            this.textBoxEmployeesPesel.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesPesel.Size = new System.Drawing.Size(267, 22);
             this.textBoxEmployeesPesel.TabIndex = 12;
             // 
             // textBoxEmployeesSurname
             // 
-            this.textBoxEmployeesSurname.Location = new System.Drawing.Point(387, 34);
+            this.textBoxEmployeesSurname.Location = new System.Drawing.Point(557, 42);
+            this.textBoxEmployeesSurname.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEmployeesSurname.Name = "textBoxEmployeesSurname";
-            this.textBoxEmployeesSurname.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesSurname.Size = new System.Drawing.Size(225, 22);
             this.textBoxEmployeesSurname.TabIndex = 11;
             // 
             // labelEmployeesPesel
             // 
             this.labelEmployeesPesel.AutoSize = true;
-            this.labelEmployeesPesel.Location = new System.Drawing.Point(10, 63);
+            this.labelEmployeesPesel.Location = new System.Drawing.Point(13, 78);
+            this.labelEmployeesPesel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmployeesPesel.Name = "labelEmployeesPesel";
-            this.labelEmployeesPesel.Size = new System.Drawing.Size(44, 13);
+            this.labelEmployeesPesel.Size = new System.Drawing.Size(56, 17);
             this.labelEmployeesPesel.TabIndex = 10;
             this.labelEmployeesPesel.Text = "PESEL:";
             // 
             // labelEmployeesSurname
             // 
             this.labelEmployeesSurname.AutoSize = true;
-            this.labelEmployeesSurname.Location = new System.Drawing.Point(330, 37);
+            this.labelEmployeesSurname.Location = new System.Drawing.Point(440, 46);
+            this.labelEmployeesSurname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmployeesSurname.Name = "labelEmployeesSurname";
-            this.labelEmployeesSurname.Size = new System.Drawing.Size(52, 13);
+            this.labelEmployeesSurname.Size = new System.Drawing.Size(69, 17);
             this.labelEmployeesSurname.TabIndex = 9;
             this.labelEmployeesSurname.Text = "Surname:";
             // 
             // buttonEmployeesDetailedData
             // 
-            this.buttonEmployeesDetailedData.Location = new System.Drawing.Point(37, 352);
+            this.buttonEmployeesDetailedData.Location = new System.Drawing.Point(49, 433);
+            this.buttonEmployeesDetailedData.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesDetailedData.Name = "buttonEmployeesDetailedData";
-            this.buttonEmployeesDetailedData.Size = new System.Drawing.Size(99, 48);
+            this.buttonEmployeesDetailedData.Size = new System.Drawing.Size(132, 59);
             this.buttonEmployeesDetailedData.TabIndex = 8;
             this.buttonEmployeesDetailedData.Text = "View detailed leave dataLeaves";
             this.buttonEmployeesDetailedData.UseVisualStyleBackColor = true;
@@ -198,16 +210,19 @@
             // dataGridViewEmployees
             // 
             this.dataGridViewEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewEmployees.Location = new System.Drawing.Point(8, 152);
+            this.dataGridViewEmployees.Location = new System.Drawing.Point(11, 187);
+            this.dataGridViewEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
-            this.dataGridViewEmployees.Size = new System.Drawing.Size(643, 194);
+            this.dataGridViewEmployees.RowTemplate.Height = 24;
+            this.dataGridViewEmployees.Size = new System.Drawing.Size(857, 239);
             this.dataGridViewEmployees.TabIndex = 7;
             // 
             // buttonEmployeesShowAll
             // 
-            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(333, 110);
+            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(444, 135);
+            this.buttonEmployeesShowAll.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
-            this.buttonEmployeesShowAll.Size = new System.Drawing.Size(75, 36);
+            this.buttonEmployeesShowAll.Size = new System.Drawing.Size(100, 44);
             this.buttonEmployeesShowAll.TabIndex = 6;
             this.buttonEmployeesShowAll.Text = "Show all dataLeaves";
             this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
@@ -215,54 +230,59 @@
             // 
             // buttonEmployeesSearch
             // 
-            this.buttonEmployeesSearch.Location = new System.Drawing.Point(193, 110);
+            this.buttonEmployeesSearch.Location = new System.Drawing.Point(257, 135);
+            this.buttonEmployeesSearch.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesSearch.Name = "buttonEmployeesSearch";
-            this.buttonEmployeesSearch.Size = new System.Drawing.Size(75, 36);
+            this.buttonEmployeesSearch.Size = new System.Drawing.Size(100, 44);
             this.buttonEmployeesSearch.TabIndex = 5;
             this.buttonEmployeesSearch.Text = "Search";
             this.buttonEmployeesSearch.UseVisualStyleBackColor = true;
+            this.buttonEmployeesSearch.Click += new System.EventHandler(this.buttonEmployeesSearch_Click);
             // 
             // comboBoxEmployeesPosition
             // 
             this.comboBoxEmployeesPosition.FormattingEnabled = true;
-            this.comboBoxEmployeesPosition.Items.AddRange(new object[] {
-            "doctor"});
-            this.comboBoxEmployeesPosition.Location = new System.Drawing.Point(418, 63);
+            this.comboBoxEmployeesPosition.Location = new System.Drawing.Point(557, 78);
+            this.comboBoxEmployeesPosition.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxEmployeesPosition.Name = "comboBoxEmployeesPosition";
-            this.comboBoxEmployeesPosition.Size = new System.Drawing.Size(170, 21);
+            this.comboBoxEmployeesPosition.Size = new System.Drawing.Size(225, 24);
             this.comboBoxEmployeesPosition.TabIndex = 4;
             // 
             // labelEmployeesPosition
             // 
             this.labelEmployeesPosition.AutoSize = true;
-            this.labelEmployeesPosition.Location = new System.Drawing.Point(330, 66);
+            this.labelEmployeesPosition.Location = new System.Drawing.Point(440, 81);
+            this.labelEmployeesPosition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmployeesPosition.Name = "labelEmployeesPosition";
-            this.labelEmployeesPosition.Size = new System.Drawing.Size(82, 13);
+            this.labelEmployeesPosition.Size = new System.Drawing.Size(109, 17);
             this.labelEmployeesPosition.TabIndex = 3;
             this.labelEmployeesPosition.Text = "Choose position";
             // 
             // textBoxEmployeesName
             // 
-            this.textBoxEmployeesName.Location = new System.Drawing.Point(67, 34);
+            this.textBoxEmployeesName.Location = new System.Drawing.Point(89, 42);
+            this.textBoxEmployeesName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEmployeesName.Name = "textBoxEmployeesName";
-            this.textBoxEmployeesName.Size = new System.Drawing.Size(201, 20);
+            this.textBoxEmployeesName.Size = new System.Drawing.Size(267, 22);
             this.textBoxEmployeesName.TabIndex = 2;
             // 
             // labelEmployeesName
             // 
             this.labelEmployeesName.AutoSize = true;
-            this.labelEmployeesName.Location = new System.Drawing.Point(10, 37);
+            this.labelEmployeesName.Location = new System.Drawing.Point(13, 46);
+            this.labelEmployeesName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmployeesName.Name = "labelEmployeesName";
-            this.labelEmployeesName.Size = new System.Drawing.Size(38, 13);
+            this.labelEmployeesName.Size = new System.Drawing.Size(49, 17);
             this.labelEmployeesName.TabIndex = 1;
             this.labelEmployeesName.Text = "Name:";
             // 
             // labelEmployeesInfo
             // 
             this.labelEmployeesInfo.AutoSize = true;
-            this.labelEmployeesInfo.Location = new System.Drawing.Point(7, 7);
+            this.labelEmployeesInfo.Location = new System.Drawing.Point(9, 9);
+            this.labelEmployeesInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmployeesInfo.Name = "labelEmployeesInfo";
-            this.labelEmployeesInfo.Size = new System.Drawing.Size(217, 13);
+            this.labelEmployeesInfo.Size = new System.Drawing.Size(284, 17);
             this.labelEmployeesInfo.TabIndex = 0;
             this.labelEmployeesInfo.Text = "Here you can view dataLeaves dataLeaves.";
             // 
@@ -273,10 +293,11 @@
             this.tabPageReplacements.Controls.Add(this.comboBoxReplacementsPosition);
             this.tabPageReplacements.Controls.Add(this.buttonReplacementsManage);
             this.tabPageReplacements.Controls.Add(this.dataGridViewReplacements);
-            this.tabPageReplacements.Location = new System.Drawing.Point(4, 22);
+            this.tabPageReplacements.Location = new System.Drawing.Point(4, 25);
+            this.tabPageReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReplacements.Name = "tabPageReplacements";
-            this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReplacements.Size = new System.Drawing.Size(703, 420);
+            this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageReplacements.Size = new System.Drawing.Size(940, 520);
             this.tabPageReplacements.TabIndex = 2;
             this.tabPageReplacements.Text = "Replacements";
             this.tabPageReplacements.UseVisualStyleBackColor = true;
@@ -284,34 +305,38 @@
             // labelReplacementsPositionFilter
             // 
             this.labelReplacementsPositionFilter.AutoSize = true;
-            this.labelReplacementsPositionFilter.Location = new System.Drawing.Point(115, 39);
+            this.labelReplacementsPositionFilter.Location = new System.Drawing.Point(153, 48);
+            this.labelReplacementsPositionFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelReplacementsPositionFilter.Name = "labelReplacementsPositionFilter";
-            this.labelReplacementsPositionFilter.Size = new System.Drawing.Size(85, 13);
+            this.labelReplacementsPositionFilter.Size = new System.Drawing.Size(115, 17);
             this.labelReplacementsPositionFilter.TabIndex = 4;
             this.labelReplacementsPositionFilter.Text = "Filter by position:";
             // 
             // labelReplacementsInfo
             // 
             this.labelReplacementsInfo.AutoSize = true;
-            this.labelReplacementsInfo.Location = new System.Drawing.Point(8, 12);
+            this.labelReplacementsInfo.Location = new System.Drawing.Point(11, 15);
+            this.labelReplacementsInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelReplacementsInfo.Name = "labelReplacementsInfo";
-            this.labelReplacementsInfo.Size = new System.Drawing.Size(181, 13);
+            this.labelReplacementsInfo.Size = new System.Drawing.Size(241, 17);
             this.labelReplacementsInfo.TabIndex = 3;
             this.labelReplacementsInfo.Text = "Here you can manage replacements.";
             // 
             // comboBoxReplacementsPosition
             // 
             this.comboBoxReplacementsPosition.FormattingEnabled = true;
-            this.comboBoxReplacementsPosition.Location = new System.Drawing.Point(221, 36);
+            this.comboBoxReplacementsPosition.Location = new System.Drawing.Point(295, 44);
+            this.comboBoxReplacementsPosition.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxReplacementsPosition.Name = "comboBoxReplacementsPosition";
-            this.comboBoxReplacementsPosition.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxReplacementsPosition.Size = new System.Drawing.Size(160, 24);
             this.comboBoxReplacementsPosition.TabIndex = 2;
             // 
             // buttonReplacementsManage
             // 
-            this.buttonReplacementsManage.Location = new System.Drawing.Point(288, 309);
+            this.buttonReplacementsManage.Location = new System.Drawing.Point(384, 380);
+            this.buttonReplacementsManage.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReplacementsManage.Name = "buttonReplacementsManage";
-            this.buttonReplacementsManage.Size = new System.Drawing.Size(91, 37);
+            this.buttonReplacementsManage.Size = new System.Drawing.Size(121, 46);
             this.buttonReplacementsManage.TabIndex = 1;
             this.buttonReplacementsManage.Text = "Manage replacement";
             this.buttonReplacementsManage.UseVisualStyleBackColor = true;
@@ -324,9 +349,11 @@
             this.ColumnReplacementsWorkersNeeded,
             this.ColumnReplacementsWorkersAvailable,
             this.ColumnReplacementsPosition});
-            this.dataGridViewReplacements.Location = new System.Drawing.Point(118, 63);
+            this.dataGridViewReplacements.Location = new System.Drawing.Point(157, 78);
+            this.dataGridViewReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewReplacements.Name = "dataGridViewReplacements";
-            this.dataGridViewReplacements.Size = new System.Drawing.Size(443, 229);
+            this.dataGridViewReplacements.RowTemplate.Height = 24;
+            this.dataGridViewReplacements.Size = new System.Drawing.Size(591, 282);
             this.dataGridViewReplacements.TabIndex = 0;
             // 
             // ColumnReplacementsDate
@@ -351,10 +378,11 @@
             // 
             // FormAssistant
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 446);
+            this.ClientSize = new System.Drawing.Size(948, 549);
             this.Controls.Add(this.tabControl);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormAssistant";
             this.Text = "Leave Manager";
             this.tabControl.ResumeLayout(false);

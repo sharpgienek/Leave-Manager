@@ -383,15 +383,12 @@ namespace leave_manager
                 //Jeżeli dokładnie jeden wiersz jest zaznaczony.
                 if (dataGridViewLeaveTypes.SelectedRows.Count == 1)
                 {
-                    //Jeżeli zaznaczony typ to nie chorobowe lub urlop na żądanie (tych typów nie można usunąć.).
-                    if (!dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString().Equals("Sick") &&
-                        !dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString().Equals("Extraordinary"))
+                    //Jeżeli zaznaczony typ to nie chorobowe (chorobowego nie można usunąć).
+                    if (!dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString().Equals("Sick"))
                     {
                         //Stworzenie obiektu formularza usuwania typu urlopu.
-                        FormDeleteLeaveType form = new FormDeleteLeaveType(connection, 
-                            new LeaveType((int)dataGridViewLeaveTypes.SelectedRows[0].Cells[0].Value,
-                                dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString(),
-                                (bool)dataGridViewLeaveTypes.SelectedRows[0].Cells[2].Value));
+                        FormDeleteLeaveType form = new FormDeleteLeaveType(connection,
+                            dataGridViewLeaveTypes.SelectedRows[0].Cells[1].Value.ToString());
                         /* Dodanie metody odświeżania tabeli zawierającej typy urlopów do zdarzenia
                          * zamknięcia formularza usuwania typu urlopu.
                          */

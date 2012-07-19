@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseOperator.cs" />
+    <Compile Include="Exceptions\PermissionException.cs" />
     <Compile Include="Exceptions\EntryExistsException.cs" />
     <Compile Include="Exceptions\NoFreeLoginException.cs" />
     <Compile Include="Exceptions\EmployeeIdException.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Exceptions\LoginOrPasswordException.cs" />
     <Compile Include="Exceptions\PasswordException.cs" />
+    <Compile Include="Exceptions\PositionException.cs" />
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,11 +149,11 @@
     <Compile Include="FormEmployeeData.Designer.cs">
       <DependentUpon>FormEmployeeData.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddEmployee.cs">
+    <Compile Include="FormAddOrEditEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddEmployee.Designer.cs">
-      <DependentUpon>FormAddEmployee.cs</DependentUpon>
+    <Compile Include="FormAddOrEditEmployee.Designer.cs">
+      <DependentUpon>FormAddOrEditEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="FormReplacement.cs">
       <SubType>Form</SubType>
@@ -170,6 +172,12 @@
     </Compile>
     <Compile Include="FormLeaveApplication.Designer.cs">
       <DependentUpon>FormLeaveApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWorkSchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWorkSchedule.Designer.cs">
+      <DependentUpon>FormWorkSchedule.cs</DependentUpon>
     </Compile>
     <Compile Include="Leave.cs" />
     <Compile Include="LeaveManagerForm.cs">
@@ -216,8 +224,8 @@
     <EmbeddedResource Include="FormEmployeeData.resx">
       <DependentUpon>FormEmployeeData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddEmployee.resx">
-      <DependentUpon>FormAddEmployee.cs</DependentUpon>
+    <EmbeddedResource Include="FormAddOrEditEmployee.resx">
+      <DependentUpon>FormAddOrEditEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReplacement.resx">
       <DependentUpon>FormReplacement.cs</DependentUpon>
@@ -227,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLeaveApplication.resx">
       <DependentUpon>FormLeaveApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWorkSchedule.resx">
+      <DependentUpon>FormWorkSchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

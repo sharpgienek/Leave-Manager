@@ -43,15 +43,6 @@ namespace leave_manager
             labelNameValue.Text = name + " " + surname;
             labelPositionValue.Text = position;
             RefreshData();
-            if (parent.GetType() == new FormAssistant().GetType())
-            {
-                this.buttonEdit.Text = "Edit remarks";
-                this.buttonDelete.Visible = false;
-            }
-            if (parent.GetType() == new FormManager().GetType())
-            {
-                this.buttonEdit.Text = "Edit leave entry";
-            }
         }
 
         /// <summary>
@@ -109,7 +100,9 @@ namespace leave_manager
             }
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
-                FormLeaveApplication form = new FormLeaveApplication(this.parent, connection, this.GetLeave((int)row.Cells["Leave id"].Value));
+                Leave editedLeave = this.GetLeave((int)row.Cells["Leave id"].Value);
+                FormLeaveApplication form = new FormLeaveApplication(connection, editedLeave);
+               // FormLeaveApplication form = new FormLeaveApplication(
                 form.FormClosed += new FormClosedEventHandler(RefreshData);
                 form.Show();
             }

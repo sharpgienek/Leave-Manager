@@ -33,8 +33,28 @@ namespace leave_manager
             RefreshDataGridViewPendingAplications();
             //Wczytanie wszystkich pracowników do tabeli z pracownikami.
             LoadAllDataGridViewEmployees();
+            LoadAllPositionComboBox();
         }
 
+        /// <summary>
+        /// Metoda odpowiedzialna za wczytanie z bazy danych informacji o możliwych pozycjach pracowników i umieszczenie ich w odpowiednim
+        /// combo boxie.
+        /// </summary>
+        private void LoadAllPositionComboBox()
+        {
+            List<String> positions;
+            try
+            {
+                positions =  this.GetPositionsList();
+                positions.Insert(0, "");
+                comboBoxEmployeesPosition.DataSource = positions;
+                comboBoxReplacementsPosition.DataSource = positions;
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
         /// <summary>
         /// Metoda odpowiedzialna za odświeżenie tabeli ze zgłoszeniami wymagającymi
         /// działania. Korzysta z metody bezparametrowej o tej samej nazwie.
@@ -171,6 +191,18 @@ namespace leave_manager
                     throw new NotImplementedException();
                 }//todo obsługa wszystkich wyjątków.
             }      
+        }
+
+        /// <summary>
+        /// Metoda obsługujące naciśnięcie przycisku Search (wyszukuje pracownika) 
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający</param>
+        /// <param name="e">Argumenty</param>
+        private void buttonEmployeesSearch_Click(object sender, EventArgs e)
+        {
+            dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text, 
+                textBoxEmployeesSurname.Text,"", comboBoxEmployeesPosition.SelectedItem.ToString());            
+            dataGridViewEmployees.Columns["Employee id"].Visible = false;
         }      
     }
 }
