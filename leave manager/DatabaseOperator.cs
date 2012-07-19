@@ -18,6 +18,11 @@ namespace leave_manager
     /// </remarks>
     public static class DatabaseOperator
     {
+        /// <summary>
+        /// Metoda pobierająca aktualny czas serwera.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący.</param>
+        /// <returns>Aktualny czas serwera.</returns>
         private static DateTime GetServerTimeNow(LeaveManagerForm form)
         {
             SqlCommand commandGetServerTime = new SqlCommand("SELECT GETDATE()", form.Connection);
@@ -26,6 +31,14 @@ namespace leave_manager
             return (DateTime)commandGetServerTime.ExecuteScalar();
         }
 
+        /// <summary>
+        /// Metoda aktualizacji dni urlopowych. Wykonuje aktualizację dni urlopowych poprzez przypisanie
+        /// do dni urlopowych wartości przypadającej na rok, a do zaległych dni urlopowych 
+        /// sumy aktualnych zaległych dni i zwykłych dni urlopowych. Aktualizacja wykonuje się tylko wtedy,
+        /// gdy rok ostatniej aktualizacji jest mniejszy niż aktualny rok. Po aktualizacji zapisywana jest 
+        /// na serwerze data ostatniej aktualizacji.
+        /// </summary>
+        /// <param name="connection"></param>
         public static void UpdateLeaveDays(SqlConnection connection)
         {
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
@@ -68,7 +81,7 @@ namespace leave_manager
                         }
                     }
                 }
-                using(SqlCommand commandUpdateUpdateDate = new SqlCommand("UPDATE Dates SET " +
+                using (SqlCommand commandUpdateUpdateDate = new SqlCommand("UPDATE Dates SET " +
                 "Last_update_date = @Last_update_date", connection, transaction))
                 {
                     commandUpdateUpdateDate.Parameters.AddWithValue("@Last_update_date", serverTime);
@@ -77,6 +90,7 @@ namespace leave_manager
             }
             transaction.Commit();
         }
+
         /// <summary>
         /// Metoda logowania rozszerzająca formularz logowania.
         /// </summary>
@@ -1523,7 +1537,7 @@ namespace leave_manager
         {
             SqlCommand command = new SqlCommand("SELECT L.Employee_ID, LT.Name AS 'Type', " +
                 "LS.Name AS 'Status', L.First_day, L.Last_day, " +
-                "L.Remarks, L.Used_days FROM Leave L, Leave_type LT, Status_type LS WHERE Leave_ID = @Leave_ID", 
+                "L.Remarks, L.Used_days FROM Leave L, Leave_type LT, Status_type LS WHERE Leave_ID = @Leave_ID",
                 form.Connection);
             if (form.TransactionOn)
                 command.Transaction = form.Transaction;
@@ -1840,7 +1854,7 @@ namespace leave_manager
                         commandUpdateLeave.Parameters.Add("@Last_day", SqlDbType.Date).Value = leave.FirstDay.AddDays(-1);
                         commandUpdateLeave.Parameters.Add("@Leave_ID", SqlDbType.Int).Value = (int)row.ItemArray.GetValue(0);
                         //Nowa liczba użytych dni to liczba użytych dni pomiędzy pierwszym dniem zmienianego urlopu i pierwszym-1 dniem chorobowego.
-                        commandUpdateLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value = 
+                        commandUpdateLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value =
                             GetNumberOfWorkDays(form, (DateTime)row.ItemArray.GetValue(2), leave.FirstDay.AddDays(-1));
                         commandUpdateLeave.ExecuteNonQuery();
                         //Dodanie do liczby dni do zwrócenia pracownikowi liczby dni za okres od początku chorobowego do końca urlopu.
@@ -2638,7 +2652,7 @@ namespace leave_manager
                "WHERE E.Permission_ID = Perm.Permission_ID " +
                "AND E.Position_ID = Pos.Position_ID AND Name LIKE @Name AND " +
                "Surname LIKE @Surname AND PESEL LIKE @Pesel AND Pos.Description LIKE @Position", form.Connection);
-                
+
             //Dodanie parametru imienia.
             name = "%" + name + "%";
             command.Parameters.Add("@Name", SqlDbType.VarChar).Value = name;
@@ -2738,12 +2752,101 @@ namespace leave_manager
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                int result =  (int)reader["Position_ID"];
+                int result = (int)reader["Position_ID"];
                 reader.Close();
                 return result;
             }
             reader.Close();
             throw new PermissionException();
+        }
+
+        /// <summary>
+        /// Metoda ustawiania godzin pracy pracownika.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący</param>
+        /// <param name="hours">Tablica 14 elementów zawierająca godziny rozpoczęcia i zakończenia pracy
+        /// w kolejnych dniach tygodnia. Np. hours[0] == godzina rozpoczęcia pracy w poniedziałek, 
+        /// hours[1] == godzina zakończenia pracy w poniedziałek,
+        /// hours[2] == godzina rozpoczęcia pracy we wtorek itd.
+        /// 
+        /// Format godziny to dd:mm:[ss[.nnnnnnn]]</param>
+        /// <param name="employeeId">Numer id pracownika, któremu zmieniamy harmonogram.</param>
+        public static void SetSchedule(this FormWorkSchedule form, string[] hours, int employeeId)
+        {
+            SetSchedule((LeaveManagerForm)form, hours, employeeId);
+        }
+
+        /// <summary>
+        /// Metoda ustawiania godzin pracy pracownika.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący</param>
+        /// <param name="hours">Tablica 14 elementów zawierająca godziny rozpoczęcia i zakończenia pracy
+        /// w kolejnych dniach tygodnia. Np. hours[0] == godzina rozpoczęcia pracy w poniedziałek, 
+        /// hours[1] == godzina zakończenia pracy w poniedziałek,
+        /// hours[2] == godzina rozpoczęcia pracy we wtorek itd.
+        /// 
+        /// Format godziny to dd:mm:[ss[.nnnnnnn]]</param>
+        /// <param name="employeeId">Numer id pracownika, któremu zmieniamy harmonogram.</param>
+        private static void SetSchedule(LeaveManagerForm form, string[] hours, int employeeId)
+        {
+            if (hours.Length != 14)
+            {
+                throw new ArgumentException();
+            }
+            using (SqlCommand command = new SqlCommand("UPDATE Work_hours " +
+                "SET " +
+                "MondayStart = @MondayStart, " +
+                "MondayEnd = @MondayEnd, " +
+
+                "TuesdayStart = @TuesdayStart, " +
+                "TuesdayEnd = @TuesdayEnd, " +
+
+                "WednesdayStart = @WednesdayStart, " +
+                "WednesdayEnd = @WednesdayEnd, " +
+
+                "ThursdayStart = @ThursdayStart, " +
+                "ThursdayEnd = @ThursdayEnd, " +
+
+                "FridayStart = @FridayStart, " +
+                "FridayEnd = @FridayEnd, " +
+
+                "SaturdayStart = @SaturdayStart, " +
+                "SaturdayEnd = @SaturdayEnd, " +
+
+                "SundayStart = @SundayStart, " +
+                "SundayEnd = @SundayEnd " +
+                "WHERE Employee_ID = @Employee_ID", form.Connection))
+            {
+                if (form.TransactionOn)
+                {
+                    command.Transaction = form.Transaction;
+                }
+
+                command.Parameters.AddWithValue("@MondayStart", hours[0]);
+                command.Parameters.AddWithValue("@MondayEnd", hours[1]);
+
+                command.Parameters.AddWithValue("@TuesdayStart", hours[2]);
+                command.Parameters.AddWithValue("@TuesdayEnd", hours[3]);
+
+                command.Parameters.AddWithValue("@WednesdayStart", hours[4]);
+                command.Parameters.AddWithValue("@WednesdayEnd", hours[5]);
+
+                command.Parameters.AddWithValue("@ThursdayStart", hours[6]);
+                command.Parameters.AddWithValue("@ThursdayEnd", hours[7]);
+
+                command.Parameters.AddWithValue("@FridayStart", hours[8]);
+                command.Parameters.AddWithValue("@FridayEnd", hours[9]);
+
+                command.Parameters.AddWithValue("@SaturdayStart", hours[10]);
+                command.Parameters.AddWithValue("@SaturdayEnd", hours[11]);
+
+                command.Parameters.AddWithValue("@SundayStart", hours[12]);
+                command.Parameters.AddWithValue("@SundayEnd", hours[13]);
+
+                command.Parameters.AddWithValue("@Employee_ID", employeeId);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

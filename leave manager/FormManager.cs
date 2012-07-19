@@ -234,6 +234,23 @@ namespace leave_manager
                 form.Show();
             }   
         }
+
+        
+
+        private void buttonEditSchedule_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
+            {
+                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
+            {
+                FormWorkSchedule form = new FormWorkSchedule(this.connection, (int)row.Cells["Employee id"].Value);
+                form.Show();
+            }   
+        }
    
     }
 }
