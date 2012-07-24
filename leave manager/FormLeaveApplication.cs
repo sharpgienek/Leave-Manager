@@ -90,7 +90,7 @@ namespace leave_manager
             if (leaveTypes[comboBoxType.SelectedIndex].ConsumesDays)
             {
                 labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
-                    dateTimePickerLastDay.Value).ToString();
+                    dateTimePickerLastDay.Value, employeeId).ToString();
             }
             else
             {
@@ -169,7 +169,7 @@ namespace leave_manager
                  * elementach dateTimePicker.
                  */
                 labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
-                    dateTimePickerLastDay.Value).ToString();
+                    dateTimePickerLastDay.Value, employeeId).ToString();
             }
             else
             {
@@ -211,7 +211,7 @@ namespace leave_manager
         /// <param name="e"></param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            int numberOfUsedDays = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value);
+            int numberOfUsedDays = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId);
             int leaveDays = 0;
             int oldLeaveDays = 0;
             int yearDays = 0;
@@ -327,7 +327,7 @@ namespace leave_manager
             {
                 //Aktualizacja etykiety 
                 labelUsedDaysValue.Text = this.GetNumberOfWorkDays(dateTimePickerFirstDay.Value,
-                    dateTimePickerLastDay.Value).ToString();
+                    dateTimePickerLastDay.Value, employeeId).ToString();
             }
             else
             {

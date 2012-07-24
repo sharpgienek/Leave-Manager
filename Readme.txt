@@ -89,6 +89,10 @@ ver. 0.225
 ver. 0.23
 	- Dodano mo¿liwoœæ edycji godzin pracy przez kierownika.
 
+ver. 0.24
+	- Usprawniono mo¿liwoœæ edycji godzin pracy.
+	- Sprawdzanie iloœci dni urlopu na podstawie rozpiski godzin pracy.
+
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
 manager == 6EE4A469CD4E91053847F5D3FCB61DBCC91E8F0EF10BE7748DA4C4A1BA382D17
@@ -125,11 +129,6 @@ Nie zaiplementowane:
 - Manager>Raportowanie
 - Rozpisywanie dni zajêtych przez innych pracowników tego samego typu w oknie rozwa¿ania zg³oszenia urlopowego.
 - Liczby wymaganych pracowników na danej pozycji
-- Dodanie ewidencji godzin/dni pracy i uwzglêdnienie tego przy sprawdzaniu ile dni konsumuje urlop.
-	- Przy zmianie dni pracy trzeba przetestowaæ, czy liczba konsumowanych dni siê zgadza i nie przekracza
-	liczby dni dostêpnych. Np. ktoœ robi w pon i œr, wzi¹³ urlop od pon do œr, wiêc mu 2 dni wziê³o. Gdy 
-	zmieni mu siê harmonogram pracy i dojd¹ wtorki do niego, a urlop jest póŸniej, to trzeba zweryfikowaæ
-	liczbê konsumowanych dni.
 - Dodanie tabeli zawieraj¹cej dni ustawowo wolne od pracy i uwzglêdnienie ich.
 
 

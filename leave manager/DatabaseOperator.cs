@@ -1466,9 +1466,9 @@ namespace leave_manager
         /// <param name="date1">Pierwszy dzień sprawdzanego okresu.</param>
         /// <param name="date2">Ostatni dzień sprawdzanego okresu.</param>
         /// <returns>Liczba dni w okresie między date1 i date2, które konsumują dni rulopowe.</returns>
-        public static int GetNumberOfWorkDays(this FormLeaveApplication form, DateTime date1, DateTime date2)
+        public static int GetNumberOfWorkDays(this FormLeaveApplication form, DateTime date1, DateTime date2, int employeeId)
         {
-            return GetNumberOfWorkDays((LeaveManagerForm)form, date1, date2);
+            return GetNumberOfWorkDays((LeaveManagerForm)form, date1, date2, employeeId);
         }
 
         //todo tabela z dniami wolnymi od pracy, uwzględnić godziny/dni pracy pracownika, gdy już będa. 
@@ -1481,8 +1481,9 @@ namespace leave_manager
         /// <param name="date1">Pierwszy dzień sprawdzanego okresu.</param>
         /// <param name="date2">Ostatni dzień sprawdzanego okresu.</param>
         /// <returns>Liczba dni w okresie między date1 i date2, które konsumują dni rulopowe.</returns>
-        private static int GetNumberOfWorkDays(LeaveManagerForm form, DateTime date1, DateTime date2)
+        private static int GetNumberOfWorkDays(LeaveManagerForm form, DateTime date1, DateTime date2, int employeeId)
         {
+            bool[] workingDays = GetWorkingDaysOfWeek(form, employeeId);
             //Obliczenie różnicy czasu pomiędzy datami.
             TimeSpan timeSpan = date2 - date1;
             //Obliczenie maksymalnej liczby dni, które mogą konsumować dni.
@@ -1490,9 +1491,51 @@ namespace leave_manager
             //Dopóki nie sprawdzono wszystkich dni.
             while (date1.CompareTo(date2) <= 0)
             {
-                //Jeżeli sprawdzany dzień, to sobota lub niedziela, to od liczby dni konsumujących odejmujemy 1.
-                if (date1.DayOfWeek == DayOfWeek.Saturday || date1.DayOfWeek == DayOfWeek.Sunday)
-                    numberOfDays--;
+                switch (date1.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        if (!workingDays[0])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Tuesday:
+                        if (!workingDays[1])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Wednesday:
+                        if (!workingDays[2])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Thursday:
+                        if (!workingDays[3])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Friday:
+                        if (!workingDays[4])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Saturday:
+                        if (!workingDays[5])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                    case DayOfWeek.Sunday:
+                        if (!workingDays[6])
+                        {
+                            numberOfDays--;
+                        }
+                        break;
+                }
                 //Przesunięcie sprawdzanego dnia na następny.
                 date1 = date1.AddDays(1);
             }
@@ -1708,7 +1751,7 @@ namespace leave_manager
                 //Jeżeli urlop konsumuje dni.
                 if (ConsumesDays(form, leave.LeaveType))
                 {
-                    usedDays = GetNumberOfWorkDays(form, leave.FirstDay, leave.LastDay);
+                    usedDays = GetNumberOfWorkDays(form, leave.FirstDay, leave.LastDay, leave.EmployeeId);
                     //Odejmujemy pracownikowi dni za dany urlop.
                     AddLeaveDays(form, leave.EmployeeId, -usedDays);
                 }
@@ -1855,10 +1898,10 @@ namespace leave_manager
                         commandUpdateLeave.Parameters.Add("@Leave_ID", SqlDbType.Int).Value = (int)row.ItemArray.GetValue(0);
                         //Nowa liczba użytych dni to liczba użytych dni pomiędzy pierwszym dniem zmienianego urlopu i pierwszym-1 dniem chorobowego.
                         commandUpdateLeave.Parameters.Add("@Used_days", SqlDbType.Int).Value =
-                            GetNumberOfWorkDays(form, (DateTime)row.ItemArray.GetValue(2), leave.FirstDay.AddDays(-1));
+                            GetNumberOfWorkDays(form, (DateTime)row.ItemArray.GetValue(2), leave.FirstDay.AddDays(-1), leave.EmployeeId);
                         commandUpdateLeave.ExecuteNonQuery();
                         //Dodanie do liczby dni do zwrócenia pracownikowi liczby dni za okres od początku chorobowego do końca urlopu.
-                        returnedLeaveDays += GetNumberOfWorkDays(form, leave.FirstDay.AddDays(-1), (DateTime)row.ItemArray.GetValue(1));
+                        returnedLeaveDays += GetNumberOfWorkDays(form, leave.FirstDay.AddDays(-1), (DateTime)row.ItemArray.GetValue(1), leave.EmployeeId);
                         continue;
                     }
                 }
@@ -2789,64 +2832,161 @@ namespace leave_manager
         /// <param name="employeeId">Numer id pracownika, któremu zmieniamy harmonogram.</param>
         private static void SetSchedule(LeaveManagerForm form, string[] hours, int employeeId)
         {
-            if (hours.Length != 14)
+            /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
+              * o odpowiednim poziomie izolacji.
+              */
+
+            //Zmienna przechowująca stan transakcji przed uruchomieniem metody.
+            bool isFormTransactionOn = form.TransactionOn;
+            //Jeżeli formularz posiada uruchomioną transakcję.
+            if (form.TransactionOn)
             {
-                throw new ArgumentException();
+                //Sprawdzenie, czy poziom izolacji istniejącej transakcji jest wystarczający.
+                if (form.Transaction.IsolationLevel != IsolationLevel.RepeatableRead &&
+                    form.Transaction.IsolationLevel != IsolationLevel.Serializable)
+                {
+                    throw new IsolationLevelException();
+                }
             }
-            using (SqlCommand command = new SqlCommand("UPDATE Work_hours " +
-                "SET " +
-                "MondayStart = @MondayStart, " +
-                "MondayEnd = @MondayEnd, " +
+            else//Jeżeli formularz nie posiada uruchomionej transakcji.
+                //Uruchomienie nowej transakcji na potrzeby tej metody z odpowiednim poziomem izolacji.
+                form.BeginTransaction(IsolationLevel.RepeatableRead);
 
-                "TuesdayStart = @TuesdayStart, " +
-                "TuesdayEnd = @TuesdayEnd, " +
+            try
+            {
+                if (hours.Length != 14)
+                {
+                    throw new ArgumentException();
+                }
+                using (SqlCommand command = new SqlCommand("UPDATE Work_hours " +
+                    "SET " +
+                    "MondayStart = @MondayStart, " +
+                    "MondayEnd = @MondayEnd, " +
 
-                "WednesdayStart = @WednesdayStart, " +
-                "WednesdayEnd = @WednesdayEnd, " +
+                    "TuesdayStart = @TuesdayStart, " +
+                    "TuesdayEnd = @TuesdayEnd, " +
 
-                "ThursdayStart = @ThursdayStart, " +
-                "ThursdayEnd = @ThursdayEnd, " +
+                    "WednesdayStart = @WednesdayStart, " +
+                    "WednesdayEnd = @WednesdayEnd, " +
 
-                "FridayStart = @FridayStart, " +
-                "FridayEnd = @FridayEnd, " +
+                    "ThursdayStart = @ThursdayStart, " +
+                    "ThursdayEnd = @ThursdayEnd, " +
 
-                "SaturdayStart = @SaturdayStart, " +
-                "SaturdayEnd = @SaturdayEnd, " +
+                    "FridayStart = @FridayStart, " +
+                    "FridayEnd = @FridayEnd, " +
 
-                "SundayStart = @SundayStart, " +
-                "SundayEnd = @SundayEnd " +
-                "WHERE Employee_ID = @Employee_ID", form.Connection))
+                    "SaturdayStart = @SaturdayStart, " +
+                    "SaturdayEnd = @SaturdayEnd, " +
+
+                    "SundayStart = @SundayStart, " +
+                    "SundayEnd = @SundayEnd " +
+                    "WHERE Employee_ID = @Employee_ID", form.Connection, form.Transaction))
+                {
+                    command.Parameters.AddWithValue("@MondayStart", hours[0]);
+                    command.Parameters.AddWithValue("@MondayEnd", hours[1]);
+
+                    command.Parameters.AddWithValue("@TuesdayStart", hours[2]);
+                    command.Parameters.AddWithValue("@TuesdayEnd", hours[3]);
+
+                    command.Parameters.AddWithValue("@WednesdayStart", hours[4]);
+                    command.Parameters.AddWithValue("@WednesdayEnd", hours[5]);
+
+                    command.Parameters.AddWithValue("@ThursdayStart", hours[6]);
+                    command.Parameters.AddWithValue("@ThursdayEnd", hours[7]);
+
+                    command.Parameters.AddWithValue("@FridayStart", hours[8]);
+                    command.Parameters.AddWithValue("@FridayEnd", hours[9]);
+
+                    command.Parameters.AddWithValue("@SaturdayStart", hours[10]);
+                    command.Parameters.AddWithValue("@SaturdayEnd", hours[11]);
+
+                    command.Parameters.AddWithValue("@SundayStart", hours[12]);
+                    command.Parameters.AddWithValue("@SundayEnd", hours[13]);
+
+                    command.Parameters.AddWithValue("@Employee_ID", employeeId);
+
+                    command.ExecuteNonQuery();
+                }
+                int daysToAdd = 0;
+                DataTable leaves = GetLeaves(form, employeeId);
+                for (int i = 0; i < leaves.Rows.Count; ++i)
+                {
+                    //Jeżeli urlop zaczyna się później niż teraz.
+                    if ((GetServerTimeNow(form).CompareTo((DateTime)leaves.Rows[i].ItemArray.GetValue(2)) < 0)
+                        //Jeżeli urlop konsumuje dni.
+                        && ConsumesDays(form, leaves.Rows[i].ItemArray.GetValue(4).ToString()))
+                    {
+                        int numberOfUsedDays = GetNumberOfWorkDays(form, (DateTime)leaves.Rows[i].ItemArray.GetValue(2),
+                            (DateTime)leaves.Rows[i].ItemArray.GetValue(3), employeeId);
+                        if ((int)leaves.Rows[i].ItemArray.GetValue(6) != numberOfUsedDays)
+                        {
+                            daysToAdd += ((int)leaves.Rows[i].ItemArray.GetValue(6)) - numberOfUsedDays;
+                            using (SqlCommand command = new SqlCommand("UPDATE Leave SET Used_days = @Used_days WHERE Leave_ID = @Leave_ID", form.Connection, form.Transaction))
+                            {
+                                command.Parameters.AddWithValue("@Leave_ID", leaves.Rows[i].ItemArray.GetValue(0));
+                                command.Parameters.AddWithValue("@Used_days", numberOfUsedDays);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                AddLeaveDays(form, employeeId, daysToAdd);
+            }
+            catch (Exception e)
+            {
+                //Jeżeli transakcja formularza była uruchomiona tylko na potrzeby tej metody, to ją cofamy.
+                if (!isFormTransactionOn)
+                    form.RollbackTransaction();
+                //Wyrzucamy wyjątek do dalszej obsługi.
+                throw e;
+            }
+            //Jeżeli operacja powiodła się, a transakcja była uruchomiona tylko na potrzeby tej metody to ją zatwierdzamy.
+            if (!isFormTransactionOn)
+                form.CommitTransaction();
+        }
+
+        public static DataTable GetSchedule(this FormWorkSchedule form, int employeeId)
+        {
+            return GetSchedule((LeaveManagerForm)form, employeeId);
+        }
+
+        private static DataTable GetSchedule(LeaveManagerForm form, int employeeId)
+        {
+            using (SqlCommand command = new SqlCommand("SELECT MondayStart, MondayEnd, TuesdayStart, TuesdayEnd" +
+                ", WednesdayStart, WednesdayEnd, ThursdayStart, ThursdayEnd, FridayStart, FridayEnd" +
+                ", SaturdayStart, SaturdayEnd, SundayStart, SundayEnd FROM Work_hours WHERE Employee_ID = @Employee_ID",
+                form.Connection))
             {
                 if (form.TransactionOn)
                 {
                     command.Transaction = form.Transaction;
                 }
-
-                command.Parameters.AddWithValue("@MondayStart", hours[0]);
-                command.Parameters.AddWithValue("@MondayEnd", hours[1]);
-
-                command.Parameters.AddWithValue("@TuesdayStart", hours[2]);
-                command.Parameters.AddWithValue("@TuesdayEnd", hours[3]);
-
-                command.Parameters.AddWithValue("@WednesdayStart", hours[4]);
-                command.Parameters.AddWithValue("@WednesdayEnd", hours[5]);
-
-                command.Parameters.AddWithValue("@ThursdayStart", hours[6]);
-                command.Parameters.AddWithValue("@ThursdayEnd", hours[7]);
-
-                command.Parameters.AddWithValue("@FridayStart", hours[8]);
-                command.Parameters.AddWithValue("@FridayEnd", hours[9]);
-
-                command.Parameters.AddWithValue("@SaturdayStart", hours[10]);
-                command.Parameters.AddWithValue("@SaturdayEnd", hours[11]);
-
-                command.Parameters.AddWithValue("@SundayStart", hours[12]);
-                command.Parameters.AddWithValue("@SundayEnd", hours[13]);
-
                 command.Parameters.AddWithValue("@Employee_ID", employeeId);
-
-                command.ExecuteNonQuery();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable result = new DataTable();
+                    result.Load(reader);
+                    return result;
+                }
             }
+        }
+
+        private static bool[] GetWorkingDaysOfWeek(LeaveManagerForm form, int employeeId)
+        {
+            bool[] days = new bool[7];
+            DataTable schedule = GetSchedule(form, employeeId);
+            for (int i = 0; i < 7; ++i)
+            {
+                if (!schedule.Rows[0].ItemArray.GetValue(2 * i).ToString().Equals(schedule.Rows[0].ItemArray.GetValue((2 * i) + 1).ToString()))
+                {
+                    days[i] = true;
+                }
+                else
+                {
+                    days[i] = false;
+                }
+            }
+            return days;
         }
     }
 }

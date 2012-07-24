@@ -237,6 +237,7 @@
             this.buttonEmployeesDetailedData.TabIndex = 8;
             this.buttonEmployeesDetailedData.Text = "View detailed leave dataLeaves";
             this.buttonEmployeesDetailedData.UseVisualStyleBackColor = true;
+            this.buttonEmployeesDetailedData.Click += new System.EventHandler(this.buttonEmployeesDetailedData_Click_1);
             // 
             // dataGridViewEmployees
             // 
