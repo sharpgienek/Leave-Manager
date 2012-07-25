@@ -569,6 +569,9 @@ namespace leave_manager
                     "VALUES ((SELECT MAX(Employee_ID) FROM Employee), @Password)", form.Connection, form.Transaction);
                 commandInsertUninformed.Parameters.Add("@Password", SqlDbType.VarChar).Value = password.ToString();
                 commandInsertUninformed.ExecuteNonQuery();
+                /* Polecenie sql odpowiedzialne za dodanie pustego wpisu do tablicy z harmonogramem pracy*/
+                SqlCommand commandInsertWorkHours = new SqlCommand("INSERT INTO Work_hours (Employee_ID) VALUES ((SELECT MAX(Employee_ID) FROM Employee))", form.Connection, form.Transaction);
+                commandInsertWorkHours.ExecuteNonQuery();
             }
             catch (Exception e)
             {
@@ -2777,7 +2780,16 @@ namespace leave_manager
             reader.Close();
             throw new PermissionException();
         }
-
+        /// <summary>
+        /// Metoda zwraca identyfikator pozycji o podanym opisie. Rozszerza formularz rozważania urlopu.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący</param>
+        /// <param name="position">Opis pozycji</param>
+        /// <returns></returns>
+        public static int GetPositionID(this FormLeaveConsideration form, string position)
+        {
+            return GetPositionID((LeaveManagerForm)form, position);
+        }
         /// <summary>
         /// Metoda zwraca identyfikator pozycji o podanym opisie
         /// </summary>
@@ -2987,6 +2999,58 @@ namespace leave_manager
                 }
             }
             return days;
+        }
+        /// <summary>
+        /// Metoda oblicza liczbę pracowników danego typu, którzy są dostępni danego dnia. 
+        /// Rozszerza formularz zatwierdzania urlopów.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący metode</param>
+        /// <param name="positionId">Pozycja szukanych pracowników</param>
+        /// <param name="date">"Data"</param>
+        /// <returns></returns>
+        public static int GetSimiliarWorkerCount(this FormLeaveConsideration form, int positionId, int employeeId, DateTime date)
+        {
+            return GetSimiliarWorkerCount((LeaveManagerForm) form, positionId, employeeId, date);
+        }
+        /// <summary>
+        /// Metoda oblicza liczbę pracowników danego typu, którzy są dostępni danego dnia. 
+        /// </summary>
+        /// <param name="form">Formularz wywołujący metode</param>
+        /// <param name="positionId">Pozycja szukanych pracowników</param>
+        /// <param name="date">"Data"</param>
+        /// <returns></returns>
+        private static int GetSimiliarWorkerCount(LeaveManagerForm form, int positionId, int employeeId, DateTime date)
+        {
+            string day = date.DayOfWeek.ToString();
+            using (SqlCommand command = new SqlCommand("SELECT COUNT(DISTINCT E.Employee_ID) AS amount " +
+                    "FROM Employee AS E LEFT OUTER JOIN Leave AS L ON E.Employee_ID = L.Employee_ID " +
+                    "LEFT OUTER JOIN Work_hours AS W ON E.Employee_ID = W.Employee_ID " +
+                    "WHERE  (E.Position_ID = @Position) AND (L.First_day > @Date) AND (W." + day + "Start <> W." 
+                    + day + "End) AND (E.Employee_ID != @EmployeeID) OR " +
+                    "(E.Position_ID = @Position) AND (L.Last_day < @Date) AND (W." + day + "Start <> W." 
+                    + day + "End) AND (E.Employee_ID != @EmployeeID) OR " +
+                    "(E.Position_ID = @Position) AND (L.Leave_ID IS NULL) AND (W." + day + "Start <> W." 
+                    + day + "End) AND (E.Employee_ID != @EmployeeID)", form.Connection))
+            {
+                if (form.TransactionOn)
+                {
+                    command.Transaction = form.Transaction;
+                }
+                command.Parameters.AddWithValue("@Position", positionId);
+                command.Parameters.AddWithValue("@Date", date);
+                command.Parameters.AddWithValue("@EmployeeID", employeeId);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int result = (int)reader["amount"];
+                        reader.Close();
+                        return result;
+                    }
+                    reader.Close();
+                    throw new PermissionException();
+                }
+            }
         }
     }
 }

@@ -49,6 +49,12 @@ namespace leave_manager
                 Employee employee = this.GetEmployee(consideredLeave.EmployeeId);
                 labelNameValue.Text = employee.Name;
                 labelPositionValue.Text = employee.Position;
+                DateTime tmp = consideredLeave.FirstDay;
+                while (tmp <= consideredLeave.LastDay)
+                {
+                    dataGridView.Rows.Add(tmp, this.GetSimiliarWorkerCount(this.GetPositionID(employee.Position), employee.EmployeeId, tmp));
+                    tmp = tmp.AddDays(1);
+                }
             }
             catch//todo obsługa wszystkich wyjątków.
             { }            

@@ -57,36 +57,38 @@ namespace leave_manager
             DataTable schedule = this.GetSchedule(employeeId);
             /*Zaznaczamy w comboboxach godziny, które są aktualnie zapisane w bazie danych.
             Z pobranej godziny interesuje nas 5 pierwszych znaków z tąd Substring.*/
-            comboBoxMondayStartingHour.SelectedIndex = comboBoxMondayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(0).ToString().Substring(0, 5));
-            comboBoxTuesdayStartingHour.SelectedIndex = comboBoxTuesdayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(2).ToString().Substring(0, 5));
-            comboBoxWednesdayStartingHour.SelectedIndex = comboBoxWednesdayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(4).ToString().Substring(0, 5));
-            comboBoxThursdayStartingHour.SelectedIndex = comboBoxThursdayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(6).ToString().Substring(0, 5));
-            comboBoxFridayStartingHour.SelectedIndex = comboBoxFridayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(8).ToString().Substring(0, 5));
-            comboBoxSaturdayStartingHour.SelectedIndex = comboBoxSaturdayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(10).ToString().Substring(0, 5));
-            comboBoxSundayStartingHour.SelectedIndex = comboBoxSundayStartingHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(12).ToString().Substring(0, 5));
+            if (schedule.Rows.Count > 0)
+            {
+                comboBoxMondayStartingHour.SelectedIndex = comboBoxMondayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(0).ToString().Substring(0, 5));
+                comboBoxTuesdayStartingHour.SelectedIndex = comboBoxTuesdayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(2).ToString().Substring(0, 5));
+                comboBoxWednesdayStartingHour.SelectedIndex = comboBoxWednesdayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(4).ToString().Substring(0, 5));
+                comboBoxThursdayStartingHour.SelectedIndex = comboBoxThursdayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(6).ToString().Substring(0, 5));
+                comboBoxFridayStartingHour.SelectedIndex = comboBoxFridayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(8).ToString().Substring(0, 5));
+                comboBoxSaturdayStartingHour.SelectedIndex = comboBoxSaturdayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(10).ToString().Substring(0, 5));
+                comboBoxSundayStartingHour.SelectedIndex = comboBoxSundayStartingHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(12).ToString().Substring(0, 5));
 
-            comboBoxMondayEndHour.SelectedIndex = comboBoxMondayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(1).ToString().Substring(0, 5));
-            comboBoxTuesdayEndHour.SelectedIndex = comboBoxTuesdayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(3).ToString().Substring(0, 5));
-            comboBoxWednesdayEndHour.SelectedIndex = comboBoxWednesdayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(5).ToString().Substring(0, 5));
-            comboBoxThursdayEndHour.SelectedIndex = comboBoxThursdayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(7).ToString().Substring(0, 5));
-            comboBoxFridayEndHour.SelectedIndex = comboBoxFridayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(9).ToString().Substring(0, 5));
-            comboBoxSaturdayEndHour.SelectedIndex = comboBoxSaturdayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(11).ToString().Substring(0, 5));
-            comboBoxSundayEndHour.SelectedIndex = comboBoxSundayEndHour.FindString(
-                schedule.Rows[0].ItemArray.GetValue(13).ToString().Substring(0, 5));
-          
+                comboBoxMondayEndHour.SelectedIndex = comboBoxMondayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(1).ToString().Substring(0, 5));
+                comboBoxTuesdayEndHour.SelectedIndex = comboBoxTuesdayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(3).ToString().Substring(0, 5));
+                comboBoxWednesdayEndHour.SelectedIndex = comboBoxWednesdayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(5).ToString().Substring(0, 5));
+                comboBoxThursdayEndHour.SelectedIndex = comboBoxThursdayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(7).ToString().Substring(0, 5));
+                comboBoxFridayEndHour.SelectedIndex = comboBoxFridayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(9).ToString().Substring(0, 5));
+                comboBoxSaturdayEndHour.SelectedIndex = comboBoxSaturdayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(11).ToString().Substring(0, 5));
+                comboBoxSundayEndHour.SelectedIndex = comboBoxSundayEndHour.FindString(
+                    schedule.Rows[0].ItemArray.GetValue(13).ToString().Substring(0, 5));
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

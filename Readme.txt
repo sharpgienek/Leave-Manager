@@ -92,6 +92,9 @@ ver. 0.23
 ver. 0.24
 	- Usprawniono mo¿liwoœæ edycji godzin pracy.
 	- Sprawdzanie iloœci dni urlopu na podstawie rozpiski godzin pracy.
+ver. 0.25
+	- Dodano wypisywanie liczby dostêpnych pracowników w formularzu LeaveConsideretion
+	- Podczas dodawania pracownika dodawany jest równie¿ odpowiedni wiersz do tabeli Work_hours
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
