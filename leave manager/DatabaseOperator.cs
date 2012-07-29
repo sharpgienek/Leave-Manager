@@ -1256,9 +1256,9 @@ namespace leave_manager
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         public static bool IsDateFromPeriodUsed(this FormLeaveApplication form, DateTime date1, DateTime date2,
-           int employeeID, DateTime skippedEntryFirstDay)
+           int employeeID, int skippedEntryId)
         {
-            return IsDateFromPeriodUsed((LeaveManagerForm)form, date1, date2, employeeID, skippedEntryFirstDay);
+            return IsDateFromPeriodUsed((LeaveManagerForm)form, date1, date2, employeeID, skippedEntryId);
         }
 
         /// <summary>
@@ -1275,8 +1275,7 @@ namespace leave_manager
         /// <returns>Wartość logiczną mówiącą czy któryś z dni okresu jest już użyty.</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
-        private static bool IsDateFromPeriodUsed(LeaveManagerForm form, DateTime date1, DateTime date2,
-            int employeeID, DateTime skippedEntryFirstDay)
+        private static bool IsDateFromPeriodUsed(LeaveManagerForm form, DateTime date1, DateTime date2, int employeeID, int skippedEntryId)
         {
             //Jeżeli date2 jest wcześniej niż date1 zamień je miejscami.
             if (date1.CompareTo(date2) > 0)
@@ -1286,13 +1285,14 @@ namespace leave_manager
                 date2 = tmpDate;
             }
             //Zapytanie sql zczytujące daty urlopów.
-            SqlCommand command = new SqlCommand("SELECT First_day, Last_day FROM Leave WHERE " +
-                "Employee_ID = @Employee_ID AND First_day != @Skipped_entry_first_day", form.Connection);//todo dodać warunek w zapytaniu wykluczający wpisy, canceled i rejected.
+            SqlCommand command = new SqlCommand("SELECT First_day, Last_day FROM Leave L, Status_type LS WHERE " +
+                "L.LS_ID = LS.ST_ID AND Leave_ID != @Skipped_entry_id AND LS.Name != 'Canceled' AND LS.Name != 'Rejected' " +
+                "AND L.Employee_ID = @Employee_ID", form.Connection);//todo dodać warunek w zapytaniu wykluczający wpisy, canceled i rejected.
             //Jeżeli formularz ma uruchomioną transakcję, dołącz ją do zapytania.
             if (form.TransactionOn)
                 command.Transaction = form.Transaction;
             command.Parameters.Add("@Employee_ID", SqlDbType.Int).Value = employeeID;
-            command.Parameters.Add("@Skipped_entry_first_day", SqlDbType.Date).Value = skippedEntryFirstDay;
+            command.Parameters.Add("@Skipped_entry_id", SqlDbType.Int).Value = skippedEntryId;
             //Stworzenie obiektu czytającego wyniki zapytania.
             SqlDataReader reader = command.ExecuteReader();
             //Dopóki udało się odczytać wiersz z wyników zapytania.
@@ -1593,7 +1593,8 @@ namespace leave_manager
         {
             SqlCommand command = new SqlCommand("SELECT L.Employee_ID, LT.Name AS 'Type', " +
                 "LS.Name AS 'Status', L.First_day, L.Last_day, " +
-                "L.Remarks, L.Used_days FROM Leave L, Leave_type LT, Status_type LS WHERE Leave_ID = @Leave_ID",
+                "L.Remarks, L.Used_days FROM Leave L, Leave_type LT, Status_type LS WHERE Leave_ID = @Leave_ID " +
+                "AND L.LT_ID = LT.LT_ID AND L.LS_ID = LS.ST_ID",
                 form.Connection);
             if (form.TransactionOn)
                 command.Transaction = form.Transaction;
@@ -1658,15 +1659,40 @@ namespace leave_manager
 
             try
             {
-                //Zczytanie podmienianego urlopu.
+                Leave oldLeave = GetLeave(form, leave.Id);                
+                    DeleteLeave(form, leave.Id);
+                    if (leave.LeaveType.Equals("Sick"))
+                    {
+                        AddSickLeave(form, leave);
+                    }
+                    else
+                    {
+                        AddLeave(form, leave);
+                    }
+              /*  //Zczytanie podmienianego urlopu.
                 Leave oldLeave = GetLeave(form, leave.Id);
                 //Jeżeli wpisywany urlop konsumuje dni urlopowe.
-                if (ConsumesDays(form, leave.LeaveType))
+                if (ConsumesDays(form, leave.LeaveType) && !leave.LeaveStatus.Equals("Rejected") && !leave.LeaveStatus.Equals("Canceled"))
                 {
                     leave.UsedDays = GetNumberOfWorkDays(form, leave.FirstDay, leave.LastDay, leave.EmployeeId);
                     //Obliczenie różnicy o którą trzeba zmienić liczbę dni urlopowych pracownika.
                     int difference = oldLeave.UsedDays - leave.UsedDays;
                     AddLeaveDays(form, leave.EmployeeId, difference);
+                    if (leave.LeaveStatus.Equals("Extraordinary") && oldLeave.LeaveStatus.Equals("Extraordinary"))
+                    {
+                        AddDemandDays(form, leave.EmployeeId, -difference);
+                    }
+                    else
+                    {
+                        if (leave.LeaveStatus.Equals("Extraordinary"))
+                        {
+                            AddDemandDays(form, leave.EmployeeId, leave.UsedDays);
+                        }
+                        if (oldLeave.LeaveStatus.Equals("Extraordinary"))
+                        {
+                            AddDemandDays(form, leave.EmployeeId, -oldLeave.UsedDays);
+                        }
+                    }
                 }
                 else//Nowy urlop nie konsumuje dni.
                 {
@@ -1683,14 +1709,15 @@ namespace leave_manager
                    "WHERE Leave_ID = @OldLeave_ID", form.Connection, form.Transaction);
                 commandUpdate.Parameters.Add("@OldLeave_ID", SqlDbType.Int).Value = leave.Id;
                 //Jeżeli wpisywany urlop jest chorobowym, to niezależnie od ustawionego stanu jest ustawiony stan zatwierdzony.
-                if (leave.LeaveStatus.Equals("Sick"))
+                if (leave.LeaveType.Equals("Sick"))
                 {
                     commandUpdate.Parameters.Add("@Status_name", SqlDbType.VarChar).Value = "Approved";
                 }
                 else
                 {
-                    if (leave.LeaveStatus.Equals("Extraordinary"))
+                    if (leave.LeaveType.Equals("Extraordinary"))
                     {
+                        commandUpdate.Parameters.Add("@Status_name", SqlDbType.VarChar).Value = "Approved";
                     }
                     else
                     {
@@ -1703,7 +1730,7 @@ namespace leave_manager
                 commandUpdate.Parameters.Add("@Last_day", SqlDbType.Date).Value = leave.LastDay;
                 commandUpdate.Parameters.Add("@Remarks", SqlDbType.VarChar).Value = leave.Remarks;
                 commandUpdate.Parameters.Add("@Used_days", SqlDbType.Int).Value = leave.UsedDays;
-                commandUpdate.ExecuteNonQuery();
+                commandUpdate.ExecuteNonQuery();*/
             }
             catch (Exception e)
             {
@@ -2148,6 +2175,10 @@ namespace leave_manager
                 commandDeleteLeave.Parameters.Add("@Leave_ID", SqlDbType.Int).Value = leave.Id;
                 commandDeleteLeave.ExecuteNonQuery();
                 AddLeaveDays(form, leave.EmployeeId, leave.UsedDays);
+                if (leave.LeaveType.Equals("Extraordinary"))
+                {
+                    AddDemandDays(form, leave.EmployeeId, -leave.UsedDays);
+                }
             }
             catch (Exception e)
             {

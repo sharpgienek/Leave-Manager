@@ -96,7 +96,6 @@ namespace leave_manager
             }
         }
 
-        //todo wyeliminować tą metodę?
         /// <summary>
         /// Metoda obsługi wciśnięcia przycisku edycji urlopu.
         /// </summary>
@@ -112,7 +111,6 @@ namespace leave_manager
             {
                 Leave editedLeave = this.GetLeave((int)row.Cells["Leave id"].Value);
                 FormLeaveApplication form = new FormLeaveApplication(connection, editedLeave);
-               // FormLeaveApplication form = new FormLeaveApplication(
                 form.FormClosed += new FormClosedEventHandler(RefreshData);
                 form.Show();
             }
