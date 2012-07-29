@@ -34,7 +34,7 @@ namespace leave_manager
         /// <param name="oldLeaveDaysList">Dostępne zaległe dni urlopowe.</param>
         public Employee(int employeeId, String permission, String name, String surname,
             DateTime birthDate, String address, String pesel, String eMail, 
-            String position,int yearLeaveDays, int leaveDays, int oldLeaveDays)
+            String position,int yearLeaveDays, int leaveDays, int oldLeaveDays, int demandedDays)
         {
             this.employeeId = employeeId;
             this.permission = permission;
@@ -48,7 +48,12 @@ namespace leave_manager
             this.yearLeaveDays = yearLeaveDays;
             this.leaveDays = leaveDays;
             this.oldLeaveDays = oldLeaveDays;
+            this.demandedDays = demandedDays;
         }
+
+        private int demandedDays;
+
+        public int DemandedDays { get { return demandedDays; } set { demandedDays = value; } }
 
         /// <summary>
         /// Numer id pracownika.

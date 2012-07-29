@@ -96,6 +96,11 @@ ver. 0.25
 	- Dodano wypisywanie liczby dostêpnych pracowników w formularzu LeaveConsideretion
 	- Podczas dodawania pracownika dodawany jest równie¿ odpowiedni wiersz do tabeli Work_hours
 
+ver. 0.26
+	- Obs³u¿ono wyj¹tki.
+	- Poprawiono kilka b³êdów.
+	- Dodano dni wolne od pracy.
+
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918
 manager == 6EE4A469CD4E91053847F5D3FCB61DBCC91E8F0EF10BE7748DA4C4A1BA382D17
@@ -130,10 +135,7 @@ Nie zaiplementowane:
 
 - Zastêpstwa
 - Manager>Raportowanie
-- Rozpisywanie dni zajêtych przez innych pracowników tego samego typu w oknie rozwa¿ania zg³oszenia urlopowego.
 - Liczby wymaganych pracowników na danej pozycji
-- Dodanie tabeli zawieraj¹cej dni ustawowo wolne od pracy i uwzglêdnienie ich.
-
 
 Opcjonalnie:
 - Usuwanie pracownika.

@@ -18,7 +18,7 @@ namespace leave_manager
         /// <summary>
         /// Właściwość zwracająca numer id urlopu.
         /// </summary>
-        public int Id { get { return id; } }
+        public int Id { get { return id; } set { id = value; } }
 
         /// <summary>
         /// Numer id pracownika, którego dotyczy zgłoszenie urlopowe.
@@ -88,7 +88,7 @@ namespace leave_manager
         /// <summary>
         /// Właściwość zwracająca liczbę dni zużytych przez urlop.
         /// </summary>
-        public int UsedDays { get { return usedDays; } }
+        public int UsedDays { get { return usedDays; } set { usedDays = value; } }
 
         /// <summary>
         /// Konstruktor.

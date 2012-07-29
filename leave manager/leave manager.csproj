@@ -72,6 +72,12 @@
     <Compile Include="Exceptions\PasswordException.cs" />
     <Compile Include="Exceptions\PositionException.cs" />
     <Compile Include="Exceptions\SimiliarWorkerCountException.cs" />
+    <Compile Include="FormAddPublicHoliday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddPublicHoliday.Designer.cs">
+      <DependentUpon>FormAddPublicHoliday.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringSha.cs" />
     <Compile Include="TimeTools.cs" />
+    <EmbeddedResource Include="FormAddPublicHoliday.resx">
+      <DependentUpon>FormAddPublicHoliday.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDeleteLeaveType.resx">
       <DependentUpon>FormDeleteLeaveType.cs</DependentUpon>
     </EmbeddedResource>

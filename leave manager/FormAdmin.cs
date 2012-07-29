@@ -285,6 +285,43 @@ namespace leave_manager
             //Jeżeli zaznaczono zakładkę z nie poinformowanymi pracownikami.
             if (tabControl.SelectedTab.Text.Equals("New Employees"))
                 RefreshDataGridViewNewEmployees();
+
+            if (tabControl.SelectedTab.Text.Equals("Public Holidays"))
+                RefreshDataGridViewPublicHolidays();
+        }
+
+        private void RefreshDataGridViewPublicHolidays(object sender, FormClosedEventArgs e)
+        {
+            RefreshDataGridViewPublicHolidays();
+        }
+
+        private void RefreshDataGridViewPublicHolidays()
+        {
+            try
+            {
+                dataGridViewPublicHolidays.DataSource = this.GetPublicHolidays();
+                foreach (DataGridViewColumn col in dataGridViewPublicHolidays.Columns)
+                {
+                    if (!col.HeaderText.Equals("Date"))
+                    {
+                        if (col.HeaderText.Equals("DayOfWeek"))
+                        {
+                            col.HeaderText = "Day of week";
+                        }
+                        else
+                        {
+                            if (!col.HeaderText.Equals("Day of week"))
+                            {
+                                col.Visible = false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch//todo obsługa wyjątków.
+            {
+                throw new NotImplementedException();
+            }
         }
 
         /// <summary>
@@ -410,6 +447,26 @@ namespace leave_manager
             {
                 MessageBox.Show("No position selected.");
             }
+        }
+
+        private void buttonAddPublicHoliday_Click(object sender, EventArgs e)
+        {
+            FormAddPublicHoliday form = new FormAddPublicHoliday(connection);
+            form.FormClosed += new FormClosedEventHandler(RefreshDataGridViewPublicHolidays);
+            form.Show();
+        }
+
+        private void buttonDeletePublicHoliday_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewCell cell in dataGridViewPublicHolidays.SelectedCells)
+            {
+                dataGridViewPublicHolidays.Rows[cell.RowIndex].Selected = true;
+            }
+            foreach (DataGridViewRow row in dataGridViewPublicHolidays.SelectedRows)
+            {
+                this.DeletePublicHoliday((DateTime)row.Cells["Date"].Value);
+            }
+            RefreshDataGridViewPublicHolidays();
         }
     }
 }

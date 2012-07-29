@@ -64,6 +64,11 @@
             this.buttonAddLeaveType = new System.Windows.Forms.Button();
             this.labelLeaveTypesInfo = new System.Windows.Forms.Label();
             this.dataGridViewLeaveTypes = new System.Windows.Forms.DataGridView();
+            this.tabPagePublicHolidays = new System.Windows.Forms.TabPage();
+            this.buttonDeletePublicHoliday = new System.Windows.Forms.Button();
+            this.buttonAddPublicHoliday = new System.Windows.Forms.Button();
+            this.labelPublicHolidaysInfo = new System.Windows.Forms.Label();
+            this.dataGridViewPublicHolidays = new System.Windows.Forms.DataGridView();
             this.tabDataSource.SuspendLayout();
             this.groupBoxDataSourceLocal.SuspendLayout();
             this.groupBoxDataSourceRemote.SuspendLayout();
@@ -76,6 +81,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPositions)).BeginInit();
             this.tabPageLeaveTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLeaveTypes)).BeginInit();
+            this.tabPagePublicHolidays.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPublicHolidays)).BeginInit();
             this.SuspendLayout();
             // 
             // tabDataSource
@@ -268,6 +275,7 @@
             this.tabControl.Controls.Add(this.tabNewEmployee);
             this.tabControl.Controls.Add(this.tabDataSource);
             this.tabControl.Controls.Add(this.tabPageDictionaries);
+            this.tabControl.Controls.Add(this.tabPagePublicHolidays);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -448,6 +456,57 @@
             this.dataGridViewLeaveTypes.Size = new System.Drawing.Size(457, 150);
             this.dataGridViewLeaveTypes.TabIndex = 4;
             // 
+            // tabPagePublicHolidays
+            // 
+            this.tabPagePublicHolidays.Controls.Add(this.buttonDeletePublicHoliday);
+            this.tabPagePublicHolidays.Controls.Add(this.buttonAddPublicHoliday);
+            this.tabPagePublicHolidays.Controls.Add(this.labelPublicHolidaysInfo);
+            this.tabPagePublicHolidays.Controls.Add(this.dataGridViewPublicHolidays);
+            this.tabPagePublicHolidays.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePublicHolidays.Name = "tabPagePublicHolidays";
+            this.tabPagePublicHolidays.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePublicHolidays.Size = new System.Drawing.Size(636, 421);
+            this.tabPagePublicHolidays.TabIndex = 3;
+            this.tabPagePublicHolidays.Text = "Public Holidays";
+            this.tabPagePublicHolidays.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeletePublicHoliday
+            // 
+            this.buttonDeletePublicHoliday.Location = new System.Drawing.Point(367, 324);
+            this.buttonDeletePublicHoliday.Name = "buttonDeletePublicHoliday";
+            this.buttonDeletePublicHoliday.Size = new System.Drawing.Size(105, 51);
+            this.buttonDeletePublicHoliday.TabIndex = 3;
+            this.buttonDeletePublicHoliday.Text = "Delete selected holidays";
+            this.buttonDeletePublicHoliday.UseVisualStyleBackColor = true;
+            this.buttonDeletePublicHoliday.Click += new System.EventHandler(this.buttonDeletePublicHoliday_Click);
+            // 
+            // buttonAddPublicHoliday
+            // 
+            this.buttonAddPublicHoliday.Location = new System.Drawing.Point(148, 324);
+            this.buttonAddPublicHoliday.Name = "buttonAddPublicHoliday";
+            this.buttonAddPublicHoliday.Size = new System.Drawing.Size(101, 51);
+            this.buttonAddPublicHoliday.TabIndex = 2;
+            this.buttonAddPublicHoliday.Text = "Add new public holiday";
+            this.buttonAddPublicHoliday.UseVisualStyleBackColor = true;
+            this.buttonAddPublicHoliday.Click += new System.EventHandler(this.buttonAddPublicHoliday_Click);
+            // 
+            // labelPublicHolidaysInfo
+            // 
+            this.labelPublicHolidaysInfo.AutoSize = true;
+            this.labelPublicHolidaysInfo.Location = new System.Drawing.Point(9, 7);
+            this.labelPublicHolidaysInfo.Name = "labelPublicHolidaysInfo";
+            this.labelPublicHolidaysInfo.Size = new System.Drawing.Size(211, 13);
+            this.labelPublicHolidaysInfo.TabIndex = 1;
+            this.labelPublicHolidaysInfo.Text = "Here you can manage public holidays data.";
+            // 
+            // dataGridViewPublicHolidays
+            // 
+            this.dataGridViewPublicHolidays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPublicHolidays.Location = new System.Drawing.Point(184, 60);
+            this.dataGridViewPublicHolidays.Name = "dataGridViewPublicHolidays";
+            this.dataGridViewPublicHolidays.Size = new System.Drawing.Size(254, 249);
+            this.dataGridViewPublicHolidays.TabIndex = 0;
+            // 
             // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,6 +533,9 @@
             this.tabPageLeaveTypes.ResumeLayout(false);
             this.tabPageLeaveTypes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLeaveTypes)).EndInit();
+            this.tabPagePublicHolidays.ResumeLayout(false);
+            this.tabPagePublicHolidays.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPublicHolidays)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -516,5 +578,10 @@
         private System.Windows.Forms.Button buttonAddLeaveType;
         private System.Windows.Forms.Label labelLeaveTypesInfo;
         private System.Windows.Forms.DataGridView dataGridViewLeaveTypes;
+        private System.Windows.Forms.TabPage tabPagePublicHolidays;
+        private System.Windows.Forms.Button buttonDeletePublicHoliday;
+        private System.Windows.Forms.Button buttonAddPublicHoliday;
+        private System.Windows.Forms.Label labelPublicHolidaysInfo;
+        private System.Windows.Forms.DataGridView dataGridViewPublicHolidays;
     }
 }

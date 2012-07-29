@@ -252,7 +252,8 @@ namespace leave_manager
                         {
                             try
                             {
-                                this.EditLeave(leave, editedLeave.Id);
+                                leave.Id = editedLeave.Id;
+                                this.EditLeave(leave);
                                 this.Close();
                             }
                             catch//todo obsłużyć wszystkie wyjątki.
@@ -283,7 +284,11 @@ namespace leave_manager
                                     this.AddLeave(leave);
                                     this.Close();
                                 }
-                                catch 
+                                catch (OverflowException)
+                                {
+                                    MessageBox.Show("You don't have enough extraordinary days left.");
+                                }
+                                catch
                                 {
                                     throw new NotImplementedException();
                                 }//todo obsługa wszystkich wyjątków.
