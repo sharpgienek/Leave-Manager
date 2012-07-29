@@ -742,6 +742,7 @@ namespace leave_manager
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="EmployeeIdException">"Pracownik o podanym Id nie istnieje"</exception>
         public static Employee GetEmployee(this FormLogin form, int employeeId)
         {
             return GetEmployee((LeaveManagerForm)form, employeeId);
@@ -756,6 +757,7 @@ namespace leave_manager
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="EmployeeIdException">"Pracownik o podanym Id nie istnieje"</exception>
         public static Employee GetEmployee(this FormLeaveConsideration form, int employeeId)
         {
             return GetEmployee((LeaveManagerForm)form, employeeId);
@@ -770,6 +772,7 @@ namespace leave_manager
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="EmployeeIdException">"Pracownik o podanym Id nie istnieje"</exception>
         public static Employee GetEmployee(this FormAddOrEditEmployee form, int employeeId)
         {
             return GetEmployee((LeaveManagerForm)form, employeeId);
@@ -783,6 +786,7 @@ namespace leave_manager
         /// <returns>Obiekt pracownika, którego numer id zgadza się z argumentem.</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="EmployeeIdException">"Pracownik o podanym Id nie istnieje"</exception>
         private static Employee GetEmployee(LeaveManagerForm form, int employeeId)
         {
             //Zapytanie sql czytające dane pracownika o danym numerze id.
@@ -2364,7 +2368,7 @@ namespace leave_manager
         /// Metoda testująca połączenie z bazą danych.
         /// </summary>
         /// <param name="connection">Połączenie z bazą danych.</param>
-        /// <returns></returns>
+        /// <returns>"Wartość określająca czy test się powiódł"</returns>
         /// <remarks>Po zakończeniu działania metody połączenie jest zamknięte.</remarks>
         public static bool TestConnection(this SqlConnection connection)
         {
@@ -2695,6 +2699,8 @@ namespace leave_manager
         /// <param name="pesel">Pesel pracownika, który ma zostać wyszukany</param>
         /// <param name="position">Pozycja pracownika, który ma zostać wyszukany</param>
         /// <returns>Tabele z danymi pracowników spełniających kryteria</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         public static DataTable SearchEmployee(this FormAssistant form, String name, String surname, String pesel, String position)
         {
             return DatabaseOperator.SearchEmployee((LeaveManagerForm)form, name, surname, pesel, position);
@@ -2709,6 +2715,8 @@ namespace leave_manager
         /// <param name="pesel">Pesel pracownika, który ma zostać wyszukany</param>
         /// <param name="position">Pozycja pracownika, który ma zostać wyszukany</param>
         /// <returns>Tabele z danymi pracowników spełniających kryteria</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         public static DataTable SearchEmployee(this FormManager form, String name, String surname, String pesel, String position)
         {
             return DatabaseOperator.SearchEmployee((LeaveManagerForm)form, name, surname, pesel, position);
@@ -2723,6 +2731,8 @@ namespace leave_manager
         /// <param name="pesel">Pesel pracownika, który ma zostać wyszukany</param>
         /// <param name="position">Pozycja pracownika, który ma zostać wyszukany</param>
         /// <returns>Tabele z danymi pracowników spełniających kryteria</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         private static DataTable SearchEmployee(LeaveManagerForm form, String name, String surname, String pesel, String position)
         {
             //Zapytanie sql zczytujące dane pracownika o podanym loginie i haśle.
@@ -2764,11 +2774,29 @@ namespace leave_manager
             return result;
         }
 
+        /// <summary>
+        /// Metoda służy do edycji danych pracownika. Rozszerza formularz dodawania lub edycji pracownika.
+        /// </summary>
+        /// <param name="form">Formularz wywołujący metode</param>
+        /// <param name="newEmployee">Nowe dane pracownika</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="PermissionException">"Bład podczas odczytywania uprawnień(uprawnienia nie została odnaleziona"</exception>
+        /// <exception cref="PositionException">"Bład podczas odczytywania pozycji (pozycja nie została odnaleziona"</exception>
         public static void EditEmployee(this FormAddOrEditEmployee form, Employee newEmployee)
         {
             EditEmployee((LeaveManagerForm)form, newEmployee);
         }
 
+        /// <summary>
+        /// Metoda służy do edycji danych pracownika
+        /// </summary>
+        /// <param name="form">Formularz wywołujący metode</param>
+        /// <param name="newEmployee">Nowe dane pracownika</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="PermissionException">"Bład podczas odczytywania uprawnień(uprawnienia nie została odnaleziona"</exception>
+        /// <exception cref="PositionException">"Bład podczas odczytywania pozycji (pozycja nie została odnaleziona"</exception>
         private static void EditEmployee(LeaveManagerForm form, Employee newEmployee)
         {
             //Zapytanie SQL edytujące danego pracownika
@@ -2797,7 +2825,10 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący</param>
         /// <param name="permission">Opis uprawnień</param>
-        /// <returns></returns>
+        /// <returns>Identyfikator uprawnień o podanym opisie</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="PermissionException">"Bład podczas odczytywania uprawnień(uprawnienia nie została odnaleziona"</exception>
         private static int GetPermissionID(LeaveManagerForm form, string permission)
         {
             SqlCommand command = new SqlCommand("SELECT Permission_ID FROM Permission WHERE Description" +
@@ -2823,7 +2854,10 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący</param>
         /// <param name="position">Opis pozycji</param>
-        /// <returns></returns>
+        /// <returns>"Identyfikator pozycji o zadanym opisie"</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="PositionException">"Bład podczas odczytywania pozycji (pozycja nie została odnaleziona"</exception>
         public static int GetPositionID(this FormLeaveConsideration form, string position)
         {
             return GetPositionID((LeaveManagerForm)form, position);
@@ -2834,7 +2868,10 @@ namespace leave_manager
         /// </summary>
         /// <param name="form">Formularz wywołujący</param>
         /// <param name="position">Opis pozycji</param>
-        /// <returns></returns>
+        /// <returns>"Identyfikator pozycji o zadanym opisie"</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="PositionException">"Bład podczas odczytywania pozycji (pozycja nie została odnaleziona"</exception>
         private static int GetPositionID(LeaveManagerForm form, string position)
         {
             SqlCommand command = new SqlCommand("SELECT Position_ID FROM Position WHERE Description" +
@@ -2851,7 +2888,7 @@ namespace leave_manager
                 return result;
             }
             reader.Close();
-            throw new PermissionException();
+            throw new PositionException();
         }
 
         /// <summary>
@@ -2865,6 +2902,11 @@ namespace leave_manager
         /// 
         /// Format godziny to dd:mm:[ss[.nnnnnnn]]</param>
         /// <param name="employeeId">Numer id pracownika, któremu zmieniamy harmonogram.</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
+        /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
+        /// <exception cref="ArgumentException">Występuje w przypadku próby odjęcia większej liczby dni, niż pracownik posiada.</exception>
         public static void SetSchedule(this FormWorkSchedule form, string[] hours, int employeeId)
         {
             SetSchedule((LeaveManagerForm)form, hours, employeeId);
@@ -2881,6 +2923,11 @@ namespace leave_manager
         /// 
         /// Format godziny to dd:mm:[ss[.nnnnnnn]]</param>
         /// <param name="employeeId">Numer id pracownika, któremu zmieniamy harmonogram.</param>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        /// <exception cref="IsolationLevelException">Wyjątek występuje, gdy poziom izolacji uruchomionej w 
+        /// formularzu transakcji jest zbyt niski do zapewnienia poprawnego wykonania poleceń metody.</exception>
+        /// <exception cref="ArgumentException">Występuje w przypadku próby odjęcia większej liczby dni, niż pracownik posiada.</exception>
         private static void SetSchedule(LeaveManagerForm form, string[] hours, int employeeId)
         {
             /* Dla poprawnego działania tej metody konieczne jest aby posiadała ona transakcję
@@ -3051,13 +3098,19 @@ namespace leave_manager
         }
 
         /// <summary>
-        /// Metoda pobierająca informację czy w danym dniu tygodnia pracownik pracuje.
+        /// Metoda zwraca tablice z flagami oznaczającymi czy w danym dniu tygodnia pracownik pracuje. Rozszerza
+        /// formularz zatwierdzania urlopów.
         /// </summary>
-        /// <param name="form">Formularz wywołujący.</param>
-        /// <param name="employeeId">Numer id pracownika.</param>
-        /// <returns>Siedmioelementową tablicę  wartości typu bool. Kolejne pola oznaczają kolejne dni tygodnia.</returns>
+        /// <param name="form">"Formularz wywołujący"</param>
+        /// <param name="employeeId">"Identyfikator pracownika dla którego mają zostać zczytane dni pracy"</param>
+        /// <returns>"Tablica wartości logicznych reprezentujących dni wolne"</returns>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
+        public static bool[] GetWorkingDaysOfWeek(this FormLeaveConsideration form, int employeeId)
+        {
+            return GetWorkingDaysOfWeek((LeaveManagerForm)form, employeeId);
+        }
+
         private static bool[] GetWorkingDaysOfWeek(LeaveManagerForm form, int employeeId)
         {
             bool[] days = new bool[7];
@@ -3083,7 +3136,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metode</param>
         /// <param name="positionId">Pozycja szukanych pracowników</param>
         /// <param name="date">"Data"</param>
-        /// <returns></returns>
+        /// <returns>"Liczba pracowników tego samego typu, którzy są dostępni danego dnia</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         public static int GetSimiliarWorkerCount(this FormLeaveConsideration form, int positionId, int employeeId, DateTime date)
@@ -3097,7 +3152,9 @@ namespace leave_manager
         /// <param name="form">Formularz wywołujący metode</param>
         /// <param name="positionId">Pozycja szukanych pracowników</param>
         /// <param name="date">"Data"</param>
-        /// <returns></returns>
+        /// <returns>"Liczba pracowników tego samego typu, którzy są dostępni danego dnia</returns>
+        /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
+        /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         /// <exception cref="SqlException">An exception occurred while executing the command against a locked row.</exception>
         /// <exception cref="InvalidOperationException">The current state of the connection is closed.</exception>
         private static int GetSimiliarWorkerCount(LeaveManagerForm form, int positionId, int employeeId, DateTime date)
@@ -3122,14 +3179,13 @@ namespace leave_manager
                 command.Parameters.AddWithValue("@EmployeeID", employeeId);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
+                    int result;
                     if (reader.Read())
-                    {
-                        int result = (int)reader["amount"];
-                        reader.Close();
-                        return result;
-                    }
+                        result = (int)reader["amount"];
+                    else
+                        result = 0;
                     reader.Close();
-                    throw new PermissionException();
+                    return result;
                 }
             }
         }

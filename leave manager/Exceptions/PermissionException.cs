@@ -10,5 +10,25 @@ namespace leave_manager.Exceptions
     /// </summary>
     class PermissionException : Exception
     {
+        string msg;
+        /// <summary>
+        /// Konstruktor, ustawia domyślna informacje
+        /// </summary>
+        public PermissionException()
+        {
+            msg = "Permission not found";
+        }
+
+        /// <summary>
+        /// Metoda dostępu do pola klasy.
+        /// </summary>
+        public override string Message
+        {
+            get
+            {
+                return msg + "Exception";
+            }
+        }
+
     }
 }

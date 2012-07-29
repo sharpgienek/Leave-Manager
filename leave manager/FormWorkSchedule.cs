@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Net.Mail;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     /// <summary>
@@ -238,9 +238,25 @@ namespace leave_manager
                 this.SetSchedule(hours, this.employeeId);
                 this.Close();
             }
-            catch//todo obsługa wszystkich wyjątków.
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (IsolationLevelException)
+            {
+                MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Wrong argument\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
             }
         }
     }

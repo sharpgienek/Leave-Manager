@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Net.Mail;
-
+using leave_manager.Exceptions;
 
 namespace leave_manager
 {
@@ -38,9 +38,26 @@ namespace leave_manager
             dateTimePickerBirthDate.MaxDate = (DateTime.Today.AddYears(-16));
             dateTimePickerBirthDate.Value = (DateTime.Today.AddYears(-20));
             //Zczytanie listy możliwych do ustawienia uprawnień oraz pozycji pracownika.
-            comboBoxPermissions.DataSource = this.GetPermissions();
-            comboBoxPossition.DataSource = this.GetPositionsList();
-
+            try
+            {
+                comboBoxPermissions.DataSource = this.GetPermissions();
+                comboBoxPossition.DataSource = this.GetPositionsList();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
+            }
 
             //todo usunąć dane wspomagające testy poniżej
             textBoxName.Text = "trol";
@@ -55,7 +72,30 @@ namespace leave_manager
         {
             InitializeComponent();
             this.connection = connection;
-            employeeToEdit = this.GetEmployee(employeeId);
+            try
+            {
+                employeeToEdit = this.GetEmployee(employeeId);
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (EmployeeIdException)
+            {
+                MessageBox.Show("EmployeeID not found in database. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
+            }
             //przystosowanie odpowiednich elementów okna tak aby pasowały do funkcji związanych z edycją pracownika
             labelInfo.Text = "Here you can edit information about " + employeeToEdit.Name + " " + employeeToEdit.Surname;
             buttonAdd.Text = "Edit employee";
@@ -264,10 +304,34 @@ namespace leave_manager
                     }
                     this.Close();
                 }
-                catch//todo obsłuż wszystkie wyjątki.
+                catch (SqlException)
                 {
-                    throw new NotImplementedException();
-                }                
+                    MessageBox.Show("SQL error. Please try connection to database or try again later");
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("Invalid operation. Please try again later.");
+                }
+                catch (IsolationLevelException)
+                {
+                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                }
+                catch (NoFreeLoginException)
+                {
+                    MessageBox.Show("All logins are currently occupy. Please try again later or contact administrator");
+                }
+                catch (PermissionException)
+                {
+                    MessageBox.Show("Given permission type does not exist.");
+                }
+                catch (PositionException)
+                {
+                    MessageBox.Show("Given position type does not exist.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unknown exception has occured" + ex.Message);
+                }
             }
         }           
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     /// <summary>
@@ -50,10 +50,21 @@ namespace leave_manager
                 comboBoxEmployeesPosition.DataSource = positions;
                 comboBoxReplacementsPosition.DataSource = positions;
             }
-            catch
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
             }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
+
         }
         /// <summary>
         /// Metoda odpowiedzialna za odświeżenie tabeli ze zgłoszeniami wymagającymi
@@ -77,10 +88,19 @@ namespace leave_manager
             {                
                 dataGridViewPendingAplications.DataSource = this.GetNeedsAction();
             }
-            catch//todo obsługa wszystkich rodzajów wyjątków.
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL Error. Please try again later.");
             }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -94,10 +114,20 @@ namespace leave_manager
                 dataGridViewEmployees.DataSource = this.GetEmployees();
                 dataGridViewEmployees.Columns["Employee id"].Visible = false;
             }
-            catch 
+            catch (SqlException)
             {
-                throw new NotImplementedException();
-            }//todo obsługa wszystkich rodzajów błędów + czyszczenie datagridview
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }        
 
         /// <summary>
@@ -111,7 +141,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy cały wiersz.
             foreach (DataGridViewCell cell in dataGridViewPendingAplications.SelectedCells)
             {
-                dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewPendingAplications.SelectedRows)
@@ -152,7 +183,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
-                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
@@ -176,7 +208,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in  dataGridViewPendingAplications.SelectedCells)
             {
-                dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewPendingAplications.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewPendingAplications.SelectedRows)
@@ -186,10 +219,22 @@ namespace leave_manager
                     this.RejectLeave((int)row.Cells["Leave id"].Value);
                     RefreshDataGridViewPendingAplications();
                 }
-                catch
+                catch (SqlException)
                 {
-                    throw new NotImplementedException();
-                }//todo obsługa wszystkich wyjątków.
+                    MessageBox.Show("SQL error. Please try connection to database or try again later");
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("Invalid operation. Please try again later.");
+                }
+                catch (IsolationLevelException)
+                {
+                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unknown exception has occured" + ex.Message);
+                }
             }      
         }
 
@@ -200,9 +245,24 @@ namespace leave_manager
         /// <param name="e">Argumenty</param>
         private void buttonEmployeesSearch_Click(object sender, EventArgs e)
         {
-            dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text, 
-                textBoxEmployeesSurname.Text,"", comboBoxEmployeesPosition.SelectedItem.ToString());            
-            dataGridViewEmployees.Columns["Employee id"].Visible = false;
+            try
+            {
+                dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text,
+                    textBoxEmployeesSurname.Text, "", comboBoxEmployeesPosition.SelectedItem.ToString());
+                dataGridViewEmployees.Columns["Employee id"].Visible = false;
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }      
     }
 }

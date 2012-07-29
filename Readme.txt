@@ -92,12 +92,13 @@ ver. 0.23
 ver. 0.24
 	- Usprawniono mo¿liwoœæ edycji godzin pracy.
 	- Sprawdzanie iloœci dni urlopu na podstawie rozpiski godzin pracy.
+
 ver. 0.25
 	- Dodano wypisywanie liczby dostêpnych pracowników w formularzu LeaveConsideretion
 	- Podczas dodawania pracownika dodawany jest równie¿ odpowiedni wiersz do tabeli Work_hours
 
 ver. 0.26
-	- Obs³u¿ono wyj¹tki.
+	- Dodano obs³ugê wyj¹tków (w wszystkich znalezionych miejscach, mo¿e wymagaæ poprawy)
 	- Poprawiono kilka b³êdów.
 	- Dodano dni wolne od pracy.
 

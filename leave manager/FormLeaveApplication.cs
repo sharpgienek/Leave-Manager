@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 
 namespace leave_manager
 {
@@ -59,7 +59,25 @@ namespace leave_manager
             this.editedLeave = editedLeave;
             //Zczytanie listy typów urlopów i przypisanie do atrybutu klasy oraz do odpowiedniego
             //comboBox'a.
-            comboBoxType.DataSource = leaveTypes = this.GetLeaveTypesList();
+            try
+            {
+                comboBoxType.DataSource = leaveTypes = this.GetLeaveTypesList();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
+            }
             //Zaznaczenie w comboBox'ie zawierającym typy urlopów typu edytowanego zgłoszenia.
             comboBoxType.SelectedIndex = comboBoxType.FindStringExact(editedLeave.LeaveType);
             /* Ustawienie ograniczenia odnośnie możliwości wyboru dnia rozpoczęcia i zakończenia urlopu.
@@ -190,7 +208,21 @@ namespace leave_manager
                 labelNormalValue.Text = leaveDays.ToString();
                 labelOldValue.Text = oldLeaveDays.ToString();
             }
-            catch { }//todo obsługa wszystkich rodzajów wyjątków
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
+            }
 
         }
 
@@ -217,7 +249,25 @@ namespace leave_manager
             int yearDays = 0;
 
             //Zczytanie aktualnych wartości dostępnych dni urlopowych.
-            this.GetDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            try
+            {
+                this.GetDays(employeeId, ref leaveDays, ref oldLeaveDays, ref yearDays);
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                return;
+            }
             //Uaktualnienie warotości etykiet.
             labelAvailableDaysValue.Text = (leaveDays + oldLeaveDays).ToString();
             labelNormalValue.Text = leaveDays.ToString();
@@ -256,9 +306,25 @@ namespace leave_manager
                                 this.EditLeave(leave);
                                 this.Close();
                             }
-                            catch//todo obsłużyć wszystkie wyjątki.
+                            catch (SqlException)
                             {
-                                throw new NotImplementedException();
+                                MessageBox.Show("SQL error. Please try connection to database or try again later");
+                            }
+                            catch (InvalidOperationException)
+                            {
+                                MessageBox.Show("Invalid operation. Please try again later.");
+                            }
+                            catch (IsolationLevelException)
+                            {
+                                MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                            }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("Wrong argument\n");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Unknown exception has occured" + ex.Message);
                             }
                         }
                         else
@@ -272,9 +338,25 @@ namespace leave_manager
                                     this.AddSickLeave(leave);
                                     this.Close();
                                 }
-                                catch//todo obsłużyć wszystkie wyjątki.
+                                catch (SqlException)
                                 {
-                                    throw new NotImplementedException();
+                                    MessageBox.Show("SQL error. Please try connection to database or try again later");
+                                }
+                                catch (InvalidOperationException)
+                                {
+                                    MessageBox.Show("Invalid operation. Please try again later.");
+                                }
+                                catch (IsolationLevelException)
+                                {
+                                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                    MessageBox.Show("Wrong argument\n");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Unknown exception has occured" + ex.Message);
                                 }
                             }
                             else
@@ -288,10 +370,26 @@ namespace leave_manager
                                 {
                                     MessageBox.Show("You don't have enough extraordinary days left.");
                                 }
-                                catch
+                                catch (SqlException)
                                 {
-                                    throw new NotImplementedException();
-                                }//todo obsługa wszystkich wyjątków.
+                                    MessageBox.Show("SQL error. Please try connection to database or try again later");
+                                }
+                                catch (InvalidOperationException)
+                                {
+                                    MessageBox.Show("Invalid operation. Please try again later.");
+                                }
+                                catch (IsolationLevelException)
+                                {
+                                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                    MessageBox.Show("Wrong argument\n");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Unknown exception has occured" + ex.Message);
+                                }
                             }
                         }
                     }

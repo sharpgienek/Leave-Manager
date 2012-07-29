@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     /// <summary>
@@ -72,10 +72,22 @@ namespace leave_manager
                 loggedIn = true;
                 this.Close();
             }
-                //todo obsłuż wszystkie rodzaje wyjątków
-            catch
+            catch (SqlException)
             {
-            }           
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (LoginOrPasswordException)
+            {
+                MessageBox.Show("Incorrect login or password. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }         
         }
     }
 }
