@@ -71,7 +71,6 @@
     <Compile Include="Exceptions\LoginOrPasswordException.cs" />
     <Compile Include="Exceptions\PasswordException.cs" />
     <Compile Include="Exceptions\PositionException.cs" />
-    <Compile Include="Exceptions\SimiliarWorkerCountException.cs" />
     <Compile Include="FormDeleteLeaveType.cs">
       <SubType>Form</SubType>
     </Compile>

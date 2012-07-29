@@ -81,8 +81,8 @@ namespace leave_manager
                 }
                 else
                     MessageBox.Show("Empty Path!");//todo ładny tekst
-                else//todo
-                    throw new NotImplementedException();
+            else//todo
+                throw new NotImplementedException();
         }
 
         /// <summary>
@@ -118,9 +118,16 @@ namespace leave_manager
                         using (StreamWriter outfile = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + @"\config.ini"))
                         {
                             //Zapisanie nowej konfiguracji do pliku.
-                            outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" + 
-                                textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
-                            //Zachowanie nowego connection string.
+                            try
+                            {
+                                outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" +
+                                    textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("An Error has occured. Your new configuration may not be saved. Please try again later\n" + ex.Message);
+                            }
+                                //Zachowanie nowego connection string.
                             connectionString += @"Data Source=.\SQLEXPRESS;AttachDbFilename=" + 
                                 "\"" + textBoxLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;";
                             this.Close();

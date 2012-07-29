@@ -132,6 +132,7 @@
             this.dataGridViewPendingAplications.Location = new System.Drawing.Point(12, 60);
             this.dataGridViewPendingAplications.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewPendingAplications.Name = "dataGridViewPendingAplications";
+            this.dataGridViewPendingAplications.ReadOnly = true;
             this.dataGridViewPendingAplications.RowTemplate.Height = 24;
             this.dataGridViewPendingAplications.Size = new System.Drawing.Size(857, 327);
             this.dataGridViewPendingAplications.TabIndex = 0;
@@ -213,6 +214,7 @@
             this.dataGridViewEmployees.Location = new System.Drawing.Point(11, 187);
             this.dataGridViewEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
+            this.dataGridViewEmployees.ReadOnly = true;
             this.dataGridViewEmployees.RowTemplate.Height = 24;
             this.dataGridViewEmployees.Size = new System.Drawing.Size(857, 239);
             this.dataGridViewEmployees.TabIndex = 7;
@@ -352,6 +354,7 @@
             this.dataGridViewReplacements.Location = new System.Drawing.Point(157, 78);
             this.dataGridViewReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewReplacements.Name = "dataGridViewReplacements";
+            this.dataGridViewReplacements.ReadOnly = true;
             this.dataGridViewReplacements.RowTemplate.Height = 24;
             this.dataGridViewReplacements.Size = new System.Drawing.Size(591, 282);
             this.dataGridViewReplacements.TabIndex = 0;
@@ -360,21 +363,25 @@
             // 
             this.ColumnReplacementsDate.HeaderText = "Date";
             this.ColumnReplacementsDate.Name = "ColumnReplacementsDate";
+            this.ColumnReplacementsDate.ReadOnly = true;
             // 
             // ColumnReplacementsWorkersNeeded
             // 
             this.ColumnReplacementsWorkersNeeded.HeaderText = "No. workers needed";
             this.ColumnReplacementsWorkersNeeded.Name = "ColumnReplacementsWorkersNeeded";
+            this.ColumnReplacementsWorkersNeeded.ReadOnly = true;
             // 
             // ColumnReplacementsWorkersAvailable
             // 
             this.ColumnReplacementsWorkersAvailable.HeaderText = "No. workers available";
             this.ColumnReplacementsWorkersAvailable.Name = "ColumnReplacementsWorkersAvailable";
+            this.ColumnReplacementsWorkersAvailable.ReadOnly = true;
             // 
             // ColumnReplacementsPosition
             // 
             this.ColumnReplacementsPosition.HeaderText = "position";
             this.ColumnReplacementsPosition.Name = "ColumnReplacementsPosition";
+            this.ColumnReplacementsPosition.ReadOnly = true;
             // 
             // FormAssistant
             // 

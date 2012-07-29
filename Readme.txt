@@ -95,6 +95,9 @@ ver. 0.24
 ver. 0.25
 	- Dodano wypisywanie liczby dostêpnych pracowników w formularzu LeaveConsideretion
 	- Podczas dodawania pracownika dodawany jest równie¿ odpowiedni wiersz do tabeli Work_hours
+ver. 0.26
+	- Dodano obs³ugê wyj¹tków (w wszystkich znalezionych miejscach, mo¿e wymagaæ poprawy)
+	
 
 INFO
 StringSha.GetSha256Managed("admin") == 8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918

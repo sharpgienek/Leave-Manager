@@ -10,5 +10,24 @@ namespace leave_manager.Exceptions
     /// </summary>
     class PositionException : Exception
     {
+         string msg;
+        /// <summary>
+        /// Konstruktor, ustawia domyślna informacje
+        /// </summary>
+        public PositionException()
+        {
+            msg = "Position not found";
+        }
+
+        /// <summary>
+        /// Metoda dostępu do pola klasy.
+        /// </summary>
+        public override string Message
+        {
+            get
+            {
+                return msg + "Exception";
+            }
+        }
     }
 }

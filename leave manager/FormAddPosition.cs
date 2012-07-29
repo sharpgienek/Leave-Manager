@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     /// <summary>
@@ -52,10 +52,26 @@ namespace leave_manager
                     this.AddPositionType(textBoxName.Text);
                     this.Close();
                 }//todo obsłużyć wszystkie wyjątki
-                catch 
+                catch (SqlException)
                 {
-                    throw new NotImplementedException();
-                }                
+                    MessageBox.Show("SQL error. Please try connection to database or try again later");
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("Invalid operation. Please try again later.");
+                }
+                catch (IsolationLevelException)
+                {
+                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                }
+                catch (EntryExistsException)
+                {
+                    MessageBox.Show("Entry of this type already exist in database");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unknown exception has occured" + ex.Message);
+                }              
             }
             else
             {

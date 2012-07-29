@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     public partial class FormManager : LeaveManagerForm
@@ -40,9 +40,20 @@ namespace leave_manager
                 comboBoxEmployeesPosition.DataSource = positions;
                 comboBoxReplacementsPosition.DataSource = positions;
             }
-            catch
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
             }
         }
         /// <summary>
@@ -66,8 +77,18 @@ namespace leave_manager
             {
                 dataGridViewNeedsAction.DataSource = this.GetNeedsAction();
             }
-            catch//todo obsługa wszystkich rodzajów wyjątków.
-            { }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. Please try again later.");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }
 
         /// <summary>
@@ -91,7 +112,18 @@ namespace leave_manager
             {
                 dataGridViewEmployees.DataSource = this.GetEmployees();
             }
-            catch { }//todo obsługa wszystkich wyjątków.           
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. Please try again later.");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }         
         }
 
         /// <summary>
@@ -133,7 +165,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki w tabeli zgłoszeń wymagających działania zaznacz jej cały wiersz.
             foreach (DataGridViewCell cell in dataGridViewNeedsAction.SelectedCells)
             {
-                dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza w tabeli zgłoszeń wymagających działania.
             foreach (DataGridViewRow row in dataGridViewNeedsAction.SelectedRows)
@@ -154,7 +187,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
-                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
@@ -178,7 +212,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewNeedsAction.SelectedCells)
             {
-                dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewNeedsAction.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewNeedsAction.SelectedRows)
@@ -188,10 +223,22 @@ namespace leave_manager
                     this.RejectLeave((int)row.Cells["Leave id"].Value);
                     LoadDataGridViewNeedsAction();
                 }
-                catch
+                catch (SqlException)
                 {
-                    throw new NotImplementedException();
-                }//todo obsługa wszystkich wyjątków.
+                    MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                }
+                catch (IsolationLevelException)
+                {
+                    MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unknown exception has occured" + ex.Message);
+                }
             }      
         }    
         
@@ -203,8 +250,23 @@ namespace leave_manager
         /// <param name="e">Argumenty</param>
         private void buttonEmployeesSearch_Click(object sender, EventArgs e)
         {
-            dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text,
-                textBoxEmployeesSurname.Text,"", comboBoxEmployeesPosition.SelectedItem.ToString());
+            try
+            {
+                dataGridViewEmployees.DataSource = this.SearchEmployee(textBoxEmployeesName.Text,
+                    textBoxEmployeesSurname.Text, "", comboBoxEmployeesPosition.SelectedItem.ToString());
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }
 
         /// <summary>
@@ -217,7 +279,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
-                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
@@ -240,7 +303,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
-                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)
@@ -256,7 +320,8 @@ namespace leave_manager
             //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
             foreach (DataGridViewCell cell in dataGridViewEmployees.SelectedCells)
             {
-                dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
+                if (cell.Value != null)
+                    dataGridViewEmployees.Rows[cell.RowIndex].Selected = true;
             }
             //Dla każdego zaznaczonego wiersza.
             foreach (DataGridViewRow row in dataGridViewEmployees.SelectedRows)

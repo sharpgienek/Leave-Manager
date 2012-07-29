@@ -54,9 +54,10 @@
             // radioButtonLocal
             // 
             this.radioButtonLocal.AutoSize = true;
-            this.radioButtonLocal.Location = new System.Drawing.Point(13, 30);
+            this.radioButtonLocal.Location = new System.Drawing.Point(17, 37);
+            this.radioButtonLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonLocal.Name = "radioButtonLocal";
-            this.radioButtonLocal.Size = new System.Drawing.Size(119, 17);
+            this.radioButtonLocal.Size = new System.Drawing.Size(158, 21);
             this.radioButtonLocal.TabIndex = 2;
             this.radioButtonLocal.Text = "Local (from .mdf file)";
             this.radioButtonLocal.UseVisualStyleBackColor = true;
@@ -66,9 +67,10 @@
             // 
             this.radioButtonRemote.AutoSize = true;
             this.radioButtonRemote.Checked = true;
-            this.radioButtonRemote.Location = new System.Drawing.Point(13, 53);
+            this.radioButtonRemote.Location = new System.Drawing.Point(17, 65);
+            this.radioButtonRemote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonRemote.Name = "radioButtonRemote";
-            this.radioButtonRemote.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonRemote.Size = new System.Drawing.Size(78, 21);
             this.radioButtonRemote.TabIndex = 3;
             this.radioButtonRemote.TabStop = true;
             this.radioButtonRemote.Text = "Remote";
@@ -77,77 +79,87 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(13, 11);
+            this.labelInfo.Location = new System.Drawing.Point(17, 14);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(105, 13);
+            this.labelInfo.Size = new System.Drawing.Size(185, 17);
             this.labelInfo.TabIndex = 4;
             this.labelInfo.Text = "Choose dataLeaves source.";
             // 
             // labelIpPort
             // 
             this.labelIpPort.AutoSize = true;
-            this.labelIpPort.Location = new System.Drawing.Point(6, 30);
+            this.labelIpPort.Location = new System.Drawing.Point(8, 37);
+            this.labelIpPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelIpPort.Name = "labelIpPort";
-            this.labelIpPort.Size = new System.Drawing.Size(50, 13);
+            this.labelIpPort.Size = new System.Drawing.Size(65, 17);
             this.labelIpPort.TabIndex = 5;
             this.labelIpPort.Text = "IP : port: ";
             // 
             // labelDatabase
             // 
             this.labelDatabase.AutoSize = true;
-            this.labelDatabase.Location = new System.Drawing.Point(3, 59);
+            this.labelDatabase.Location = new System.Drawing.Point(4, 73);
+            this.labelDatabase.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDatabase.Name = "labelDatabase";
-            this.labelDatabase.Size = new System.Drawing.Size(59, 13);
+            this.labelDatabase.Size = new System.Drawing.Size(77, 17);
             this.labelDatabase.TabIndex = 6;
             this.labelDatabase.Text = "Database: ";
             // 
             // textBoxDatabase
             // 
-            this.textBoxDatabase.Location = new System.Drawing.Point(68, 56);
+            this.textBoxDatabase.Location = new System.Drawing.Point(91, 69);
+            this.textBoxDatabase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxDatabase.Name = "textBoxDatabase";
-            this.textBoxDatabase.Size = new System.Drawing.Size(170, 20);
+            this.textBoxDatabase.Size = new System.Drawing.Size(225, 22);
             this.textBoxDatabase.TabIndex = 7;
             // 
             // textBoxIp1
             // 
-            this.textBoxIp1.Location = new System.Drawing.Point(68, 27);
+            this.textBoxIp1.Location = new System.Drawing.Point(91, 33);
+            this.textBoxIp1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxIp1.Name = "textBoxIp1";
-            this.textBoxIp1.Size = new System.Drawing.Size(33, 20);
+            this.textBoxIp1.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp1.TabIndex = 8;
             // 
             // textBoxIp2
             // 
-            this.textBoxIp2.Location = new System.Drawing.Point(107, 27);
+            this.textBoxIp2.Location = new System.Drawing.Point(143, 33);
+            this.textBoxIp2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxIp2.Name = "textBoxIp2";
-            this.textBoxIp2.Size = new System.Drawing.Size(33, 20);
+            this.textBoxIp2.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp2.TabIndex = 9;
             // 
             // textBoxIp3
             // 
-            this.textBoxIp3.Location = new System.Drawing.Point(146, 27);
+            this.textBoxIp3.Location = new System.Drawing.Point(195, 33);
+            this.textBoxIp3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxIp3.Name = "textBoxIp3";
-            this.textBoxIp3.Size = new System.Drawing.Size(33, 20);
+            this.textBoxIp3.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp3.TabIndex = 10;
             // 
             // textBoxIp4
             // 
-            this.textBoxIp4.Location = new System.Drawing.Point(185, 27);
+            this.textBoxIp4.Location = new System.Drawing.Point(247, 33);
+            this.textBoxIp4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxIp4.Name = "textBoxIp4";
-            this.textBoxIp4.Size = new System.Drawing.Size(33, 20);
+            this.textBoxIp4.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp4.TabIndex = 11;
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(240, 27);
+            this.textBoxPort.Location = new System.Drawing.Point(320, 33);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(50, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(65, 22);
             this.textBoxPort.TabIndex = 12;
             // 
             // buttonTestConnection
             // 
-            this.buttonTestConnection.Location = new System.Drawing.Point(39, 216);
+            this.buttonTestConnection.Location = new System.Drawing.Point(52, 266);
+            this.buttonTestConnection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonTestConnection.Name = "buttonTestConnection";
-            this.buttonTestConnection.Size = new System.Drawing.Size(75, 41);
+            this.buttonTestConnection.Size = new System.Drawing.Size(100, 50);
             this.buttonTestConnection.TabIndex = 13;
             this.buttonTestConnection.Text = "Test connection";
             this.buttonTestConnection.UseVisualStyleBackColor = true;
@@ -155,9 +167,10 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(120, 225);
+            this.buttonAccept.Location = new System.Drawing.Point(160, 277);
+            this.buttonAccept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Size = new System.Drawing.Size(75, 23);
+            this.buttonAccept.Size = new System.Drawing.Size(100, 28);
             this.buttonAccept.TabIndex = 14;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
@@ -165,9 +178,10 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(201, 225);
+            this.buttonExit.Location = new System.Drawing.Point(268, 277);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(75, 23);
+            this.buttonExit.Size = new System.Drawing.Size(100, 28);
             this.buttonExit.TabIndex = 15;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -184,9 +198,11 @@
             this.groupBoxRemote.Controls.Add(this.textBoxIp2);
             this.groupBoxRemote.Controls.Add(this.textBoxIp4);
             this.groupBoxRemote.Controls.Add(this.textBoxIp3);
-            this.groupBoxRemote.Location = new System.Drawing.Point(12, 91);
+            this.groupBoxRemote.Location = new System.Drawing.Point(16, 112);
+            this.groupBoxRemote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxRemote.Name = "groupBoxRemote";
-            this.groupBoxRemote.Size = new System.Drawing.Size(304, 107);
+            this.groupBoxRemote.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxRemote.Size = new System.Drawing.Size(405, 132);
             this.groupBoxRemote.TabIndex = 16;
             this.groupBoxRemote.TabStop = false;
             this.groupBoxRemote.Text = "Specify it details.";
@@ -194,9 +210,10 @@
             // labelRemotePortColon
             // 
             this.labelRemotePortColon.AutoSize = true;
-            this.labelRemotePortColon.Location = new System.Drawing.Point(224, 30);
+            this.labelRemotePortColon.Location = new System.Drawing.Point(299, 37);
+            this.labelRemotePortColon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelRemotePortColon.Name = "labelRemotePortColon";
-            this.labelRemotePortColon.Size = new System.Drawing.Size(10, 13);
+            this.labelRemotePortColon.Size = new System.Drawing.Size(12, 17);
             this.labelRemotePortColon.TabIndex = 13;
             this.labelRemotePortColon.Text = ":";
             // 
@@ -204,9 +221,11 @@
             // 
             this.groupBoxLocal.Controls.Add(this.buttonLocalBrowse);
             this.groupBoxLocal.Controls.Add(this.textBoxLocalPath);
-            this.groupBoxLocal.Location = new System.Drawing.Point(12, 91);
+            this.groupBoxLocal.Location = new System.Drawing.Point(16, 112);
+            this.groupBoxLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxLocal.Name = "groupBoxLocal";
-            this.groupBoxLocal.Size = new System.Drawing.Size(304, 107);
+            this.groupBoxLocal.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxLocal.Size = new System.Drawing.Size(405, 132);
             this.groupBoxLocal.TabIndex = 17;
             this.groupBoxLocal.TabStop = false;
             this.groupBoxLocal.Text = "Select database path.";
@@ -214,9 +233,10 @@
             // 
             // buttonLocalBrowse
             // 
-            this.buttonLocalBrowse.Location = new System.Drawing.Point(93, 66);
+            this.buttonLocalBrowse.Location = new System.Drawing.Point(124, 81);
+            this.buttonLocalBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLocalBrowse.Name = "buttonLocalBrowse";
-            this.buttonLocalBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonLocalBrowse.Size = new System.Drawing.Size(100, 28);
             this.buttonLocalBrowse.TabIndex = 1;
             this.buttonLocalBrowse.Text = "Browse";
             this.buttonLocalBrowse.UseVisualStyleBackColor = true;
@@ -224,16 +244,17 @@
             // 
             // textBoxLocalPath
             // 
-            this.textBoxLocalPath.Location = new System.Drawing.Point(9, 26);
+            this.textBoxLocalPath.Location = new System.Drawing.Point(12, 32);
+            this.textBoxLocalPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxLocalPath.Name = "textBoxLocalPath";
-            this.textBoxLocalPath.Size = new System.Drawing.Size(281, 20);
+            this.textBoxLocalPath.Size = new System.Drawing.Size(373, 22);
             this.textBoxLocalPath.TabIndex = 0;
             // 
             // FormDefineDatabase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 278);
+            this.ClientSize = new System.Drawing.Size(461, 342);
             this.Controls.Add(this.groupBoxRemote);
             this.Controls.Add(this.groupBoxLocal);
             this.Controls.Add(this.buttonExit);
@@ -242,6 +263,7 @@
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.radioButtonRemote);
             this.Controls.Add(this.radioButtonLocal);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormDefineDatabase";
             this.Text = "Leave Manager";
             this.groupBoxRemote.ResumeLayout(false);

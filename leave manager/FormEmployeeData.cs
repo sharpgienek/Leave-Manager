@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     /// <summary>
@@ -79,11 +79,21 @@ namespace leave_manager
                 labelDaysToUseValue.Text = (leaveDays + oldLeaveDays).ToString();
                 this.CommitTransaction();
             }
-            catch
+            catch (SqlException)
             {
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
                 this.RollbackTransaction();
-                throw new NotImplementedException();
-            }//todo obsługa wszystkich wyjątków
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+                this.RollbackTransaction();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.RollbackTransaction();
+            }
         }
 
         //todo wyeliminować tą metodę?
@@ -164,10 +174,25 @@ namespace leave_manager
                 this.CommitTransaction();
                 RefreshData();
             }
-            catch//todo obsługa wszystkich wyjątków.
+            catch (SqlException)
             {
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
                 this.RollbackTransaction();
-                throw new NotImplementedException();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+                this.RollbackTransaction();
+            }
+            catch (IsolationLevelException)
+            {
+                MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+                this.RollbackTransaction();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.RollbackTransaction();
             }
         }
     }

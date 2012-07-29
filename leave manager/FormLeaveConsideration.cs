@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using leave_manager.Exceptions;
 namespace leave_manager
 {
     public partial class FormLeaveConsideration : LeaveManagerForm
@@ -50,14 +50,34 @@ namespace leave_manager
                 labelNameValue.Text = employee.Name;
                 labelPositionValue.Text = employee.Position;
                 DateTime tmp = consideredLeave.FirstDay;
+                bool[] days = this.GetWorkingDaysOfWeek(employee.EmployeeId);
                 while (tmp <= consideredLeave.LastDay)
                 {
-                    dataGridView.Rows.Add(tmp, this.GetSimiliarWorkerCount(this.GetPositionID(employee.Position), employee.EmployeeId, tmp));
+                    if (days[((int)tmp.DayOfWeek + 6) % 7])  
+                        dataGridView.Rows.Add(tmp, this.GetSimiliarWorkerCount(this.GetPositionID(employee.Position), employee.EmployeeId, tmp));
                     tmp = tmp.AddDays(1);
                 }
             }
-            catch//todo obsługa wszystkich wyjątków.
-            { }            
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. This form will be close. Please try again later.");
+                this.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (EmployeeIdException)
+            {
+                MessageBox.Show("EmployeeID not found in database. This form will be close. Please try again later");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.Close();
+            }           
         }
 
         /// <summary>
@@ -87,10 +107,22 @@ namespace leave_manager
                 this.AcceptLeave(consideredLeave.Id);
                 this.Close();
             }
-            catch 
+            catch (SqlException)
             {
-                throw new NotImplementedException();
-            }//todo obsługa wszystkich wyjątków           
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Wrong argument\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }          
         }
 
         /// <summary>
@@ -106,10 +138,22 @@ namespace leave_manager
                 this.RejectLeave(consideredLeave.Id);
                 this.Close();
             }
-            catch 
+            catch (SqlException)
             {
-                throw new NotImplementedException();
-            }//todo obsługa wszystkich wyjątków.
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (IsolationLevelException)
+            {
+                MessageBox.Show("Isolation level error. Please try again later or contact administrator");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }
 
     }

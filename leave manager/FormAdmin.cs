@@ -57,9 +57,17 @@ namespace leave_manager
                 //Schowanie kolumny z numerem id typu urlopu.
                 dataGridViewLeaveTypes.Columns["Leave type id"].Visible = false;
             }
-            catch//todo obsługa wszystkich wyjątków.
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
             }
         }
 
@@ -86,9 +94,17 @@ namespace leave_manager
                 //Ustawienie jako źródła danych obiektu zawierającego dane aktualne.
                 dataGridViewPositions.DataSource = this.GetPositionsTable();
             }
-            catch//todo obsługa wszystkich wyjątków
+            catch (SqlException)
             {
-                throw new NotImplementedException();
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
             }
         }
 
@@ -103,10 +119,18 @@ namespace leave_manager
                 //Ustawienie jako źródła danych obiektu zawierającego dane aktualne.
                 dataGridViewNewEmployees.DataSource = this.GetUninformedEmployees();
             }
-            catch
+            catch (SqlException)
             {
-                throw new NotImplementedException();
-            }//todo obsłużyć wszystkie wyjątki.
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
         }
 
         /// <summary>
@@ -202,9 +226,17 @@ namespace leave_manager
                         using (StreamWriter outfile = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + @"\config.ini"))
                         {
                             //Zapisanie ustawień do pliku.
-                            outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" +
-                                textBoxDataSourceLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
-                            MessageBox.Show("You need to reset your client in order to load new configuration.");
+                            try
+                            {
+                                outfile.Write(@"Data Source=.\SQLEXPRESS;AttachDbFilename=" + "\"" +
+                                    textBoxDataSourceLocalPath.Text + "\"" + ";Integrated Security=True;User Instance=True;");
+                                MessageBox.Show("You need to reset your client in order to load new configuration.");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("An Error has occured. Your new configuration may not be saved. Please try again later\n" + ex.Message);
+                            }
+                            
                         }
                     }
                     else
@@ -242,10 +274,21 @@ namespace leave_manager
                 }
                 this.CommitTransaction();
             }
-            catch 
+            catch (SqlException)
             {
-                throw new NotImplementedException();
-            }//todo obsługa wszystkich wyjątków.
+                MessageBox.Show("SQL error. Please try connection to database or try again later");
+                this.RollbackTransaction();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later.");
+                this.RollbackTransaction();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+                this.RollbackTransaction();
+            }
             RefreshDataGridViewNewEmployees();
         }
 
