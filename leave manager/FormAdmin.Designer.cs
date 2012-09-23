@@ -98,7 +98,7 @@
             this.tabDataSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabDataSource.Name = "tabDataSource";
             this.tabDataSource.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabDataSource.Size = new System.Drawing.Size(851, 521);
+            this.tabDataSource.Size = new System.Drawing.Size(851, 493);
             this.tabDataSource.TabIndex = 1;
             this.tabDataSource.Text = "Data Source";
             this.tabDataSource.UseVisualStyleBackColor = true;
@@ -273,7 +273,7 @@
             this.radioButtonDataSourceRemote.Location = new System.Drawing.Point(11, 68);
             this.radioButtonDataSourceRemote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonDataSourceRemote.Name = "radioButtonDataSourceRemote";
-            this.radioButtonDataSourceRemote.Size = new System.Drawing.Size(104, 26);
+            this.radioButtonDataSourceRemote.Size = new System.Drawing.Size(78, 21);
             this.radioButtonDataSourceRemote.TabIndex = 18;
             this.radioButtonDataSourceRemote.TabStop = true;
             this.radioButtonDataSourceRemote.Text = "Remote";
@@ -285,7 +285,7 @@
             this.radioButtonDataSourceLocal.Location = new System.Drawing.Point(11, 39);
             this.radioButtonDataSourceLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonDataSourceLocal.Name = "radioButtonDataSourceLocal";
-            this.radioButtonDataSourceLocal.Size = new System.Drawing.Size(211, 26);
+            this.radioButtonDataSourceLocal.Size = new System.Drawing.Size(158, 21);
             this.radioButtonDataSourceLocal.TabIndex = 17;
             this.radioButtonDataSourceLocal.Text = "Local (from .mdf file)";
             this.radioButtonDataSourceLocal.UseVisualStyleBackColor = true;
@@ -298,11 +298,11 @@
             this.tabControl.Controls.Add(this.tabPageDictionaries);
             this.tabControl.Controls.Add(this.tabPagePublicHolidays);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 28);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(859, 550);
+            this.tabControl.Size = new System.Drawing.Size(859, 522);
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -315,7 +315,7 @@
             this.tabNewEmployee.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabNewEmployee.Name = "tabNewEmployee";
             this.tabNewEmployee.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabNewEmployee.Size = new System.Drawing.Size(851, 521);
+            this.tabNewEmployee.Size = new System.Drawing.Size(851, 493);
             this.tabNewEmployee.TabIndex = 0;
             this.tabNewEmployee.Text = "New Employees";
             this.tabNewEmployee.UseVisualStyleBackColor = true;
@@ -358,7 +358,7 @@
             this.tabPageDictionaries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPageDictionaries.Name = "tabPageDictionaries";
             this.tabPageDictionaries.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPageDictionaries.Size = new System.Drawing.Size(851, 521);
+            this.tabPageDictionaries.Size = new System.Drawing.Size(851, 493);
             this.tabPageDictionaries.TabIndex = 2;
             this.tabPageDictionaries.Text = "Dictionaries";
             this.tabPageDictionaries.UseVisualStyleBackColor = true;
@@ -372,7 +372,7 @@
             this.tabControlDictionaries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlDictionaries.Name = "tabControlDictionaries";
             this.tabControlDictionaries.SelectedIndex = 0;
-            this.tabControlDictionaries.Size = new System.Drawing.Size(843, 513);
+            this.tabControlDictionaries.Size = new System.Drawing.Size(843, 485);
             this.tabControlDictionaries.TabIndex = 0;
             this.tabControlDictionaries.SelectedIndexChanged += new System.EventHandler(this.tabControlDictionaries_SelectedIndexChanged);
             // 
@@ -386,7 +386,7 @@
             this.tabPagePositions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPagePositions.Name = "tabPagePositions";
             this.tabPagePositions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPagePositions.Size = new System.Drawing.Size(835, 484);
+            this.tabPagePositions.Size = new System.Drawing.Size(835, 456);
             this.tabPagePositions.TabIndex = 0;
             this.tabPagePositions.Text = "Positions";
             this.tabPagePositions.UseVisualStyleBackColor = true;
@@ -500,10 +500,11 @@
             this.tabPagePublicHolidays.Controls.Add(this.buttonAddPublicHoliday);
             this.tabPagePublicHolidays.Controls.Add(this.labelPublicHolidaysInfo);
             this.tabPagePublicHolidays.Controls.Add(this.dataGridViewPublicHolidays);
-            this.tabPagePublicHolidays.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePublicHolidays.Location = new System.Drawing.Point(4, 25);
+            this.tabPagePublicHolidays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPagePublicHolidays.Name = "tabPagePublicHolidays";
-            this.tabPagePublicHolidays.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePublicHolidays.Size = new System.Drawing.Size(636, 421);
+            this.tabPagePublicHolidays.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPagePublicHolidays.Size = new System.Drawing.Size(851, 493);
             this.tabPagePublicHolidays.TabIndex = 3;
             this.tabPagePublicHolidays.Text = "Public Holidays";
             this.tabPagePublicHolidays.UseVisualStyleBackColor = true;
@@ -511,8 +512,9 @@
             // buttonDeletePublicHoliday
             // 
             this.buttonDeletePublicHoliday.Location = new System.Drawing.Point(367, 324);
+            this.buttonDeletePublicHoliday.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonDeletePublicHoliday.Name = "buttonDeletePublicHoliday";
-            this.buttonDeletePublicHoliday.Size = new System.Drawing.Size(105, 51);
+            this.buttonDeletePublicHoliday.Size = new System.Drawing.Size(105, 50);
             this.buttonDeletePublicHoliday.TabIndex = 3;
             this.buttonDeletePublicHoliday.Text = "Delete selected holidays";
             this.buttonDeletePublicHoliday.UseVisualStyleBackColor = true;
@@ -521,8 +523,9 @@
             // buttonAddPublicHoliday
             // 
             this.buttonAddPublicHoliday.Location = new System.Drawing.Point(148, 324);
+            this.buttonAddPublicHoliday.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAddPublicHoliday.Name = "buttonAddPublicHoliday";
-            this.buttonAddPublicHoliday.Size = new System.Drawing.Size(101, 51);
+            this.buttonAddPublicHoliday.Size = new System.Drawing.Size(101, 50);
             this.buttonAddPublicHoliday.TabIndex = 2;
             this.buttonAddPublicHoliday.Text = "Add new public holiday";
             this.buttonAddPublicHoliday.UseVisualStyleBackColor = true;
@@ -533,7 +536,7 @@
             this.labelPublicHolidaysInfo.AutoSize = true;
             this.labelPublicHolidaysInfo.Location = new System.Drawing.Point(9, 7);
             this.labelPublicHolidaysInfo.Name = "labelPublicHolidaysInfo";
-            this.labelPublicHolidaysInfo.Size = new System.Drawing.Size(211, 13);
+            this.labelPublicHolidaysInfo.Size = new System.Drawing.Size(281, 17);
             this.labelPublicHolidaysInfo.TabIndex = 1;
             this.labelPublicHolidaysInfo.Text = "Here you can manage public holidays data.";
             // 
@@ -541,8 +544,9 @@
             // 
             this.dataGridViewPublicHolidays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPublicHolidays.Location = new System.Drawing.Point(184, 60);
+            this.dataGridViewPublicHolidays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridViewPublicHolidays.Name = "dataGridViewPublicHolidays";
-            this.dataGridViewPublicHolidays.Size = new System.Drawing.Size(254, 249);
+            this.dataGridViewPublicHolidays.Size = new System.Drawing.Size(253, 249);
             this.dataGridViewPublicHolidays.TabIndex = 0;
             // 
             // FormAdmin
@@ -554,6 +558,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormAdmin";
             this.Text = "Leave Manager";
+            this.Controls.SetChildIndex(this.tabControl, 0);
             this.tabDataSource.ResumeLayout(false);
             this.tabDataSource.PerformLayout();
             this.groupBoxDataSourceLocal.ResumeLayout(false);
@@ -576,6 +581,7 @@
             this.tabPagePublicHolidays.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPublicHolidays)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

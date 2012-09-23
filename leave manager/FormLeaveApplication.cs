@@ -287,7 +287,7 @@ namespace leave_manager
                      * Jeżeli zgłoszenie jest zgłoszeniem chorobowego, to może kolidować z innymi zgłoszeniami.
                      */
                     if ((!editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId))
-                        || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, editedLeave.Id))
+                        || (editMode && !this.IsDateFromPeriodUsed(dateTimePickerFirstDay.Value, dateTimePickerLastDay.Value, employeeId, editedLeave.FirstDay))
                         || comboBoxType.SelectedItem.ToString().Equals("Sick"))
                     {
                         string choosenStatus;

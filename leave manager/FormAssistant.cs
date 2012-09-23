@@ -34,8 +34,87 @@ namespace leave_manager
             //Wczytanie wszystkich pracowników do tabeli z pracownikami.
             LoadAllDataGridViewEmployees();
             LoadAllPositionComboBox();
+            RefreshReplacments();
         }
 
+        /// <summary>
+        /// Metoda stworzona do obsługi zdarzeń, odświerza tabliće zastępstw
+        /// </summary>
+        /// <param name="o">Obiekt zgłaszający zdarzenie</param>
+        /// <param name="e">Argumenty</param>
+        private void RefreshReplacments(object o, FormClosedEventArgs e)
+        {
+            RefreshReplacments();
+        }
+
+        /// <summary>
+        /// Odświerza tablicę zastępstw
+        /// </summary>
+        private void RefreshReplacments()
+        {
+            DataTable leaves = this.GetLeavesForFuture();
+            DateTime dateStart, dateEnd, previousEnd = new DateTime();
+            dataGridViewReplacements.Rows.Clear();
+            string positionDesc = (string)comboBoxReplacementsPosition.SelectedValue;
+            bool filter = false;
+            int positionFilter = -1;
+            if (positionDesc != null && positionDesc != "")
+            {
+                filter = true;
+                positionFilter = this.GetPositionID(positionDesc);
+            }
+            foreach (DataRow row in leaves.Rows)
+            {
+                dateStart = (DateTime)row["First_day"];
+                dateEnd = (DateTime)row["Last_day"];
+                if (dateStart < previousEnd)
+                    dateStart = previousEnd.AddDays(1);
+                int positionId = (int) row["Position_ID"];
+                if (filter)
+                    if (positionId != positionFilter)
+                        continue;
+                if (dateStart < this.GetServerTimeNow())
+                    dateStart = this.GetServerTimeNow();
+                while(dateStart <= dateEnd)
+                {
+                    if (!IsHoliday(dateStart))
+                    {
+                        int availableWorkers = this.GetAvailableWorkerCount(positionId, dateStart);
+                        int neededWorkers = this.GetNeededEmployeesNo(dateStart);
+                        if (availableWorkers < neededWorkers)
+                        {
+                            dataGridViewReplacements.Rows.Add(dateStart.Date, neededWorkers, availableWorkers, this.GetPositionDescription(positionId));
+                        }
+                    }
+                    dateStart = dateStart.AddDays(1);
+                }
+                previousEnd = dateEnd;
+            }
+        }
+
+        /// <summary>
+        /// Metoda sprawdza czy podana data jest świętem.
+        /// </summary>
+        /// <param name="date">Data do sprawdzenia</param>
+        /// <returns>Prawdę jeśli w danym dniu jest święto lub fałsz jeśli nie</returns>
+        private bool IsHoliday(DateTime date)
+        {
+            List<DateTime> holidays;
+            try
+            {
+                holidays = this.GetPublicHolidays();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            foreach (DateTime tmp in holidays)
+            {
+                if (tmp == date)
+                    return true;
+            }
+            return false;
+        }
         /// <summary>
         /// Metoda odpowiedzialna za wczytanie z bazy danych informacji o możliwych pozycjach pracowników i umieszczenie ich w odpowiednim
         /// combo boxie.
@@ -263,6 +342,54 @@ namespace leave_manager
             {
                 MessageBox.Show("Unknown exception has occured" + ex.Message);
             }
-        }      
+        }
+
+        private void buttonReplacementsManage_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewReplacements.SelectedCells)
+            {
+                if (cell.Value != null)
+                    dataGridViewReplacements.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewReplacements.SelectedRows)
+            {
+                //Tworzymy formularz danych pracownika.
+                FormReplacement form = new FormReplacement((string) row.Cells["Position"].Value, (DateTime) row.Cells["Date"].Value, connection);
+                /* Dodana zostaje metoda odświeżania tabeli oczekujących aplikacji urlopowych do obsługi
+                 * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
+                 * pracownika zmiany właściwości jego aplikacji urlopowych.
+                 */
+                form.FormClosed += new FormClosedEventHandler(RefreshReplacments);
+                //Wyświetlenie formularza danych pracownika.
+                form.Show();
+            }
+        }
+
+        /// <summary>
+        /// Metoda obsługi zdarzenia zmiany zaznaczenia zakładki. W razie potrzeby
+        /// odświeża odpowiednie dane.
+        /// </summary>
+        /// <param name="sender">Obiekt wysyłający.</param>
+        /// <param name="e">Argumenty.</param>
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Jeżeli zaznaczono zakładkę pracowników to odśwież tabele pracowników.
+            if (tabControl.SelectedTab.Text.Equals("Employees"))
+                LoadAllDataGridViewEmployees();
+            else
+                //Jeżeli zaznaczono zakładkę ze zgłoszeniami wymagającymi działania, to odśwież tam dane.
+                if (tabControl.SelectedTab.Text.Equals("Needs your action"))
+                    RefreshDataGridViewPendingAplications();
+                else
+                    if (tabControl.SelectedTab.Text.Equals("Replacments"))
+                        RefreshReplacments();
+        }
+
+        private void comboBoxReplacementsPosition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshReplacments();
+        }
     }
 }

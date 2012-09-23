@@ -44,84 +44,94 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(22, 13);
+            this.labelInfo.Location = new System.Drawing.Point(29, 28);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(221, 13);
+            this.labelInfo.Size = new System.Drawing.Size(295, 17);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Here you can change your login or password.";
             // 
             // textBoxOldPassword
             // 
-            this.textBoxOldPassword.Location = new System.Drawing.Point(143, 49);
+            this.textBoxOldPassword.Location = new System.Drawing.Point(191, 60);
+            this.textBoxOldPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxOldPassword.Name = "textBoxOldPassword";
             this.textBoxOldPassword.PasswordChar = '*';
-            this.textBoxOldPassword.Size = new System.Drawing.Size(157, 20);
+            this.textBoxOldPassword.Size = new System.Drawing.Size(208, 22);
             this.textBoxOldPassword.TabIndex = 1;
             // 
             // textBoxNewLogin
             // 
-            this.textBoxNewLogin.Location = new System.Drawing.Point(143, 75);
+            this.textBoxNewLogin.Location = new System.Drawing.Point(191, 92);
+            this.textBoxNewLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxNewLogin.Name = "textBoxNewLogin";
-            this.textBoxNewLogin.Size = new System.Drawing.Size(157, 20);
+            this.textBoxNewLogin.Size = new System.Drawing.Size(208, 22);
             this.textBoxNewLogin.TabIndex = 2;
             // 
             // textBoxNewPassword
             // 
-            this.textBoxNewPassword.Location = new System.Drawing.Point(143, 101);
+            this.textBoxNewPassword.Location = new System.Drawing.Point(191, 124);
+            this.textBoxNewPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxNewPassword.Name = "textBoxNewPassword";
             this.textBoxNewPassword.PasswordChar = '*';
-            this.textBoxNewPassword.Size = new System.Drawing.Size(157, 20);
+            this.textBoxNewPassword.Size = new System.Drawing.Size(208, 22);
             this.textBoxNewPassword.TabIndex = 3;
             // 
             // textBoxRepeatNewPassword
             // 
-            this.textBoxRepeatNewPassword.Location = new System.Drawing.Point(142, 127);
+            this.textBoxRepeatNewPassword.Location = new System.Drawing.Point(189, 156);
+            this.textBoxRepeatNewPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxRepeatNewPassword.Name = "textBoxRepeatNewPassword";
             this.textBoxRepeatNewPassword.PasswordChar = '*';
-            this.textBoxRepeatNewPassword.Size = new System.Drawing.Size(158, 20);
+            this.textBoxRepeatNewPassword.Size = new System.Drawing.Size(209, 22);
             this.textBoxRepeatNewPassword.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 52);
+            this.label1.Location = new System.Drawing.Point(29, 64);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Old password:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 78);
+            this.label2.Location = new System.Drawing.Point(29, 96);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(73, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "New login:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 104);
+            this.label3.Location = new System.Drawing.Point(29, 128);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.Size = new System.Drawing.Size(103, 17);
             this.label3.TabIndex = 7;
             this.label3.Text = "New password:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 130);
+            this.label4.Location = new System.Drawing.Point(27, 160);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 13);
+            this.label4.Size = new System.Drawing.Size(151, 17);
             this.label4.TabIndex = 8;
             this.label4.Text = "Repeat new password:";
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(31, 185);
+            this.buttonAccept.Location = new System.Drawing.Point(41, 228);
+            this.buttonAccept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Size = new System.Drawing.Size(75, 23);
+            this.buttonAccept.Size = new System.Drawing.Size(100, 28);
             this.buttonAccept.TabIndex = 9;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
@@ -129,9 +139,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(216, 185);
+            this.buttonCancel.Location = new System.Drawing.Point(288, 228);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -139,9 +150,9 @@
             // 
             // FormChangeLoginOrPassword
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 239);
+            this.ClientSize = new System.Drawing.Size(443, 294);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.label4);
@@ -153,8 +164,20 @@
             this.Controls.Add(this.textBoxNewLogin);
             this.Controls.Add(this.textBoxOldPassword);
             this.Controls.Add(this.labelInfo);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormChangeLoginOrPassword";
             this.Text = "Leave Manager";
+            this.Controls.SetChildIndex(this.labelInfo, 0);
+            this.Controls.SetChildIndex(this.textBoxOldPassword, 0);
+            this.Controls.SetChildIndex(this.textBoxNewLogin, 0);
+            this.Controls.SetChildIndex(this.textBoxNewPassword, 0);
+            this.Controls.SetChildIndex(this.textBoxRepeatNewPassword, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.buttonAccept, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -53,8 +53,8 @@ namespace leave_manager
                 bool[] days = this.GetWorkingDaysOfWeek(employee.EmployeeId);
                 while (tmp <= consideredLeave.LastDay)
                 {
-                    if (days[((int)tmp.DayOfWeek + 6) % 7])  
-                        dataGridView.Rows.Add(tmp, this.GetSimiliarWorkerCount(this.GetPositionID(employee.Position), employee.EmployeeId, tmp));
+                    if (days[((int)tmp.DayOfWeek + 6) % 7] && !IsHoliday(tmp))  
+                        dataGridView.Rows.Add(tmp, this.GetSimiliarWorkerCount(this.GetPositionID(employee.Position), employee.EmployeeId, tmp), this.GetNeededEmployeesNo(tmp));
                     tmp = tmp.AddDays(1);
                 }
             }
@@ -80,6 +80,24 @@ namespace leave_manager
             }           
         }
 
+        private bool IsHoliday(DateTime date)
+        {
+            List<DateTime> holidays;
+            try
+            {
+                holidays = this.GetPublicHolidays();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            foreach (DateTime tmp in holidays)
+            {
+                if (tmp == date)
+                    return true;
+            }
+            return false;
+        }
         /// <summary>
         /// Metoda obsługi wciśnięcia guzika pozostawienia zgłoszenia bez zmian.
         /// Zamyka formularz.

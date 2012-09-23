@@ -39,17 +39,17 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(16, 11);
+            this.labelInfo.Location = new System.Drawing.Point(13, 37);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(336, 17);
+            this.labelInfo.Size = new System.Drawing.Size(337, 17);
             this.labelInfo.TabIndex = 0;
-            this.labelInfo.Text = "Here you can add new position to position dictionay.";
+            this.labelInfo.Text = "Here you can add new leave type to leave dictionay.";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(133, 46);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxName.Location = new System.Drawing.Point(150, 67);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(199, 22);
             this.textBoxName.TabIndex = 1;
@@ -57,17 +57,17 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(24, 49);
+            this.labelName.Location = new System.Drawing.Point(21, 67);
             this.labelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(101, 17);
+            this.labelName.Size = new System.Drawing.Size(121, 17);
             this.labelName.TabIndex = 2;
-            this.labelName.Text = "Position name:";
+            this.labelName.Text = "Leave type name:";
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(41, 105);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAdd.Location = new System.Drawing.Point(58, 126);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(100, 28);
             this.buttonAdd.TabIndex = 3;
@@ -77,8 +77,8 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(211, 105);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(228, 126);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 4;
@@ -89,8 +89,8 @@
             // checkBoxConsumesDays
             // 
             this.checkBoxConsumesDays.AutoSize = true;
-            this.checkBoxConsumesDays.Location = new System.Drawing.Point(133, 76);
-            this.checkBoxConsumesDays.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxConsumesDays.Location = new System.Drawing.Point(150, 97);
+            this.checkBoxConsumesDays.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxConsumesDays.Name = "checkBoxConsumesDays";
             this.checkBoxConsumesDays.Size = new System.Drawing.Size(130, 21);
             this.checkBoxConsumesDays.TabIndex = 5;
@@ -101,16 +101,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 148);
+            this.ClientSize = new System.Drawing.Size(423, 184);
             this.Controls.Add(this.checkBoxConsumesDays);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelInfo);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormAddLeaveType";
             this.Text = "FormAddPosition";
+            this.Controls.SetChildIndex(this.labelInfo, 0);
+            this.Controls.SetChildIndex(this.textBoxName, 0);
+            this.Controls.SetChildIndex(this.labelName, 0);
+            this.Controls.SetChildIndex(this.buttonAdd, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.checkBoxConsumesDays, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

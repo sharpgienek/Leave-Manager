@@ -54,10 +54,10 @@
             this.comboBoxReplacementsPosition = new System.Windows.Forms.ComboBox();
             this.buttonReplacementsManage = new System.Windows.Forms.Button();
             this.dataGridViewReplacements = new System.Windows.Forms.DataGridView();
-            this.ColumnReplacementsDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsWorkersNeeded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnReplacementsWorkersAvailable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnReplacementsPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageNeedsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPendingAplications)).BeginInit();
@@ -73,11 +73,11 @@
             this.tabControl.Controls.Add(this.tabPageEmployees);
             this.tabControl.Controls.Add(this.tabPageReplacements);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 28);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(948, 549);
+            this.tabControl.Size = new System.Drawing.Size(948, 521);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageNeedsAction
@@ -90,7 +90,7 @@
             this.tabPageNeedsAction.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageNeedsAction.Name = "tabPageNeedsAction";
             this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageNeedsAction.Size = new System.Drawing.Size(940, 520);
+            this.tabPageNeedsAction.Size = new System.Drawing.Size(940, 492);
             this.tabPageNeedsAction.TabIndex = 0;
             this.tabPageNeedsAction.Text = "Needs your action";
             this.tabPageNeedsAction.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             this.tabPageEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageEmployees.Name = "tabPageEmployees";
             this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageEmployees.Size = new System.Drawing.Size(940, 520);
+            this.tabPageEmployees.Size = new System.Drawing.Size(940, 492);
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
             this.tabPageEmployees.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@
             this.tabPageReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReplacements.Name = "tabPageReplacements";
             this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageReplacements.Size = new System.Drawing.Size(940, 520);
+            this.tabPageReplacements.Size = new System.Drawing.Size(940, 492);
             this.tabPageReplacements.TabIndex = 2;
             this.tabPageReplacements.Text = "Replacements";
             this.tabPageReplacements.UseVisualStyleBackColor = true;
@@ -332,6 +332,7 @@
             this.comboBoxReplacementsPosition.Name = "comboBoxReplacementsPosition";
             this.comboBoxReplacementsPosition.Size = new System.Drawing.Size(160, 24);
             this.comboBoxReplacementsPosition.TabIndex = 2;
+            this.comboBoxReplacementsPosition.SelectedIndexChanged += new System.EventHandler(this.comboBoxReplacementsPosition_SelectedIndexChanged);
             // 
             // buttonReplacementsManage
             // 
@@ -342,15 +343,16 @@
             this.buttonReplacementsManage.TabIndex = 1;
             this.buttonReplacementsManage.Text = "Manage replacement";
             this.buttonReplacementsManage.UseVisualStyleBackColor = true;
+            this.buttonReplacementsManage.Click += new System.EventHandler(this.buttonReplacementsManage_Click);
             // 
             // dataGridViewReplacements
             // 
             this.dataGridViewReplacements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewReplacements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnReplacementsDate,
+            this.Date,
             this.ColumnReplacementsWorkersNeeded,
             this.ColumnReplacementsWorkersAvailable,
-            this.ColumnReplacementsPosition});
+            this.Position});
             this.dataGridViewReplacements.Location = new System.Drawing.Point(157, 78);
             this.dataGridViewReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewReplacements.Name = "dataGridViewReplacements";
@@ -359,11 +361,11 @@
             this.dataGridViewReplacements.Size = new System.Drawing.Size(591, 282);
             this.dataGridViewReplacements.TabIndex = 0;
             // 
-            // ColumnReplacementsDate
+            // Date
             // 
-            this.ColumnReplacementsDate.HeaderText = "Date";
-            this.ColumnReplacementsDate.Name = "ColumnReplacementsDate";
-            this.ColumnReplacementsDate.ReadOnly = true;
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // ColumnReplacementsWorkersNeeded
             // 
@@ -377,11 +379,11 @@
             this.ColumnReplacementsWorkersAvailable.Name = "ColumnReplacementsWorkersAvailable";
             this.ColumnReplacementsWorkersAvailable.ReadOnly = true;
             // 
-            // ColumnReplacementsPosition
+            // Position
             // 
-            this.ColumnReplacementsPosition.HeaderText = "position";
-            this.ColumnReplacementsPosition.Name = "ColumnReplacementsPosition";
-            this.ColumnReplacementsPosition.ReadOnly = true;
+            this.Position.HeaderText = "position";
+            this.Position.Name = "Position";
+            this.Position.ReadOnly = true;
             // 
             // FormAssistant
             // 
@@ -392,6 +394,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormAssistant";
             this.Text = "Leave Manager";
+            this.Controls.SetChildIndex(this.tabControl, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageNeedsAction.ResumeLayout(false);
             this.tabPageNeedsAction.PerformLayout();
@@ -403,6 +406,7 @@
             this.tabPageReplacements.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReplacements)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -430,13 +434,13 @@
         private System.Windows.Forms.ComboBox comboBoxReplacementsPosition;
         private System.Windows.Forms.Label labelReplacementsPositionFilter;
         private System.Windows.Forms.Label labelReplacementsInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersNeeded;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersAvailable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsPosition;
         private System.Windows.Forms.TextBox textBoxEmployeesPesel;
         private System.Windows.Forms.TextBox textBoxEmployeesSurname;
         private System.Windows.Forms.Label labelEmployeesPesel;
         private System.Windows.Forms.Label labelEmployeesSurname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersNeeded;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnReplacementsWorkersAvailable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
     }
 }

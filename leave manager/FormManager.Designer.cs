@@ -57,11 +57,14 @@
             this.comboBoxReplacementsPosition = new System.Windows.Forms.ComboBox();
             this.buttonReplacementsManage = new System.Windows.Forms.Button();
             this.dataGridViewReplacements = new System.Windows.Forms.DataGridView();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageReport = new System.Windows.Forms.TabPage();
+            this.comboBoxContentSelection = new System.Windows.Forms.ComboBox();
+            this.labelView = new System.Windows.Forms.Label();
+            this.dataGridViewReport = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabPageNeedsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNeedsAction)).BeginInit();
@@ -69,6 +72,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmployees)).BeginInit();
             this.tabPageReplacements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReplacements)).BeginInit();
+            this.tabPageReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReport)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -78,11 +83,11 @@
             this.tabControl.Controls.Add(this.tabPageReplacements);
             this.tabControl.Controls.Add(this.tabPageReport);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl.Location = new System.Drawing.Point(0, 28);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(952, 545);
+            this.tabControl.Size = new System.Drawing.Size(952, 517);
             this.tabControl.TabIndex = 1;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -93,10 +98,10 @@
             this.tabPageNeedsAction.Controls.Add(this.labelNeedsActionInfo);
             this.tabPageNeedsAction.Controls.Add(this.dataGridViewNeedsAction);
             this.tabPageNeedsAction.Location = new System.Drawing.Point(4, 25);
-            this.tabPageNeedsAction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageNeedsAction.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageNeedsAction.Name = "tabPageNeedsAction";
-            this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPageNeedsAction.Size = new System.Drawing.Size(944, 516);
+            this.tabPageNeedsAction.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageNeedsAction.Size = new System.Drawing.Size(944, 488);
             this.tabPageNeedsAction.TabIndex = 0;
             this.tabPageNeedsAction.Text = "Needs your action";
             this.tabPageNeedsAction.UseVisualStyleBackColor = true;
@@ -104,7 +109,7 @@
             // buttonReject
             // 
             this.buttonReject.Location = new System.Drawing.Point(640, 406);
-            this.buttonReject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonReject.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReject.Name = "buttonReject";
             this.buttonReject.Size = new System.Drawing.Size(121, 50);
             this.buttonReject.TabIndex = 3;
@@ -114,7 +119,7 @@
             // buttonConsider
             // 
             this.buttonConsider.Location = new System.Drawing.Point(115, 417);
-            this.buttonConsider.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonConsider.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConsider.Name = "buttonConsider";
             this.buttonConsider.Size = new System.Drawing.Size(100, 28);
             this.buttonConsider.TabIndex = 2;
@@ -136,7 +141,7 @@
             // 
             this.dataGridViewNeedsAction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewNeedsAction.Location = new System.Drawing.Point(12, 60);
-            this.dataGridViewNeedsAction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewNeedsAction.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewNeedsAction.Name = "dataGridViewNeedsAction";
             this.dataGridViewNeedsAction.ReadOnly = true;
             this.dataGridViewNeedsAction.RowTemplate.Height = 24;
@@ -162,9 +167,9 @@
             this.tabPageEmployees.Controls.Add(this.labelEmployeesName);
             this.tabPageEmployees.Controls.Add(this.labelEmployeesInfo);
             this.tabPageEmployees.Location = new System.Drawing.Point(4, 25);
-            this.tabPageEmployees.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageEmployees.Name = "tabPageEmployees";
-            this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageEmployees.Size = new System.Drawing.Size(944, 516);
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
@@ -173,7 +178,7 @@
             // buttonEditSchedule
             // 
             this.buttonEditSchedule.Location = new System.Drawing.Point(213, 442);
-            this.buttonEditSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEditSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEditSchedule.Name = "buttonEditSchedule";
             this.buttonEditSchedule.Size = new System.Drawing.Size(127, 50);
             this.buttonEditSchedule.TabIndex = 15;
@@ -229,7 +234,7 @@
             // buttonEmployeesAdd
             // 
             this.buttonEmployeesAdd.Location = new System.Drawing.Point(593, 438);
-            this.buttonEmployeesAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEmployeesAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesAdd.Name = "buttonEmployeesAdd";
             this.buttonEmployeesAdd.Size = new System.Drawing.Size(128, 58);
             this.buttonEmployeesAdd.TabIndex = 9;
@@ -240,7 +245,7 @@
             // buttonEmployeesDetailedData
             // 
             this.buttonEmployeesDetailedData.Location = new System.Drawing.Point(71, 437);
-            this.buttonEmployeesDetailedData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEmployeesDetailedData.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesDetailedData.Name = "buttonEmployeesDetailedData";
             this.buttonEmployeesDetailedData.Size = new System.Drawing.Size(132, 59);
             this.buttonEmployeesDetailedData.TabIndex = 8;
@@ -252,7 +257,7 @@
             // 
             this.dataGridViewEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEmployees.Location = new System.Drawing.Point(32, 191);
-            this.dataGridViewEmployees.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
             this.dataGridViewEmployees.ReadOnly = true;
             this.dataGridViewEmployees.RowTemplate.Height = 24;
@@ -262,7 +267,7 @@
             // buttonEmployeesShowAll
             // 
             this.buttonEmployeesShowAll.Location = new System.Drawing.Point(473, 126);
-            this.buttonEmployeesShowAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEmployeesShowAll.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
             this.buttonEmployeesShowAll.Size = new System.Drawing.Size(100, 44);
             this.buttonEmployeesShowAll.TabIndex = 6;
@@ -272,7 +277,7 @@
             // buttonEmployeesSearch
             // 
             this.buttonEmployeesSearch.Location = new System.Drawing.Point(156, 142);
-            this.buttonEmployeesSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEmployeesSearch.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmployeesSearch.Name = "buttonEmployeesSearch";
             this.buttonEmployeesSearch.Size = new System.Drawing.Size(100, 28);
             this.buttonEmployeesSearch.TabIndex = 5;
@@ -284,7 +289,7 @@
             // 
             this.comboBoxEmployeesPosition.FormattingEnabled = true;
             this.comboBoxEmployeesPosition.Location = new System.Drawing.Point(613, 79);
-            this.comboBoxEmployeesPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxEmployeesPosition.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxEmployeesPosition.Name = "comboBoxEmployeesPosition";
             this.comboBoxEmployeesPosition.Size = new System.Drawing.Size(183, 24);
             this.comboBoxEmployeesPosition.TabIndex = 4;
@@ -302,7 +307,7 @@
             // textBoxEmployeesName
             // 
             this.textBoxEmployeesName.Location = new System.Drawing.Point(156, 42);
-            this.textBoxEmployeesName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxEmployeesName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxEmployeesName.Name = "textBoxEmployeesName";
             this.textBoxEmployeesName.Size = new System.Drawing.Size(183, 22);
             this.textBoxEmployeesName.TabIndex = 2;
@@ -335,9 +340,9 @@
             this.tabPageReplacements.Controls.Add(this.buttonReplacementsManage);
             this.tabPageReplacements.Controls.Add(this.dataGridViewReplacements);
             this.tabPageReplacements.Location = new System.Drawing.Point(4, 25);
-            this.tabPageReplacements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReplacements.Name = "tabPageReplacements";
-            this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageReplacements.Size = new System.Drawing.Size(944, 516);
             this.tabPageReplacements.TabIndex = 2;
             this.tabPageReplacements.Text = "Replacements";
@@ -367,7 +372,7 @@
             // 
             this.comboBoxReplacementsPosition.FormattingEnabled = true;
             this.comboBoxReplacementsPosition.Location = new System.Drawing.Point(295, 48);
-            this.comboBoxReplacementsPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxReplacementsPosition.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxReplacementsPosition.Name = "comboBoxReplacementsPosition";
             this.comboBoxReplacementsPosition.Size = new System.Drawing.Size(160, 24);
             this.comboBoxReplacementsPosition.TabIndex = 5;
@@ -375,34 +380,35 @@
             // buttonReplacementsManage
             // 
             this.buttonReplacementsManage.Location = new System.Drawing.Point(384, 380);
-            this.buttonReplacementsManage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonReplacementsManage.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReplacementsManage.Name = "buttonReplacementsManage";
             this.buttonReplacementsManage.Size = new System.Drawing.Size(121, 46);
             this.buttonReplacementsManage.TabIndex = 1;
             this.buttonReplacementsManage.Text = "Manage replacement";
             this.buttonReplacementsManage.UseVisualStyleBackColor = true;
+            this.buttonReplacementsManage.Click += new System.EventHandler(this.buttonReplacementsManage_Click);
             // 
             // dataGridViewReplacements
             // 
             this.dataGridViewReplacements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewReplacements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column12,
+            this.Date,
             this.Column13,
             this.Column14,
-            this.Column15});
+            this.Position});
             this.dataGridViewReplacements.Location = new System.Drawing.Point(157, 78);
-            this.dataGridViewReplacements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewReplacements.Name = "dataGridViewReplacements";
             this.dataGridViewReplacements.ReadOnly = true;
             this.dataGridViewReplacements.RowTemplate.Height = 24;
             this.dataGridViewReplacements.Size = new System.Drawing.Size(591, 282);
             this.dataGridViewReplacements.TabIndex = 0;
             // 
-            // Column12
+            // Date
             // 
-            this.Column12.HeaderText = "Date";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // Column13
             // 
@@ -416,22 +422,56 @@
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
             // 
-            // Column15
+            // Position
             // 
-            this.Column15.HeaderText = "position";
-            this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
+            this.Position.HeaderText = "position";
+            this.Position.Name = "Position";
+            this.Position.ReadOnly = true;
             // 
             // tabPageReport
             // 
+            this.tabPageReport.Controls.Add(this.comboBoxContentSelection);
+            this.tabPageReport.Controls.Add(this.labelView);
+            this.tabPageReport.Controls.Add(this.dataGridViewReport);
             this.tabPageReport.Location = new System.Drawing.Point(4, 25);
-            this.tabPageReport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageReport.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReport.Name = "tabPageReport";
-            this.tabPageReport.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageReport.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageReport.Size = new System.Drawing.Size(944, 516);
             this.tabPageReport.TabIndex = 3;
             this.tabPageReport.Text = "Report";
             this.tabPageReport.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxContentSelection
+            // 
+            this.comboBoxContentSelection.FormattingEnabled = true;
+            this.comboBoxContentSelection.Items.AddRange(new object[] {
+            "leave history",
+            "employees currently on leave"});
+            this.comboBoxContentSelection.Location = new System.Drawing.Point(159, 53);
+            this.comboBoxContentSelection.Name = "comboBoxContentSelection";
+            this.comboBoxContentSelection.Size = new System.Drawing.Size(196, 24);
+            this.comboBoxContentSelection.TabIndex = 2;
+            this.comboBoxContentSelection.SelectedIndexChanged += new System.EventHandler(this.comboBoxContentSelection_SelectedIndexChanged);
+            // 
+            // labelView
+            // 
+            this.labelView.AutoSize = true;
+            this.labelView.Location = new System.Drawing.Point(69, 56);
+            this.labelView.Name = "labelView";
+            this.labelView.Size = new System.Drawing.Size(37, 17);
+            this.labelView.TabIndex = 1;
+            this.labelView.Text = "View";
+            // 
+            // dataGridViewReport
+            // 
+            this.dataGridViewReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewReport.Location = new System.Drawing.Point(142, 117);
+            this.dataGridViewReport.Name = "dataGridViewReport";
+            this.dataGridViewReport.ReadOnly = true;
+            this.dataGridViewReport.RowTemplate.Height = 24;
+            this.dataGridViewReport.Size = new System.Drawing.Size(643, 360);
+            this.dataGridViewReport.TabIndex = 0;
             // 
             // FormManager
             // 
@@ -439,9 +479,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 545);
             this.Controls.Add(this.tabControl);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormManager";
             this.Text = "Leave Manager";
+            this.Controls.SetChildIndex(this.tabControl, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageNeedsAction.ResumeLayout(false);
             this.tabPageNeedsAction.PerformLayout();
@@ -452,7 +493,11 @@
             this.tabPageReplacements.ResumeLayout(false);
             this.tabPageReplacements.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReplacements)).EndInit();
+            this.tabPageReport.ResumeLayout(false);
+            this.tabPageReport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReport)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -477,10 +522,6 @@
         private System.Windows.Forms.TabPage tabPageReplacements;
         private System.Windows.Forms.Button buttonReplacementsManage;
         private System.Windows.Forms.DataGridView dataGridViewReplacements;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.Button buttonEmployeesAdd;
         private System.Windows.Forms.TabPage tabPageReport;
         private System.Windows.Forms.Label labelReplacementsPositionFilter;
@@ -492,6 +533,13 @@
         private System.Windows.Forms.TextBox textBoxEmployeesPesel;
         private System.Windows.Forms.Button buttonEmployeeEdit;
         private System.Windows.Forms.Button buttonEditSchedule;
+        private System.Windows.Forms.DataGridView dataGridViewReport;
+        private System.Windows.Forms.Label labelView;
+        private System.Windows.Forms.ComboBox comboBoxContentSelection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
 
     }
 }

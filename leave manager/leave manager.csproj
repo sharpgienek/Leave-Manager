@@ -249,6 +249,9 @@
     <EmbeddedResource Include="FormWorkSchedule.resx">
       <DependentUpon>FormWorkSchedule.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LeaveManagerForm.resx">
+      <DependentUpon>LeaveManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

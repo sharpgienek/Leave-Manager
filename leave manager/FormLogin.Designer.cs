@@ -40,52 +40,58 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(13, 13);
+            this.labelInfo.Location = new System.Drawing.Point(19, 28);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(208, 13);
+            this.labelInfo.Size = new System.Drawing.Size(274, 17);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Welcome to Leave Manager. Please login.";
             // 
             // labelLogin
             // 
             this.labelLogin.AutoSize = true;
-            this.labelLogin.Location = new System.Drawing.Point(14, 57);
+            this.labelLogin.Location = new System.Drawing.Point(19, 70);
+            this.labelLogin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(36, 13);
+            this.labelLogin.Size = new System.Drawing.Size(47, 17);
             this.labelLogin.TabIndex = 1;
             this.labelLogin.Text = "Login:";
             // 
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(14, 83);
+            this.labelPassword.Location = new System.Drawing.Point(19, 102);
+            this.labelPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(56, 13);
+            this.labelPassword.Size = new System.Drawing.Size(73, 17);
             this.labelPassword.TabIndex = 2;
             this.labelPassword.Text = "Password:";
             // 
             // textBoxLogin
             // 
-            this.textBoxLogin.Location = new System.Drawing.Point(76, 54);
+            this.textBoxLogin.Location = new System.Drawing.Point(101, 66);
+            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(210, 20);
+            this.textBoxLogin.Size = new System.Drawing.Size(279, 22);
             this.textBoxLogin.TabIndex = 3;
             this.textBoxLogin.Text = "admin";
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(76, 80);
+            this.textBoxPassword.Location = new System.Drawing.Point(101, 98);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
-            this.textBoxPassword.Size = new System.Drawing.Size(210, 20);
+            this.textBoxPassword.Size = new System.Drawing.Size(279, 22);
             this.textBoxPassword.TabIndex = 4;
             this.textBoxPassword.Text = "admin";
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(51, 129);
+            this.buttonLogin.Location = new System.Drawing.Point(68, 159);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogin.Size = new System.Drawing.Size(100, 28);
             this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -93,9 +99,10 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(172, 129);
+            this.buttonExit.Location = new System.Drawing.Point(229, 159);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(75, 23);
+            this.buttonExit.Size = new System.Drawing.Size(100, 28);
             this.buttonExit.TabIndex = 6;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -103,9 +110,9 @@
             // 
             // FormLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 175);
+            this.ClientSize = new System.Drawing.Size(421, 215);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPassword);
@@ -113,8 +120,16 @@
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.labelLogin);
             this.Controls.Add(this.labelInfo);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormLogin";
             this.Text = "FormLogin";
+            this.Controls.SetChildIndex(this.labelInfo, 0);
+            this.Controls.SetChildIndex(this.labelLogin, 0);
+            this.Controls.SetChildIndex(this.labelPassword, 0);
+            this.Controls.SetChildIndex(this.textBoxLogin, 0);
+            this.Controls.SetChildIndex(this.textBoxPassword, 0);
+            this.Controls.SetChildIndex(this.buttonLogin, 0);
+            this.Controls.SetChildIndex(this.buttonExit, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

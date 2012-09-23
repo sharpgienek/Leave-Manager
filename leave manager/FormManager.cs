@@ -25,9 +25,11 @@ namespace leave_manager
         {
             InitializeComponent();
             this.connection = connection;
-            //Pierwsze uzupełnienie tabeli zawierającej zgłoszenia wymagające ropatrzenia przez kierownika.
+            comboBoxContentSelection.SelectedIndex = 0;
+            //Pierwsze uzupełnienie tabeli zawierającej zgłoszenia wymagające rozpatrzenia przez kierownika.
             LoadDataGridViewNeedsAction();
             LoadAllPositionComboBox();
+            RefreshReplacments();
         }
 
         private void LoadAllPositionComboBox()
@@ -56,6 +58,86 @@ namespace leave_manager
                 this.Close();
             }
         }
+
+        /// <summary>
+        /// Metoda sprawdza czy podana data jest świętem.
+        /// </summary>
+        /// <param name="date">Data do sprawdzenia</param>
+        /// <returns>Prawdę jeśli w danym dniu jest święto lub fałsz jeśli nie</returns>
+        private bool IsHoliday(DateTime date)
+        {
+            List<DateTime> holidays;
+            try
+            {
+                holidays = this.GetPublicHolidays();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            foreach (DateTime tmp in holidays)
+            {
+                if (tmp == date)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Metoda stworzona do obsługi zdarzeń, odświerza tabliće zastępstw
+        /// </summary>
+        /// <param name="o">Obiekt zgłaszający zdarzenie</param>
+        /// <param name="e">Argumenty</param>
+        private void RefreshReplacments(object o, FormClosedEventArgs e)
+        {
+            RefreshReplacments();
+        }
+
+        /// <summary>
+        /// Odświerza tablicę zastępstw
+        /// </summary>
+        private void RefreshReplacments()
+        {
+            DataTable leaves = this.GetLeavesForFuture();
+            DateTime dateStart, dateEnd, previousEnd = new DateTime();
+            dataGridViewReplacements.Rows.Clear();
+            string positionDesc = (string)comboBoxReplacementsPosition.SelectedValue;
+            bool filter = false;
+            int positionFilter = -1;
+            if (positionDesc != null && positionDesc != "")
+            {
+                filter = true;
+                positionFilter = this.GetPositionID(positionDesc);
+            }
+            foreach (DataRow row in leaves.Rows)
+            {
+                dateStart = (DateTime)row["First_day"];
+                dateEnd = (DateTime)row["Last_day"];
+                if (dateStart < previousEnd)
+                    dateStart = previousEnd.AddDays(1);
+                int positionId = (int)row["Position_ID"];
+                if (filter)
+                    if (positionId != positionFilter)
+                        continue;
+                if (dateStart < this.GetServerTimeNow())
+                    dateStart = this.GetServerTimeNow();
+                while (dateStart <= dateEnd)
+                {
+                    if (!IsHoliday(dateStart))
+                    {
+                        int availableWorkers = this.GetAvailableWorkerCount(positionId, dateStart);
+                        int neededWorkers = this.GetNeededEmployeesNo(dateStart);
+                        if (availableWorkers < neededWorkers)
+                        {
+                            dataGridViewReplacements.Rows.Add(dateStart.Date, neededWorkers, availableWorkers, this.GetPositionDescription(positionId));
+                        }
+                    }
+                    dateStart = dateStart.AddDays(1);
+                }
+                previousEnd = dateEnd;
+            }
+        }
+
         /// <summary>
         /// Metoda wczytywania zawartości tabeli zawierającej zgłoszenia wymagające rozpatrzenia przez kierownika.
         /// Wywołuje bezparametrową metodę o tej samej nazwie. Stworzona celem umożliwienia podpięcia jej
@@ -91,6 +173,36 @@ namespace leave_manager
             }
         }
 
+        /// <summary>
+        /// Odświerza tabelę zawierającą raporty.
+        /// </summary>
+        private void RefreshDataGridViewReport()
+        {
+            try
+            {
+                switch (comboBoxContentSelection.SelectedIndex)
+                {
+                    case 0:
+                        dataGridViewReport.DataSource = this.GetLeavesHistory();
+                        break;
+                    case 1:
+                        dataGridViewReport.DataSource = this.GetEmployeesCurrentlyOnLeave();
+                        break;
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("SQL Error. Please try again later.");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Invalid operation. Please try again later");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown exception has occured" + ex.Message);
+            }
+        }
         /// <summary>
         /// Metoda wczytywania zawartości tabeli zawierającej pracowników.
         /// Wywołuje bezargumentową metodę o tej samej nazwie.
@@ -150,9 +262,16 @@ namespace leave_manager
             //Jeżeli zaznaczono zakładkę pracowników to odśwież tabele pracowników.
             if (tabControl.SelectedTab.Text.Equals("Employees"))
                 RefreshDataGridViewEmployees();
-            //Jeżeli zaznaczono zakładkę ze zgłoszeniami wymagającymi działania, to odśwież tam dane.
-            if (tabControl.SelectedTab.Text.Equals("Needs your action"))
-                LoadDataGridViewNeedsAction();
+            else
+                //Jeżeli zaznaczono zakładkę ze zgłoszeniami wymagającymi działania, to odśwież tam dane.
+                if (tabControl.SelectedTab.Text.Equals("Needs your action"))
+                    LoadDataGridViewNeedsAction();
+                else
+                    if (tabControl.SelectedTab.Text.Equals("Report"))
+                        RefreshDataGridViewReport();
+                    else
+                        if (tabControl.SelectedTab.Text.Equals("Replacments"))
+                            RefreshReplacments();
         }
         
         /// <summary>
@@ -338,6 +457,34 @@ namespace leave_manager
                 //Wyświetlenie formularza danych pracownika.
                 form.Show();
             }           
+        }
+
+        private void comboBoxContentSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshDataGridViewReport();
+        }
+
+        private void buttonReplacementsManage_Click(object sender, EventArgs e)
+        {
+            //Dla każdej zaznaczonej komórki zaznaczamy jej wiersz.
+            foreach (DataGridViewCell cell in dataGridViewReplacements.SelectedCells)
+            {
+                if (cell.Value != null)
+                    dataGridViewReplacements.Rows[cell.RowIndex].Selected = true;
+            }
+            //Dla każdego zaznaczonego wiersza.
+            foreach (DataGridViewRow row in dataGridViewReplacements.SelectedRows)
+            {
+                //Tworzymy formularz danych pracownika.
+                FormReplacement form = new FormReplacement((string)row.Cells["Position"].Value, (DateTime)row.Cells["Date"].Value, connection);
+                /* Dodana zostaje metoda odświeżania tabeli oczekujących aplikacji urlopowych do obsługi
+                 * zdarzenia zamknięcia formularza. Powodem tego jest umożliwienie w formularzu danych 
+                 * pracownika zmiany właściwości jego aplikacji urlopowych.
+                 */
+                form.FormClosed += new FormClosedEventHandler(RefreshReplacments);
+                //Wyświetlenie formularza danych pracownika.
+                form.Show();
+            }
         }
    
     }

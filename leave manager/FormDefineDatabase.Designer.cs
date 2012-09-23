@@ -54,8 +54,8 @@
             // radioButtonLocal
             // 
             this.radioButtonLocal.AutoSize = true;
-            this.radioButtonLocal.Location = new System.Drawing.Point(17, 37);
-            this.radioButtonLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonLocal.Location = new System.Drawing.Point(13, 53);
+            this.radioButtonLocal.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonLocal.Name = "radioButtonLocal";
             this.radioButtonLocal.Size = new System.Drawing.Size(158, 21);
             this.radioButtonLocal.TabIndex = 2;
@@ -67,8 +67,8 @@
             // 
             this.radioButtonRemote.AutoSize = true;
             this.radioButtonRemote.Checked = true;
-            this.radioButtonRemote.Location = new System.Drawing.Point(17, 65);
-            this.radioButtonRemote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonRemote.Location = new System.Drawing.Point(13, 81);
+            this.radioButtonRemote.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonRemote.Name = "radioButtonRemote";
             this.radioButtonRemote.Size = new System.Drawing.Size(78, 21);
             this.radioButtonRemote.TabIndex = 3;
@@ -79,7 +79,7 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(17, 14);
+            this.labelInfo.Location = new System.Drawing.Point(13, 30);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(185, 17);
@@ -109,7 +109,7 @@
             // textBoxDatabase
             // 
             this.textBoxDatabase.Location = new System.Drawing.Point(91, 69);
-            this.textBoxDatabase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDatabase.Name = "textBoxDatabase";
             this.textBoxDatabase.Size = new System.Drawing.Size(225, 22);
             this.textBoxDatabase.TabIndex = 7;
@@ -117,7 +117,7 @@
             // textBoxIp1
             // 
             this.textBoxIp1.Location = new System.Drawing.Point(91, 33);
-            this.textBoxIp1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIp1.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIp1.Name = "textBoxIp1";
             this.textBoxIp1.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp1.TabIndex = 8;
@@ -125,7 +125,7 @@
             // textBoxIp2
             // 
             this.textBoxIp2.Location = new System.Drawing.Point(143, 33);
-            this.textBoxIp2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIp2.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIp2.Name = "textBoxIp2";
             this.textBoxIp2.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp2.TabIndex = 9;
@@ -133,7 +133,7 @@
             // textBoxIp3
             // 
             this.textBoxIp3.Location = new System.Drawing.Point(195, 33);
-            this.textBoxIp3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIp3.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIp3.Name = "textBoxIp3";
             this.textBoxIp3.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp3.TabIndex = 10;
@@ -141,7 +141,7 @@
             // textBoxIp4
             // 
             this.textBoxIp4.Location = new System.Drawing.Point(247, 33);
-            this.textBoxIp4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIp4.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIp4.Name = "textBoxIp4";
             this.textBoxIp4.Size = new System.Drawing.Size(43, 22);
             this.textBoxIp4.TabIndex = 11;
@@ -149,7 +149,7 @@
             // textBoxPort
             // 
             this.textBoxPort.Location = new System.Drawing.Point(320, 33);
-            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(65, 22);
             this.textBoxPort.TabIndex = 12;
@@ -157,7 +157,7 @@
             // buttonTestConnection
             // 
             this.buttonTestConnection.Location = new System.Drawing.Point(52, 266);
-            this.buttonTestConnection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonTestConnection.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTestConnection.Name = "buttonTestConnection";
             this.buttonTestConnection.Size = new System.Drawing.Size(100, 50);
             this.buttonTestConnection.TabIndex = 13;
@@ -168,7 +168,7 @@
             // buttonAccept
             // 
             this.buttonAccept.Location = new System.Drawing.Point(160, 277);
-            this.buttonAccept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAccept.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(100, 28);
             this.buttonAccept.TabIndex = 14;
@@ -179,7 +179,7 @@
             // buttonExit
             // 
             this.buttonExit.Location = new System.Drawing.Point(268, 277);
-            this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(100, 28);
             this.buttonExit.TabIndex = 15;
@@ -198,10 +198,10 @@
             this.groupBoxRemote.Controls.Add(this.textBoxIp2);
             this.groupBoxRemote.Controls.Add(this.textBoxIp4);
             this.groupBoxRemote.Controls.Add(this.textBoxIp3);
-            this.groupBoxRemote.Location = new System.Drawing.Point(16, 112);
-            this.groupBoxRemote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxRemote.Location = new System.Drawing.Point(12, 128);
+            this.groupBoxRemote.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxRemote.Name = "groupBoxRemote";
-            this.groupBoxRemote.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxRemote.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxRemote.Size = new System.Drawing.Size(405, 132);
             this.groupBoxRemote.TabIndex = 16;
             this.groupBoxRemote.TabStop = false;
@@ -221,10 +221,10 @@
             // 
             this.groupBoxLocal.Controls.Add(this.buttonLocalBrowse);
             this.groupBoxLocal.Controls.Add(this.textBoxLocalPath);
-            this.groupBoxLocal.Location = new System.Drawing.Point(16, 112);
-            this.groupBoxLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxLocal.Location = new System.Drawing.Point(12, 128);
+            this.groupBoxLocal.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxLocal.Name = "groupBoxLocal";
-            this.groupBoxLocal.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxLocal.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxLocal.Size = new System.Drawing.Size(405, 132);
             this.groupBoxLocal.TabIndex = 17;
             this.groupBoxLocal.TabStop = false;
@@ -234,7 +234,7 @@
             // buttonLocalBrowse
             // 
             this.buttonLocalBrowse.Location = new System.Drawing.Point(124, 81);
-            this.buttonLocalBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLocalBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLocalBrowse.Name = "buttonLocalBrowse";
             this.buttonLocalBrowse.Size = new System.Drawing.Size(100, 28);
             this.buttonLocalBrowse.TabIndex = 1;
@@ -245,7 +245,7 @@
             // textBoxLocalPath
             // 
             this.textBoxLocalPath.Location = new System.Drawing.Point(12, 32);
-            this.textBoxLocalPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxLocalPath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLocalPath.Name = "textBoxLocalPath";
             this.textBoxLocalPath.Size = new System.Drawing.Size(373, 22);
             this.textBoxLocalPath.TabIndex = 0;
@@ -263,9 +263,17 @@
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.radioButtonRemote);
             this.Controls.Add(this.radioButtonLocal);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormDefineDatabase";
             this.Text = "Leave Manager";
+            this.Controls.SetChildIndex(this.radioButtonLocal, 0);
+            this.Controls.SetChildIndex(this.radioButtonRemote, 0);
+            this.Controls.SetChildIndex(this.labelInfo, 0);
+            this.Controls.SetChildIndex(this.buttonTestConnection, 0);
+            this.Controls.SetChildIndex(this.buttonAccept, 0);
+            this.Controls.SetChildIndex(this.buttonExit, 0);
+            this.Controls.SetChildIndex(this.groupBoxLocal, 0);
+            this.Controls.SetChildIndex(this.groupBoxRemote, 0);
             this.groupBoxRemote.ResumeLayout(false);
             this.groupBoxRemote.PerformLayout();
             this.groupBoxLocal.ResumeLayout(false);
