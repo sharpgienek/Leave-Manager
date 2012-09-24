@@ -41,7 +41,6 @@
             this.labelEmployeesSurname = new System.Windows.Forms.Label();
             this.buttonEmployeesDetailedData = new System.Windows.Forms.Button();
             this.dataGridViewEmployees = new System.Windows.Forms.DataGridView();
-            this.buttonEmployeesShowAll = new System.Windows.Forms.Button();
             this.buttonEmployeesSearch = new System.Windows.Forms.Button();
             this.comboBoxEmployeesPosition = new System.Windows.Forms.ComboBox();
             this.labelEmployeesPosition = new System.Windows.Forms.Label();
@@ -145,7 +144,6 @@
             this.tabPageEmployees.Controls.Add(this.labelEmployeesSurname);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesDetailedData);
             this.tabPageEmployees.Controls.Add(this.dataGridViewEmployees);
-            this.tabPageEmployees.Controls.Add(this.buttonEmployeesShowAll);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesSearch);
             this.tabPageEmployees.Controls.Add(this.comboBoxEmployeesPosition);
             this.tabPageEmployees.Controls.Add(this.labelEmployeesPosition);
@@ -218,17 +216,6 @@
             this.dataGridViewEmployees.RowTemplate.Height = 24;
             this.dataGridViewEmployees.Size = new System.Drawing.Size(857, 239);
             this.dataGridViewEmployees.TabIndex = 7;
-            // 
-            // buttonEmployeesShowAll
-            // 
-            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(444, 135);
-            this.buttonEmployeesShowAll.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
-            this.buttonEmployeesShowAll.Size = new System.Drawing.Size(100, 44);
-            this.buttonEmployeesShowAll.TabIndex = 6;
-            this.buttonEmployeesShowAll.Text = "Show all dataLeaves";
-            this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
-            this.buttonEmployeesShowAll.Click += new System.EventHandler(this.buttonEmployeesShowAll_Click);
             // 
             // buttonEmployeesSearch
             // 
@@ -421,7 +408,6 @@
         private System.Windows.Forms.Button buttonRejectPendingAplication;
         private System.Windows.Forms.Button buttonEmployeesDetailedData;
         private System.Windows.Forms.DataGridView dataGridViewEmployees;
-        private System.Windows.Forms.Button buttonEmployeesShowAll;
         private System.Windows.Forms.Button buttonEmployeesSearch;
         private System.Windows.Forms.ComboBox comboBoxEmployeesPosition;
         private System.Windows.Forms.Label labelEmployeesPosition;

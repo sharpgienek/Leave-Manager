@@ -44,7 +44,6 @@
             this.buttonEmployeesAdd = new System.Windows.Forms.Button();
             this.buttonEmployeesDetailedData = new System.Windows.Forms.Button();
             this.dataGridViewEmployees = new System.Windows.Forms.DataGridView();
-            this.buttonEmployeesShowAll = new System.Windows.Forms.Button();
             this.buttonEmployeesSearch = new System.Windows.Forms.Button();
             this.comboBoxEmployeesPosition = new System.Windows.Forms.ComboBox();
             this.labelEmployeesPosition = new System.Windows.Forms.Label();
@@ -159,7 +158,6 @@
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesAdd);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesDetailedData);
             this.tabPageEmployees.Controls.Add(this.dataGridViewEmployees);
-            this.tabPageEmployees.Controls.Add(this.buttonEmployeesShowAll);
             this.tabPageEmployees.Controls.Add(this.buttonEmployeesSearch);
             this.tabPageEmployees.Controls.Add(this.comboBoxEmployeesPosition);
             this.tabPageEmployees.Controls.Add(this.labelEmployeesPosition);
@@ -170,7 +168,7 @@
             this.tabPageEmployees.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageEmployees.Name = "tabPageEmployees";
             this.tabPageEmployees.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageEmployees.Size = new System.Drawing.Size(944, 516);
+            this.tabPageEmployees.Size = new System.Drawing.Size(944, 488);
             this.tabPageEmployees.TabIndex = 1;
             this.tabPageEmployees.Text = "Employees";
             this.tabPageEmployees.UseVisualStyleBackColor = true;
@@ -264,16 +262,6 @@
             this.dataGridViewEmployees.Size = new System.Drawing.Size(857, 239);
             this.dataGridViewEmployees.TabIndex = 7;
             // 
-            // buttonEmployeesShowAll
-            // 
-            this.buttonEmployeesShowAll.Location = new System.Drawing.Point(473, 126);
-            this.buttonEmployeesShowAll.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonEmployeesShowAll.Name = "buttonEmployeesShowAll";
-            this.buttonEmployeesShowAll.Size = new System.Drawing.Size(100, 44);
-            this.buttonEmployeesShowAll.TabIndex = 6;
-            this.buttonEmployeesShowAll.Text = "Show all dataLeaves";
-            this.buttonEmployeesShowAll.UseVisualStyleBackColor = true;
-            // 
             // buttonEmployeesSearch
             // 
             this.buttonEmployeesSearch.Location = new System.Drawing.Point(156, 142);
@@ -343,7 +331,7 @@
             this.tabPageReplacements.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReplacements.Name = "tabPageReplacements";
             this.tabPageReplacements.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageReplacements.Size = new System.Drawing.Size(944, 516);
+            this.tabPageReplacements.Size = new System.Drawing.Size(944, 488);
             this.tabPageReplacements.TabIndex = 2;
             this.tabPageReplacements.Text = "Replacements";
             this.tabPageReplacements.UseVisualStyleBackColor = true;
@@ -437,7 +425,7 @@
             this.tabPageReport.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageReport.Name = "tabPageReport";
             this.tabPageReport.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageReport.Size = new System.Drawing.Size(944, 516);
+            this.tabPageReport.Size = new System.Drawing.Size(944, 488);
             this.tabPageReport.TabIndex = 3;
             this.tabPageReport.Text = "Report";
             this.tabPageReport.UseVisualStyleBackColor = true;
@@ -512,7 +500,6 @@
         private System.Windows.Forms.TabPage tabPageEmployees;
         private System.Windows.Forms.Button buttonEmployeesDetailedData;
         private System.Windows.Forms.DataGridView dataGridViewEmployees;
-        private System.Windows.Forms.Button buttonEmployeesShowAll;
         private System.Windows.Forms.Button buttonEmployeesSearch;
         private System.Windows.Forms.ComboBox comboBoxEmployeesPosition;
         private System.Windows.Forms.Label labelEmployeesPosition;
