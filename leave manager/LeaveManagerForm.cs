@@ -150,7 +150,14 @@ namespace leave_manager
 
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Process.Start("index.html");
+            try
+            {
+                Process.Start("index.html");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot find help file");
+            }
         }
     }
 }
