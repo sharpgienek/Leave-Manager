@@ -152,7 +152,7 @@ namespace leave_manager
         {
             try
             {
-                Process.Start("index.html");
+                Process.Start("Help\\POMOC.HLP");
             }
             catch (Exception ex)
             {

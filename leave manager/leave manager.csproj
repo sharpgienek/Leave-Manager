@@ -284,12 +284,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database.mdf">
+    <Content Include="DatabaseTest.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database_log.ldf">
+    <Content Include="DatabaseTest_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Database.mdf</DependentUpon>
+      <DependentUpon>DatabaseTest.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
